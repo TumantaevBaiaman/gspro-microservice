@@ -8,9 +8,9 @@ from .base_entity import BaseEntity
 class CourseEntity(BaseEntity):
     title: str
     description: Optional[str]
-    preview_url: Optional[str]
-    mentor_id: Optional[str]
-    category_id: Optional[str]
+    preview_url: Optional[str] = None
+    mentor_id: Optional[str] = None
+    category_id: Optional[str] = None
 
     class Settings:
         name = "courses"

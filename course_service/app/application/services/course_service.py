@@ -1,16 +1,13 @@
-from app.domain.entities.course_entity import CourseEntity
+from app.domain.dto import CourseCreateDTO
+from app.domain.repositories import CourseRepository
 
 
 class CourseService:
+    def __init__(self):
+        self.repo = CourseRepository()
 
-    async def create_course(self, title: str, description: str | None):
-        course = CourseEntity(
-            title=title,
-            description=description
-        )
-        await course.insert()
-        return course
+    async def create_course(self, dto: CourseCreateDTO):
+        return await self.repo.create_course(dto)
 
     async def get_course_by_id(self, course_id: str):
-        course = await CourseEntity.get(course_id)
-        return course
+        return await self.repo.get_course_by_id(course_id)
