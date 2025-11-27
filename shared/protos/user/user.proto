@@ -1,0 +1,47 @@
+syntax = "proto3";
+
+package user;
+
+service UserService {
+    rpc RegisterEmail(RegisterEmailRequest) returns (RegisterEmailResponse);
+    rpc RegisterGoogle(RegisterGoogleRequest) returns (RegisterGoogleResponse);
+    rpc LoginEmail(LoginEmailRequest) returns (LoginEmailResponse);
+    rpc GetUser(GetUserRequest) returns (GetUserResponse);
+}
+
+message RegisterEmailRequest {
+    string email = 1;
+    string password = 2;
+}
+
+message RegisterEmailResponse {
+    string user_id = 1;
+    string email = 2;
+}
+
+message RegisterGoogleRequest {
+    string google_token = 1;
+}
+
+message RegisterGoogleResponse {
+    string user_id = 1;
+    string email = 2;
+}
+
+message LoginEmailRequest {
+    string email = 1;
+    string password = 2;
+}
+
+message LoginEmailResponse {
+    string user_id = 1;
+    string email = 2;
+}
+
+message GetUserRequest {
+    string user_id = 1;
+}
+
+message GetUserResponse {
+    string user_id = 1;
+}

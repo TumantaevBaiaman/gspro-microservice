@@ -1,0 +1,66 @@
+version: "3.9"
+
+services:
+
+  gateway:
+    container_name: gateway
+    build:
+      context: .
+      dockerfile: ./gateway/Dockerfile
+    env_file:
+      - ./gateway/.env
+    ports:
+      - "8000:8000"
+    restart: unless-stopped
+    volumes:
+      - ./shared:/shared
+    depends_on:
+      - user_service
+      - course_service
+
+  user_service:
+    container_name: user_service
+    build:
+      context: .
+      dockerfile: ./user_service/Dockerfile
+    env_file:
+      - ./user_service/.env
+    expose:
+      - "50051"
+    restart: unless-stopped
+    volumes:
+      - ./user_service:/app
+      - ./shared:/shared
+    depends_on:
+      - db
+
+  course_service:
+    container_name: course_service
+    build:
+      context: .
+      dockerfile: ./course_service/Dockerfile
+    env_file:
+      - ./course_service/.env
+    expose:
+      - "50052"
+    restart: unless-stopped
+    volumes:
+      - ./course_service:/app
+      - ./shared:/shared
+    depends_on:
+      - db
+
+  db:
+    image: postgres:15
+    container_name: db
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    ports:
+      - "5434:5432"
+    volumes:
+      - ../postgres_data:/var/lib/postgresql/data
+      - ./postgres/init/create_databases.sql:/docker-entrypoint-initdb.d/create_databases.sql

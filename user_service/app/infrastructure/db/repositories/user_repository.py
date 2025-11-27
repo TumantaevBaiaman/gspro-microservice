@@ -1,0 +1,54 @@
+from sqlalchemy import select
+from sqlalchemy.ext.asyncio import AsyncSession
+
+from app.domain.repositories.user_repository import IUserRepository
+from app.infrastructure.db.models.user_model import UserModel
+from app.infrastructure.db.models.auth_account_model import AuthAccountModel
+from app.domain.enums import AuthProvider
+
+
+class UserRepository(IUserRepository):
+
+    def __init__(self, session: AsyncSession):
+        self.session = session
+
+    async def create_user(self, user):
+        model = UserModel(id=user.id)
+        self.session.add(model)
+        await self.session.commit()
+        return user
+
+    async def create_auth_account(self, user_id, email, password_hash):
+        model = AuthAccountModel(
+            user_id=user_id,
+            provider="email",
+            identifier=email,
+            password_hash=password_hash,
+            verified=False,
+        )
+        self.session.add(model)
+        await self.session.commit()
+
+    async def get_auth_account_by_email(self, email: str):
+        stmt = select(AuthAccountModel).where(AuthAccountModel.identifier == email)
+        result = await self.session.execute(stmt)
+        return result.scalar_one_or_none()
+
+    async def get_by_email(self, email: str):
+        stmt = (
+            select(UserModel, AuthAccountModel)
+            .join(AuthAccountModel, AuthAccountModel.user_id == UserModel.id)
+            .where(AuthAccountModel.identifier == email)
+            .where(AuthAccountModel.provider == AuthProvider.email)
+        )
+        result = await self.session.execute(stmt)
+        row = result.first()
+
+        if not row:
+            return None
+
+        user, auth = row
+        user.password_hash = auth.password_hash
+        return user
+
+    # async def get_by_id(self, id_user: str):
