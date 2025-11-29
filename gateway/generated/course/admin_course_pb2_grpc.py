@@ -3,6 +3,7 @@
 import grpc
 import warnings
 
+from generated.course import admin_course_pb2 as course_dot_admin__course__pb2
 
 GRPC_GENERATED_VERSION = '1.76.0'
 GRPC_VERSION = grpc.__version__
@@ -22,3 +23,247 @@ if _version_not_supported:
         + f' Please upgrade your grpc module to grpcio>={GRPC_GENERATED_VERSION}'
         + f' or downgrade your generated code using grpcio-tools<={GRPC_VERSION}.'
     )
+
+
+class AdminCourseServiceStub(object):
+    """Missing associated documentation comment in .proto file."""
+
+    def __init__(self, channel):
+        """Constructor.
+
+        Args:
+            channel: A grpc.Channel.
+        """
+        self.AdminCreateCourse = channel.unary_unary(
+                '/admin_course.AdminCourseService/AdminCreateCourse',
+                request_serializer=course_dot_admin__course__pb2.AdminCreateCourseRequest.SerializeToString,
+                response_deserializer=course_dot_admin__course__pb2.AdminCreateCourseResponse.FromString,
+                _registered_method=True)
+        self.AdminGetCourse = channel.unary_unary(
+                '/admin_course.AdminCourseService/AdminGetCourse',
+                request_serializer=course_dot_admin__course__pb2.AdminGetCourseRequest.SerializeToString,
+                response_deserializer=course_dot_admin__course__pb2.AdminGetCourseResponse.FromString,
+                _registered_method=True)
+        self.AdminUpdateCourse = channel.unary_unary(
+                '/admin_course.AdminCourseService/AdminUpdateCourse',
+                request_serializer=course_dot_admin__course__pb2.AdminUpdateCourseRequest.SerializeToString,
+                response_deserializer=course_dot_admin__course__pb2.AdminUpdateCourseResponse.FromString,
+                _registered_method=True)
+        self.AdminDeleteCourse = channel.unary_unary(
+                '/admin_course.AdminCourseService/AdminDeleteCourse',
+                request_serializer=course_dot_admin__course__pb2.AdminDeleteCourseRequest.SerializeToString,
+                response_deserializer=course_dot_admin__course__pb2.AdminDeleteCourseResponse.FromString,
+                _registered_method=True)
+        self.AdminListCourses = channel.unary_unary(
+                '/admin_course.AdminCourseService/AdminListCourses',
+                request_serializer=course_dot_admin__course__pb2.AdminListCoursesRequest.SerializeToString,
+                response_deserializer=course_dot_admin__course__pb2.AdminListCoursesResponse.FromString,
+                _registered_method=True)
+
+
+class AdminCourseServiceServicer(object):
+    """Missing associated documentation comment in .proto file."""
+
+    def AdminCreateCourse(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def AdminGetCourse(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def AdminUpdateCourse(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def AdminDeleteCourse(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def AdminListCourses(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+
+def add_AdminCourseServiceServicer_to_server(servicer, server):
+    rpc_method_handlers = {
+            'AdminCreateCourse': grpc.unary_unary_rpc_method_handler(
+                    servicer.AdminCreateCourse,
+                    request_deserializer=course_dot_admin__course__pb2.AdminCreateCourseRequest.FromString,
+                    response_serializer=course_dot_admin__course__pb2.AdminCreateCourseResponse.SerializeToString,
+            ),
+            'AdminGetCourse': grpc.unary_unary_rpc_method_handler(
+                    servicer.AdminGetCourse,
+                    request_deserializer=course_dot_admin__course__pb2.AdminGetCourseRequest.FromString,
+                    response_serializer=course_dot_admin__course__pb2.AdminGetCourseResponse.SerializeToString,
+            ),
+            'AdminUpdateCourse': grpc.unary_unary_rpc_method_handler(
+                    servicer.AdminUpdateCourse,
+                    request_deserializer=course_dot_admin__course__pb2.AdminUpdateCourseRequest.FromString,
+                    response_serializer=course_dot_admin__course__pb2.AdminUpdateCourseResponse.SerializeToString,
+            ),
+            'AdminDeleteCourse': grpc.unary_unary_rpc_method_handler(
+                    servicer.AdminDeleteCourse,
+                    request_deserializer=course_dot_admin__course__pb2.AdminDeleteCourseRequest.FromString,
+                    response_serializer=course_dot_admin__course__pb2.AdminDeleteCourseResponse.SerializeToString,
+            ),
+            'AdminListCourses': grpc.unary_unary_rpc_method_handler(
+                    servicer.AdminListCourses,
+                    request_deserializer=course_dot_admin__course__pb2.AdminListCoursesRequest.FromString,
+                    response_serializer=course_dot_admin__course__pb2.AdminListCoursesResponse.SerializeToString,
+            ),
+    }
+    generic_handler = grpc.method_handlers_generic_handler(
+            'admin_course.AdminCourseService', rpc_method_handlers)
+    server.add_generic_rpc_handlers((generic_handler,))
+    server.add_registered_method_handlers('admin_course.AdminCourseService', rpc_method_handlers)
+
+
+ # This class is part of an EXPERIMENTAL API.
+class AdminCourseService(object):
+    """Missing associated documentation comment in .proto file."""
+
+    @staticmethod
+    def AdminCreateCourse(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/admin_course.AdminCourseService/AdminCreateCourse',
+            course_dot_admin__course__pb2.AdminCreateCourseRequest.SerializeToString,
+            course_dot_admin__course__pb2.AdminCreateCourseResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def AdminGetCourse(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/admin_course.AdminCourseService/AdminGetCourse',
+            course_dot_admin__course__pb2.AdminGetCourseRequest.SerializeToString,
+            course_dot_admin__course__pb2.AdminGetCourseResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def AdminUpdateCourse(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/admin_course.AdminCourseService/AdminUpdateCourse',
+            course_dot_admin__course__pb2.AdminUpdateCourseRequest.SerializeToString,
+            course_dot_admin__course__pb2.AdminUpdateCourseResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def AdminDeleteCourse(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/admin_course.AdminCourseService/AdminDeleteCourse',
+            course_dot_admin__course__pb2.AdminDeleteCourseRequest.SerializeToString,
+            course_dot_admin__course__pb2.AdminDeleteCourseResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def AdminListCourses(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/admin_course.AdminCourseService/AdminListCourses',
+            course_dot_admin__course__pb2.AdminListCoursesRequest.SerializeToString,
+            course_dot_admin__course__pb2.AdminListCoursesResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)

@@ -4,9 +4,10 @@ from grpc import aio
 from src.core.config import settings
 from src.infrastructure.db.mongo.models import init_mongo
 
-from src.presentation.grpc.handlers import CourseHandler, AdminCategoryHandler
+from src.presentation.grpc.handlers import CourseHandler, AdminCategoryHandler, AdminCourseHandler
 from generated.course.course_pb2_grpc import add_CourseServiceServicer_to_server
 from generated.course.admin_category_pb2_grpc import add_AdminCategoryServiceServicer_to_server
+from generated.course.admin_course_pb2_grpc import add_AdminCourseServiceServicer_to_server
 
 
 async def start_grpc_server():
@@ -18,6 +19,10 @@ async def start_grpc_server():
     )
     add_AdminCategoryServiceServicer_to_server(
         AdminCategoryHandler(),
+        server
+    )
+    add_AdminCourseServiceServicer_to_server(
+        AdminCourseHandler(),
         server
     )
 
