@@ -1,0 +1,49 @@
+syntax = "proto3";
+
+package admin_category;
+
+service AdminCategoryService {
+    rpc AdminCreateCategory(AdminCreateCategoryRequest) returns (AdminCreateCategoryResponse);
+    rpc AdminGetCategory(AdminGetCategoryRequest) returns (AdminGetCategoryResponse);
+    rpc AdminUpdateCategory(AdminUpdateCategoryRequest) returns (AdminUpdateCategoryResponse);
+    rpc AdminDeleteCategory(AdminDeleteCategoryRequest) returns (AdminDeleteCategoryResponse);
+}
+
+message AdminCreateCategoryRequest {
+    string title = 1;
+    string codename = 2;
+    string parent_id = 3;
+}
+
+message AdminCreateCategoryResponse {
+    string id = 1;
+}
+
+message AdminGetCategoryRequest {
+    string id = 1;
+}
+
+message AdminGetCategoryResponse {
+    string id = 1;
+    string title = 2;
+    string codename = 3;
+    string parent_id = 4;
+}
+
+message AdminUpdateCategoryRequest {
+    string title = 2;
+    string codename = 3;
+    string parent_id = 4;
+}
+
+message AdminUpdateCategoryResponse {
+    string id = 1;
+}
+
+message AdminDeleteCategoryRequest {
+    string id = 1;
+}
+
+message AdminDeleteCategoryResponse {
+    bool success = 1;
+}

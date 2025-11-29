@@ -3,7 +3,7 @@
 import grpc
 import warnings
 
-from generated.course import course_pb2 as course_dot_course__pb2
+from generated.course import course_pb2 as course__pb2
 
 GRPC_GENERATED_VERSION = '1.76.0'
 GRPC_VERSION = grpc.__version__
@@ -18,7 +18,7 @@ except ImportError:
 if _version_not_supported:
     raise RuntimeError(
         f'The grpc package installed is at version {GRPC_VERSION},'
-        + ' but the generated code in course/course_pb2_grpc.py depends on'
+        + ' but the generated code in course_pb2_grpc.py depends on'
         + f' grpcio>={GRPC_GENERATED_VERSION}.'
         + f' Please upgrade your grpc module to grpcio>={GRPC_GENERATED_VERSION}'
         + f' or downgrade your generated code using grpcio-tools<={GRPC_VERSION}.'
@@ -36,13 +36,13 @@ class CourseServiceStub(object):
         """
         self.CreateCourse = channel.unary_unary(
                 '/course.CourseService/CreateCourse',
-                request_serializer=course_dot_course__pb2.CreateCourseRequest.SerializeToString,
-                response_deserializer=course_dot_course__pb2.CreateCourseResponse.FromString,
+                request_serializer=course__pb2.CreateCourseRequest.SerializeToString,
+                response_deserializer=course__pb2.CreateCourseResponse.FromString,
                 _registered_method=True)
         self.GetCourse = channel.unary_unary(
                 '/course.CourseService/GetCourse',
-                request_serializer=course_dot_course__pb2.GetCourseRequest.SerializeToString,
-                response_deserializer=course_dot_course__pb2.GetCourseResponse.FromString,
+                request_serializer=course__pb2.GetCourseRequest.SerializeToString,
+                response_deserializer=course__pb2.GetCourseResponse.FromString,
                 _registered_method=True)
 
 
@@ -66,13 +66,13 @@ def add_CourseServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
             'CreateCourse': grpc.unary_unary_rpc_method_handler(
                     servicer.CreateCourse,
-                    request_deserializer=course_dot_course__pb2.CreateCourseRequest.FromString,
-                    response_serializer=course_dot_course__pb2.CreateCourseResponse.SerializeToString,
+                    request_deserializer=course__pb2.CreateCourseRequest.FromString,
+                    response_serializer=course__pb2.CreateCourseResponse.SerializeToString,
             ),
             'GetCourse': grpc.unary_unary_rpc_method_handler(
                     servicer.GetCourse,
-                    request_deserializer=course_dot_course__pb2.GetCourseRequest.FromString,
-                    response_serializer=course_dot_course__pb2.GetCourseResponse.SerializeToString,
+                    request_deserializer=course__pb2.GetCourseRequest.FromString,
+                    response_serializer=course__pb2.GetCourseResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -100,8 +100,8 @@ class CourseService(object):
             request,
             target,
             '/course.CourseService/CreateCourse',
-            course_dot_course__pb2.CreateCourseRequest.SerializeToString,
-            course_dot_course__pb2.CreateCourseResponse.FromString,
+            course__pb2.CreateCourseRequest.SerializeToString,
+            course__pb2.CreateCourseResponse.FromString,
             options,
             channel_credentials,
             insecure,
@@ -127,8 +127,8 @@ class CourseService(object):
             request,
             target,
             '/course.CourseService/GetCourse',
-            course_dot_course__pb2.GetCourseRequest.SerializeToString,
-            course_dot_course__pb2.GetCourseResponse.FromString,
+            course__pb2.GetCourseRequest.SerializeToString,
+            course__pb2.GetCourseResponse.FromString,
             options,
             channel_credentials,
             insecure,

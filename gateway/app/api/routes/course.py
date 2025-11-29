@@ -1,7 +1,7 @@
 from fastapi import APIRouter
 
-from app.clients.course_client import course_client
-from app.schemas.course import CourseCreateRequestSchema
+from app.clients.course import course_client
+from app.schemas.course.course import CourseCreateRequestSchema
 
 router = APIRouter(prefix="/courses", tags=["Course"])
 

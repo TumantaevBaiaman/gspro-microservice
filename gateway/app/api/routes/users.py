@@ -1,5 +1,5 @@
 from fastapi import APIRouter
-from app.clients.user_client import user_client
+from app.clients.user import user_client
 
 router = APIRouter(prefix="/users", tags=["Users"])
 
