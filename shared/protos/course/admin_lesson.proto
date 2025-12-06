@@ -1,0 +1,74 @@
+syntax = "proto3";
+
+package admin_lesson;
+
+service AdminLessonService {
+    rpc AdminCreateLesson (AdminCreateLessonRequest) returns (AdminCreateLessonResponse);
+    rpc AdminGetLesson    (AdminGetLessonRequest)    returns (AdminGetLessonResponse);
+    rpc AdminUpdateLesson (AdminUpdateLessonRequest) returns (AdminUpdateLessonResponse);
+    rpc AdminDeleteLesson (AdminDeleteLessonRequest) returns (AdminDeleteLessonResponse);
+    rpc AdminListLessons  (AdminListLessonsRequest)  returns (AdminListLessonsResponse);
+}
+
+message AdminCreateLessonRequest {
+    string module_id     = 1;
+    string title         = 2;
+    string type          = 3;
+    string content       = 4;
+    string video_url     = 5;
+    string duration      = 6;
+    int32  order_number  = 7;
+    bool   is_active     = 8;
+}
+
+message AdminCreateLessonResponse {
+    string id = 1;
+}
+
+message AdminGetLessonRequest {
+    string id = 1;
+}
+
+message AdminGetLessonResponse {
+    string id           = 1;
+    string module_id    = 2;
+    string title        = 3;
+    string type         = 4;
+    string content      = 5;
+    string video_url    = 6;
+    string duration     = 7;
+    int32  order_number = 8;
+    bool   is_active    = 9;
+}
+
+message AdminUpdateLessonRequest {
+    string id           = 1;
+    string module_id    = 2;
+    string title        = 3;
+    string type         = 4;
+    string content      = 5;
+    string video_url    = 6;
+    string duration     = 7;
+    int32  order_number = 8;
+    bool   is_active    = 9;
+}
+
+message AdminUpdateLessonResponse {
+    string id = 1;
+}
+
+message AdminDeleteLessonRequest {
+    string id = 1;
+}
+
+message AdminDeleteLessonResponse {
+    bool success = 1;
+}
+
+message AdminListLessonsRequest {
+    optional string module_id = 1;
+}
+
+message AdminListLessonsResponse {
+    repeated AdminGetLessonResponse items = 1;
+}

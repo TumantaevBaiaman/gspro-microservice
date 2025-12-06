@@ -1,4 +1,4 @@
-from src.domain.dto.admin_category_dto import AdminCategoryCreateDTO, AdminCategoryUpdateDTO
+from src.domain.dto.admin_category_dto import AdminCategoryCreateDTO
 from src.domain.entities import CategoryEntity
 
 

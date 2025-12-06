@@ -1,0 +1,62 @@
+syntax = "proto3";
+
+package admin_module;
+
+service AdminModuleService {
+    rpc AdminCreateModule (AdminCreateModuleRequest) returns (AdminCreateModuleResponse);
+    rpc AdminGetModule    (AdminGetModuleRequest)    returns (AdminGetModuleResponse);
+    rpc AdminUpdateModule (AdminUpdateModuleRequest) returns (AdminUpdateModuleResponse);
+    rpc AdminDeleteModule (AdminDeleteModuleRequest) returns (AdminDeleteModuleResponse);
+    rpc AdminListModules  (AdminListModulesRequest)  returns (AdminListModulesResponse);
+}
+
+message AdminCreateModuleRequest {
+    string course_id    = 1;
+    string title        = 2;
+    string description  = 3;
+    int32  order_number = 4;
+}
+
+message AdminCreateModuleResponse {
+    string id = 1;
+}
+
+message AdminGetModuleRequest {
+    string id = 1;
+}
+
+message AdminGetModuleResponse {
+    string id           = 1;
+    string course_id    = 2;
+    string title        = 3;
+    string description  = 4;
+    int32  order_number = 5;
+}
+
+message AdminUpdateModuleRequest {
+    string id           = 1;
+    string course_id    = 2;
+    string title        = 3;
+    string description  = 4;
+    int32  order_number = 5;
+}
+
+message AdminUpdateModuleResponse {
+    string id = 1;
+}
+
+message AdminDeleteModuleRequest {
+    string id = 1;
+}
+
+message AdminDeleteModuleResponse {
+    bool success = 1;
+}
+
+message AdminListModulesRequest {
+    optional string course_id = 1;
+}
+
+message AdminListModulesResponse {
+    repeated AdminGetModuleResponse items = 1;
+}

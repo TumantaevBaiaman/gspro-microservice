@@ -2,6 +2,7 @@ from motor.motor_asyncio import AsyncIOMotorClient
 from beanie import init_beanie
 
 from src.core.config import settings
+from src.core.logging import logger
 
 
 async def init_mongo():
@@ -12,14 +13,15 @@ async def init_mongo():
 
     from src.domain.entities.course_entity import CourseEntity
     from src.domain.entities.category_entity import CategoryEntity
+    from src.domain.entities.module_entity import ModuleEntity
+    from src.domain.entities.lesson_entity import LessonEntity
 
     await init_beanie(
         database=client[settings.MONGO_DB_NAME],
-        document_models=[CourseEntity, CategoryEntity],
+        document_models=[CourseEntity, CategoryEntity, ModuleEntity, LessonEntity],
     )
-
     try:
         await client.admin.command("ping")
-        print("MongoDB CONNECTED ✓")
+        logger.success("MongoDB CONNECTED ✓")
     except Exception as e:
-        print("MongoDB CONNECTION ERROR:", e)
+        logger.error(f"MongoDB CONNECTION ERROR: {e}")

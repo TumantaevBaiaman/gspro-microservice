@@ -1,4 +1,4 @@
-from src.domain.dto import CourseCreateDTO
+from src.domain.dto.course_dto import CourseCreateDTO
 from src.domain.entities.course_entity import CourseEntity
 
 
