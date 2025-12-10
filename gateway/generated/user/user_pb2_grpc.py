@@ -39,20 +39,15 @@ class UserServiceStub(object):
                 request_serializer=user_dot_user__pb2.RegisterEmailRequest.SerializeToString,
                 response_deserializer=user_dot_user__pb2.RegisterEmailResponse.FromString,
                 _registered_method=True)
-        self.RegisterGoogle = channel.unary_unary(
-                '/user.UserService/RegisterGoogle',
-                request_serializer=user_dot_user__pb2.RegisterGoogleRequest.SerializeToString,
-                response_deserializer=user_dot_user__pb2.RegisterGoogleResponse.FromString,
-                _registered_method=True)
         self.LoginEmail = channel.unary_unary(
                 '/user.UserService/LoginEmail',
                 request_serializer=user_dot_user__pb2.LoginEmailRequest.SerializeToString,
                 response_deserializer=user_dot_user__pb2.LoginEmailResponse.FromString,
                 _registered_method=True)
-        self.GetUser = channel.unary_unary(
-                '/user.UserService/GetUser',
-                request_serializer=user_dot_user__pb2.GetUserRequest.SerializeToString,
-                response_deserializer=user_dot_user__pb2.GetUserResponse.FromString,
+        self.RefreshToken = channel.unary_unary(
+                '/user.UserService/RefreshToken',
+                request_serializer=user_dot_user__pb2.RefreshTokenRequest.SerializeToString,
+                response_deserializer=user_dot_user__pb2.RefreshTokenResponse.FromString,
                 _registered_method=True)
 
 
@@ -65,19 +60,13 @@ class UserServiceServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def RegisterGoogle(self, request, context):
-        """Missing associated documentation comment in .proto file."""
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
-
     def LoginEmail(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def GetUser(self, request, context):
+    def RefreshToken(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -91,20 +80,15 @@ def add_UserServiceServicer_to_server(servicer, server):
                     request_deserializer=user_dot_user__pb2.RegisterEmailRequest.FromString,
                     response_serializer=user_dot_user__pb2.RegisterEmailResponse.SerializeToString,
             ),
-            'RegisterGoogle': grpc.unary_unary_rpc_method_handler(
-                    servicer.RegisterGoogle,
-                    request_deserializer=user_dot_user__pb2.RegisterGoogleRequest.FromString,
-                    response_serializer=user_dot_user__pb2.RegisterGoogleResponse.SerializeToString,
-            ),
             'LoginEmail': grpc.unary_unary_rpc_method_handler(
                     servicer.LoginEmail,
                     request_deserializer=user_dot_user__pb2.LoginEmailRequest.FromString,
                     response_serializer=user_dot_user__pb2.LoginEmailResponse.SerializeToString,
             ),
-            'GetUser': grpc.unary_unary_rpc_method_handler(
-                    servicer.GetUser,
-                    request_deserializer=user_dot_user__pb2.GetUserRequest.FromString,
-                    response_serializer=user_dot_user__pb2.GetUserResponse.SerializeToString,
+            'RefreshToken': grpc.unary_unary_rpc_method_handler(
+                    servicer.RefreshToken,
+                    request_deserializer=user_dot_user__pb2.RefreshTokenRequest.FromString,
+                    response_serializer=user_dot_user__pb2.RefreshTokenResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -145,33 +129,6 @@ class UserService(object):
             _registered_method=True)
 
     @staticmethod
-    def RegisterGoogle(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
-        return grpc.experimental.unary_unary(
-            request,
-            target,
-            '/user.UserService/RegisterGoogle',
-            user_dot_user__pb2.RegisterGoogleRequest.SerializeToString,
-            user_dot_user__pb2.RegisterGoogleResponse.FromString,
-            options,
-            channel_credentials,
-            insecure,
-            call_credentials,
-            compression,
-            wait_for_ready,
-            timeout,
-            metadata,
-            _registered_method=True)
-
-    @staticmethod
     def LoginEmail(request,
             target,
             options=(),
@@ -199,7 +156,7 @@ class UserService(object):
             _registered_method=True)
 
     @staticmethod
-    def GetUser(request,
+    def RefreshToken(request,
             target,
             options=(),
             channel_credentials=None,
@@ -212,9 +169,9 @@ class UserService(object):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/user.UserService/GetUser',
-            user_dot_user__pb2.GetUserRequest.SerializeToString,
-            user_dot_user__pb2.GetUserResponse.FromString,
+            '/user.UserService/RefreshToken',
+            user_dot_user__pb2.RefreshTokenRequest.SerializeToString,
+            user_dot_user__pb2.RefreshTokenResponse.FromString,
             options,
             channel_credentials,
             insecure,

@@ -1,4 +1,4 @@
-import grpc
+import grpc.aio
 from fastapi import HTTPException
 
 from generated.user import user_pb2, user_pb2_grpc
@@ -6,7 +6,7 @@ from generated.user import user_pb2, user_pb2_grpc
 
 class UserClient:
     def __init__(self):
-        self.channel = grpc.insecure_channel("user_service:50051")
+        self.channel = grpc.aio.insecure_channel("user_service:50051")
         self.stub = user_pb2_grpc.UserServiceStub(self.channel)
 
     async def register_email(self, data):
@@ -33,21 +33,25 @@ class UserClient:
             password=data.password
         )
         try:
-            return self.stub.LoginEmail(request)
+            response = await self.stub.LoginEmail(request)
+            return response
         except grpc.RpcError as e:
+            print(e)
             if e.code() == grpc.StatusCode.UNAUTHENTICATED:
                 raise HTTPException(401, e.details())
             raise HTTPException(500, "Internal error")
 
-    async def get_user(self, data):
-        request = user_pb2.GetUserRequest(
-            user_id=data.user_id
+    async def refresh_tokens(self, data):
+        request = user_pb2.RefreshTokenRequest(
+            refresh_token=data.refresh_token
         )
         try:
-            return await self.stub.GetUser(request)
+            response = await self.stub.RefreshToken(request)
+            return response
         except grpc.RpcError as e:
-            if e.code() == grpc.StatusCode.NOT_FOUND:
-                raise HTTPException(404, e.details())
+            print(e)
+            if e.code() == grpc.StatusCode.UNAUTHENTICATED:
+                raise HTTPException(401, e.details())
             raise HTTPException(500, "Internal error")
 
 

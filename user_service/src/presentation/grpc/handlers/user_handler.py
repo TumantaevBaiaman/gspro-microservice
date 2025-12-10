@@ -35,7 +35,7 @@ class UserHandler(pb2_grpc.UserServiceServicer):
             service = UserService(repo)
 
             try:
-                user = await service.login_by_email(request)
+                res = await service.login_by_email(request)
             except ValueError as e:
                 await context.abort(
                     grpc.StatusCode.INVALID_ARGUMENT,
@@ -43,6 +43,25 @@ class UserHandler(pb2_grpc.UserServiceServicer):
                 )
 
             return pb2.LoginEmailResponse(
-                user_id=str(user.id),
-                email=user.email
+                user_id=str(res.user_id),
+                access_token=str(res.access_token),
+                refresh_token=str(res.refresh_token)
+            )
+
+    async def RefreshToken(self, request, context):
+        async with async_session_maker() as session:
+            repo = UserRepository(session)
+            service = UserService(repo)
+
+            try:
+                res = await service.refresh_tokens(request)
+            except ValueError as e:
+                await context.abort(
+                    grpc.StatusCode.INVALID_ARGUMENT,
+                    str(e)
+                )
+
+            return pb2.RefreshTokenResponse(
+                access_token=str(res.access_token),
+                refresh_token=str(res.refresh_token)
             )

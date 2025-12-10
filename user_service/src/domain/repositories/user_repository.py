@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+
 from src.domain.entities.user import User
 
 
@@ -16,13 +17,8 @@ class IUserRepository(ABC):
     async def get_auth_account_by_email(self, email: str):
         pass
 
-    #
-    # @abstractmethod
-    # async def get_by_email(self, email: str):
-    #     pass
-    #
-    # @abstractmethod
-    # async def get_by_id(self, email: str):
-    #     pass
+    @abstractmethod
+    async def get_user_by_id(self, user_id: int) -> User:
+        pass
 
 

@@ -4,9 +4,8 @@ package user;
 
 service UserService {
     rpc RegisterEmail(RegisterEmailRequest) returns (RegisterEmailResponse);
-    rpc RegisterGoogle(RegisterGoogleRequest) returns (RegisterGoogleResponse);
     rpc LoginEmail(LoginEmailRequest) returns (LoginEmailResponse);
-    rpc GetUser(GetUserRequest) returns (GetUserResponse);
+    rpc RefreshToken(RefreshTokenRequest) returns (RefreshTokenResponse);
 }
 
 message RegisterEmailRequest {
@@ -16,16 +15,8 @@ message RegisterEmailRequest {
 
 message RegisterEmailResponse {
     string user_id = 1;
-    string email = 2;
-}
-
-message RegisterGoogleRequest {
-    string google_token = 1;
-}
-
-message RegisterGoogleResponse {
-    string user_id = 1;
-    string email = 2;
+    string access_token = 2;
+    string refresh_token = 3;
 }
 
 message LoginEmailRequest {
@@ -35,13 +26,16 @@ message LoginEmailRequest {
 
 message LoginEmailResponse {
     string user_id = 1;
-    string email = 2;
+    string access_token = 2;
+    string refresh_token = 3;
 }
 
-message GetUserRequest {
-    string user_id = 1;
+message RefreshTokenRequest {
+    string refresh_token = 1;
 }
 
-message GetUserResponse {
-    string user_id = 1;
+message RefreshTokenResponse {
+    string access_token = 1;
+    string refresh_token = 2;
 }
+

@@ -24,7 +24,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0fuser/user.proto\x12\x04user\"7\n\x14RegisterEmailRequest\x12\r\n\x05\x65mail\x18\x01 \x01(\t\x12\x10\n\x08password\x18\x02 \x01(\t\"7\n\x15RegisterEmailResponse\x12\x0f\n\x07user_id\x18\x01 \x01(\t\x12\r\n\x05\x65mail\x18\x02 \x01(\t\"-\n\x15RegisterGoogleRequest\x12\x14\n\x0cgoogle_token\x18\x01 \x01(\t\"8\n\x16RegisterGoogleResponse\x12\x0f\n\x07user_id\x18\x01 \x01(\t\x12\r\n\x05\x65mail\x18\x02 \x01(\t\"4\n\x11LoginEmailRequest\x12\r\n\x05\x65mail\x18\x01 \x01(\t\x12\x10\n\x08password\x18\x02 \x01(\t\"4\n\x12LoginEmailResponse\x12\x0f\n\x07user_id\x18\x01 \x01(\t\x12\r\n\x05\x65mail\x18\x02 \x01(\t\"!\n\x0eGetUserRequest\x12\x0f\n\x07user_id\x18\x01 \x01(\t\"\"\n\x0fGetUserResponse\x12\x0f\n\x07user_id\x18\x01 \x01(\t2\x9d\x02\n\x0bUserService\x12H\n\rRegisterEmail\x12\x1a.user.RegisterEmailRequest\x1a\x1b.user.RegisterEmailResponse\x12K\n\x0eRegisterGoogle\x12\x1b.user.RegisterGoogleRequest\x1a\x1c.user.RegisterGoogleResponse\x12?\n\nLoginEmail\x12\x17.user.LoginEmailRequest\x1a\x18.user.LoginEmailResponse\x12\x36\n\x07GetUser\x12\x14.user.GetUserRequest\x1a\x15.user.GetUserResponseb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0fuser/user.proto\x12\x04user\"7\n\x14RegisterEmailRequest\x12\r\n\x05\x65mail\x18\x01 \x01(\t\x12\x10\n\x08password\x18\x02 \x01(\t\"U\n\x15RegisterEmailResponse\x12\x0f\n\x07user_id\x18\x01 \x01(\t\x12\x14\n\x0c\x61\x63\x63\x65ss_token\x18\x02 \x01(\t\x12\x15\n\rrefresh_token\x18\x03 \x01(\t\"4\n\x11LoginEmailRequest\x12\r\n\x05\x65mail\x18\x01 \x01(\t\x12\x10\n\x08password\x18\x02 \x01(\t\"R\n\x12LoginEmailResponse\x12\x0f\n\x07user_id\x18\x01 \x01(\t\x12\x14\n\x0c\x61\x63\x63\x65ss_token\x18\x02 \x01(\t\x12\x15\n\rrefresh_token\x18\x03 \x01(\t\",\n\x13RefreshTokenRequest\x12\x15\n\rrefresh_token\x18\x01 \x01(\t\"C\n\x14RefreshTokenResponse\x12\x14\n\x0c\x61\x63\x63\x65ss_token\x18\x01 \x01(\t\x12\x15\n\rrefresh_token\x18\x02 \x01(\t2\xdf\x01\n\x0bUserService\x12H\n\rRegisterEmail\x12\x1a.user.RegisterEmailRequest\x1a\x1b.user.RegisterEmailResponse\x12?\n\nLoginEmail\x12\x17.user.LoginEmailRequest\x1a\x18.user.LoginEmailResponse\x12\x45\n\x0cRefreshToken\x12\x19.user.RefreshTokenRequest\x1a\x1a.user.RefreshTokenResponseb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -34,19 +34,15 @@ if not _descriptor._USE_C_DESCRIPTORS:
   _globals['_REGISTEREMAILREQUEST']._serialized_start=25
   _globals['_REGISTEREMAILREQUEST']._serialized_end=80
   _globals['_REGISTEREMAILRESPONSE']._serialized_start=82
-  _globals['_REGISTEREMAILRESPONSE']._serialized_end=137
-  _globals['_REGISTERGOOGLEREQUEST']._serialized_start=139
-  _globals['_REGISTERGOOGLEREQUEST']._serialized_end=184
-  _globals['_REGISTERGOOGLERESPONSE']._serialized_start=186
-  _globals['_REGISTERGOOGLERESPONSE']._serialized_end=242
-  _globals['_LOGINEMAILREQUEST']._serialized_start=244
-  _globals['_LOGINEMAILREQUEST']._serialized_end=296
-  _globals['_LOGINEMAILRESPONSE']._serialized_start=298
-  _globals['_LOGINEMAILRESPONSE']._serialized_end=350
-  _globals['_GETUSERREQUEST']._serialized_start=352
-  _globals['_GETUSERREQUEST']._serialized_end=385
-  _globals['_GETUSERRESPONSE']._serialized_start=387
-  _globals['_GETUSERRESPONSE']._serialized_end=421
-  _globals['_USERSERVICE']._serialized_start=424
-  _globals['_USERSERVICE']._serialized_end=709
+  _globals['_REGISTEREMAILRESPONSE']._serialized_end=167
+  _globals['_LOGINEMAILREQUEST']._serialized_start=169
+  _globals['_LOGINEMAILREQUEST']._serialized_end=221
+  _globals['_LOGINEMAILRESPONSE']._serialized_start=223
+  _globals['_LOGINEMAILRESPONSE']._serialized_end=305
+  _globals['_REFRESHTOKENREQUEST']._serialized_start=307
+  _globals['_REFRESHTOKENREQUEST']._serialized_end=351
+  _globals['_REFRESHTOKENRESPONSE']._serialized_start=353
+  _globals['_REFRESHTOKENRESPONSE']._serialized_end=420
+  _globals['_USERSERVICE']._serialized_start=423
+  _globals['_USERSERVICE']._serialized_end=646
 # @@protoc_insertion_point(module_scope)

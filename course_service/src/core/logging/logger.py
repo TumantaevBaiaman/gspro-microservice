@@ -1,7 +1,6 @@
 from loguru import logger
 import sys
 from .formatters import CONSOLE_FORMAT, JSON_FORMAT
-from .filters import exclude_health_checks
 
 
 def setup_logger(env: str = "dev"):

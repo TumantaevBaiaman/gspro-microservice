@@ -15,6 +15,25 @@ def create_refresh_token(user_id: str):
     return jwt.encode(payload, settings.JWT_SECRET_KEY, algorithm=settings.JWT_ALGORITHM)
 
 
+def verify_refresh_token(token: str):
+    try:
+        payload = jwt.decode(
+            token,
+            settings.JWT_SECRET_KEY,
+            algorithms=[settings.JWT_ALGORITHM]
+        )
+
+        if payload.get("type") != "refresh":
+            raise ValueError("Token is not a refresh token")
+
+        return payload
+
+    except jwt.ExpiredSignatureError:
+        raise ValueError("Refresh token expired")
+    except jwt.InvalidTokenError:
+        raise ValueError("Invalid refresh token")
+
+
 def decode_token(token: str):
     try:
         payload = jwt.decode(

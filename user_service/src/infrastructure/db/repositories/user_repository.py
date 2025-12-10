@@ -1,3 +1,5 @@
+from uuid import UUID
+
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -37,18 +39,7 @@ class UserRepository(IUserRepository):
         result = await self.session.execute(stmt)
         return result.scalar_one_or_none()
 
-    async def create_user_with_auth(
-            self,
-            user,
-            email: str,
-            password_hash: str,
-    ):
-        async with self.session.begin():
-            self.session.add(UserModel(id=user.id))
-            self.session.add(AuthAccountModel(
-                user_id=user.id,
-                provider="email",
-                identifier=email,
-                password_hash=password_hash,
-                verified=False,
-            ))
+    async def get_user_by_id(self, user_id: UUID):
+        stmt = select(UserModel).where(UserModel.id == user_id)
+        result = await self.session.execute(stmt)
+        return result.scalar_one_or_none()
