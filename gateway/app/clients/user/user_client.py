@@ -36,7 +36,6 @@ class UserClient:
             response = await self.stub.LoginEmail(request)
             return response
         except grpc.RpcError as e:
-            print(e)
             if e.code() == grpc.StatusCode.UNAUTHENTICATED:
                 raise HTTPException(401, e.details())
             raise HTTPException(500, "Internal error")
@@ -49,7 +48,6 @@ class UserClient:
             response = await self.stub.RefreshToken(request)
             return response
         except grpc.RpcError as e:
-            print(e)
             if e.code() == grpc.StatusCode.UNAUTHENTICATED:
                 raise HTTPException(401, e.details())
             raise HTTPException(500, "Internal error")
