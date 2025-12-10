@@ -3,7 +3,7 @@
 import grpc
 import warnings
 
-from generated.user import user_pb2 as user_dot_user__pb2
+from generated.user import user_pb2 as user__pb2
 
 GRPC_GENERATED_VERSION = '1.76.0'
 GRPC_VERSION = grpc.__version__
@@ -18,7 +18,7 @@ except ImportError:
 if _version_not_supported:
     raise RuntimeError(
         f'The grpc package installed is at version {GRPC_VERSION},'
-        + ' but the generated code in user/user_pb2_grpc.py depends on'
+        + ' but the generated code in user_pb2_grpc.py depends on'
         + f' grpcio>={GRPC_GENERATED_VERSION}.'
         + f' Please upgrade your grpc module to grpcio>={GRPC_GENERATED_VERSION}'
         + f' or downgrade your generated code using grpcio-tools<={GRPC_VERSION}.'
@@ -36,18 +36,18 @@ class UserServiceStub(object):
         """
         self.RegisterEmail = channel.unary_unary(
                 '/user.UserService/RegisterEmail',
-                request_serializer=user_dot_user__pb2.RegisterEmailRequest.SerializeToString,
-                response_deserializer=user_dot_user__pb2.RegisterEmailResponse.FromString,
+                request_serializer=user__pb2.RegisterEmailRequest.SerializeToString,
+                response_deserializer=user__pb2.RegisterEmailResponse.FromString,
                 _registered_method=True)
         self.LoginEmail = channel.unary_unary(
                 '/user.UserService/LoginEmail',
-                request_serializer=user_dot_user__pb2.LoginEmailRequest.SerializeToString,
-                response_deserializer=user_dot_user__pb2.LoginEmailResponse.FromString,
+                request_serializer=user__pb2.LoginEmailRequest.SerializeToString,
+                response_deserializer=user__pb2.LoginEmailResponse.FromString,
                 _registered_method=True)
         self.RefreshToken = channel.unary_unary(
                 '/user.UserService/RefreshToken',
-                request_serializer=user_dot_user__pb2.RefreshTokenRequest.SerializeToString,
-                response_deserializer=user_dot_user__pb2.RefreshTokenResponse.FromString,
+                request_serializer=user__pb2.RefreshTokenRequest.SerializeToString,
+                response_deserializer=user__pb2.RefreshTokenResponse.FromString,
                 _registered_method=True)
 
 
@@ -77,18 +77,18 @@ def add_UserServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
             'RegisterEmail': grpc.unary_unary_rpc_method_handler(
                     servicer.RegisterEmail,
-                    request_deserializer=user_dot_user__pb2.RegisterEmailRequest.FromString,
-                    response_serializer=user_dot_user__pb2.RegisterEmailResponse.SerializeToString,
+                    request_deserializer=user__pb2.RegisterEmailRequest.FromString,
+                    response_serializer=user__pb2.RegisterEmailResponse.SerializeToString,
             ),
             'LoginEmail': grpc.unary_unary_rpc_method_handler(
                     servicer.LoginEmail,
-                    request_deserializer=user_dot_user__pb2.LoginEmailRequest.FromString,
-                    response_serializer=user_dot_user__pb2.LoginEmailResponse.SerializeToString,
+                    request_deserializer=user__pb2.LoginEmailRequest.FromString,
+                    response_serializer=user__pb2.LoginEmailResponse.SerializeToString,
             ),
             'RefreshToken': grpc.unary_unary_rpc_method_handler(
                     servicer.RefreshToken,
-                    request_deserializer=user_dot_user__pb2.RefreshTokenRequest.FromString,
-                    response_serializer=user_dot_user__pb2.RefreshTokenResponse.SerializeToString,
+                    request_deserializer=user__pb2.RefreshTokenRequest.FromString,
+                    response_serializer=user__pb2.RefreshTokenResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -116,8 +116,8 @@ class UserService(object):
             request,
             target,
             '/user.UserService/RegisterEmail',
-            user_dot_user__pb2.RegisterEmailRequest.SerializeToString,
-            user_dot_user__pb2.RegisterEmailResponse.FromString,
+            user__pb2.RegisterEmailRequest.SerializeToString,
+            user__pb2.RegisterEmailResponse.FromString,
             options,
             channel_credentials,
             insecure,
@@ -143,8 +143,8 @@ class UserService(object):
             request,
             target,
             '/user.UserService/LoginEmail',
-            user_dot_user__pb2.LoginEmailRequest.SerializeToString,
-            user_dot_user__pb2.LoginEmailResponse.FromString,
+            user__pb2.LoginEmailRequest.SerializeToString,
+            user__pb2.LoginEmailResponse.FromString,
             options,
             channel_credentials,
             insecure,
@@ -170,8 +170,8 @@ class UserService(object):
             request,
             target,
             '/user.UserService/RefreshToken',
-            user_dot_user__pb2.RefreshTokenRequest.SerializeToString,
-            user_dot_user__pb2.RefreshTokenResponse.FromString,
+            user__pb2.RefreshTokenRequest.SerializeToString,
+            user__pb2.RefreshTokenResponse.FromString,
             options,
             channel_credentials,
             insecure,
