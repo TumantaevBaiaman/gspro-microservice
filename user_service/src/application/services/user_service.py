@@ -1,5 +1,6 @@
-from src.domain.dto.auth_dto import RegisterEmailRequestDTO, LoginEmailRequestDTO
-from src.core.security.password import hash_password, verify_password
+from src.core.security.auth_jwt import create_access_token, create_refresh_token
+from src.domain.dto.auth_dto import RegisterEmailRequestDTO, RegisterEmailResponseDTO
+from src.core.security.password import hash_password
 from src.domain.entities.user import User
 
 
@@ -16,21 +17,19 @@ class UserService:
         user = User.create()
 
         await self.user_repo.create_user(user)
-
         await self.user_repo.create_auth_account(
-            user_id=user.id,
-            email=dto.email,
-            password_hash=hash_password(dto.password)
+            user.id,
+            dto.email,
+            hash_password(dto.password)
         )
 
-        return user
+        await self.user_repo.session.commit()
 
-    async def login_by_email(self, dto: LoginEmailRequestDTO):
-        user = await self.user_repo.get_by_email(dto.email)
-        if not user:
-            raise ValueError("User does not exist")
+        access = create_access_token(str(user.id))
+        refresh = create_refresh_token(str(user.id))
 
-        if not verify_password(dto.password, user.password_hash):
-            raise ValueError("Invalid credentials")
-
-        return user
+        return RegisterEmailResponseDTO(
+            user_id=str(user.id),
+            access_token=access,
+            refresh_token=refresh
+        )

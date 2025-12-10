@@ -11,14 +11,12 @@ from src.infrastructure.db.repositories.user_repository import UserRepository
 class UserHandler(pb2_grpc.UserServiceServicer):
 
     async def RegisterEmail(self, request, context):
-        print("=== RegisterEmail gRPC Call ===")
-        print("Raw gRPC request:", request)
         async with async_session_maker() as session:
             repo = UserRepository(session)
             service = UserService(repo)
 
             try:
-                user = await service.register_by_email(request)
+                res = await service.register_by_email(request)
             except ValueError as e:
                 await context.abort(
                     grpc.StatusCode.ALREADY_EXISTS,
@@ -26,13 +24,12 @@ class UserHandler(pb2_grpc.UserServiceServicer):
                 )
 
             return pb2.RegisterEmailResponse(
-                user_id=str(user.id),
-                email=user.email
+                user_id=str(res.user_id),
+                access_token=str(res.access_token),
+                refresh_token=str(res.refresh_token)
             )
 
     async def LoginEmail(self, request,  context):
-        print("=== LoginEmail gRPC Call ===")
-        print("Raw gRPC request:", request)
         async with async_session_maker() as session:
             repo = UserRepository(session)
             service = UserService(repo)

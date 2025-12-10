@@ -14,6 +14,11 @@ class Settings(BaseSettings):
     DB_PASSWORD: str = Field(..., description="PostgreSQL password")
     DB_NAME: str = Field("users_db", description="Database name for the service")
 
+    JWT_SECRET_KEY: str = Field(..., description="Secret key for JWT encoding and decoding")
+    JWT_ALGORITHM: str = Field("HS256", description="Algorithm used for JWT encoding and decoding")
+    ACCESS_TOKEN_EXPIRE_MINUTES: int = Field(60 * 24, description="Access token expiration time in minutes")
+    REFRESH_TOKEN_EXPIRE_DAYS: int = Field(30, description="Refresh token expiration time in days")
+
     @property
     def SYNC_DATABASE_URL(self) -> str:
         return (

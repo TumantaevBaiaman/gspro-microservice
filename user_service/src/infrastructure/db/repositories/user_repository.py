@@ -30,25 +30,25 @@ class UserRepository(IUserRepository):
         await self.session.commit()
 
     async def get_auth_account_by_email(self, email: str):
-        stmt = select(AuthAccountModel).where(AuthAccountModel.identifier == email)
+        stmt = select(AuthAccountModel).where(
+            AuthAccountModel.provider == "email",
+            AuthAccountModel.identifier == email,
+        )
         result = await self.session.execute(stmt)
         return result.scalar_one_or_none()
 
-    async def get_by_email(self, email: str):
-        stmt = (
-            select(UserModel, AuthAccountModel)
-            .join(AuthAccountModel, AuthAccountModel.user_id == UserModel.id)
-            .where(AuthAccountModel.identifier == email)
-            .where(AuthAccountModel.provider == AuthProvider.email)
-        )
-        result = await self.session.execute(stmt)
-        row = result.first()
-
-        if not row:
-            return None
-
-        user, auth = row
-        user.password_hash = auth.password_hash
-        return user
-
-    # async def get_by_id(self, id_user: str):
+    async def create_user_with_auth(
+            self,
+            user,
+            email: str,
+            password_hash: str,
+    ):
+        async with self.session.begin():
+            self.session.add(UserModel(id=user.id))
+            self.session.add(AuthAccountModel(
+                user_id=user.id,
+                provider="email",
+                identifier=email,
+                password_hash=password_hash,
+                verified=False,
+            ))

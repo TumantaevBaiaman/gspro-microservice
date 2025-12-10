@@ -16,12 +16,13 @@ class IUserRepository(ABC):
     async def get_auth_account_by_email(self, email: str):
         pass
 
-    @abstractmethod
-    async def get_by_email(self, email: str):
-        pass
-
-    @abstractmethod
-    async def get_by_id(self, email: str):
-        pass
+    #
+    # @abstractmethod
+    # async def get_by_email(self, email: str):
+    #     pass
+    #
+    # @abstractmethod
+    # async def get_by_id(self, email: str):
+    #     pass
 
 
