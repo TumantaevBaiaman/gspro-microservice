@@ -1,9 +1,12 @@
 from fastapi import FastAPI
+from starlette.middleware import Middleware
 
 from app.api.routes import users, auth, course, admin
 from app.core.config import settings
 
-app = FastAPI(title=settings.app.APP_NAME)
+app = FastAPI(
+    title=settings.app.APP_NAME,
+)
 
 app.include_router(users.router)
 app.include_router(auth.router)
