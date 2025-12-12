@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 from app.clients.user import user_client
-from app.schemas.auth import (
+from app.schemas.user.auth import (
     RegisterEmailRequestSchema,
     LoginEmailRequestSchema,
     RegisterEmailResponseSchema,

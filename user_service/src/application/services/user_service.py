@@ -3,7 +3,9 @@ from src.domain.dto.auth_dto import (
     RegisterEmailRequestDTO,
     RegisterEmailResponseDTO,
     LoginEmailResponseDTO,
-    LoginEmailRequestDTO, RefreshTokensRequestDTO, RefreshTokensResponseDTO
+    LoginEmailRequestDTO,
+    RefreshTokensRequestDTO,
+    RefreshTokensResponseDTO
 )
 from src.core.security.password import hash_password
 from src.domain.entities.user import User
@@ -28,6 +30,7 @@ class UserService:
             dto.email,
             hash_password(dto.password)
         )
+        await self.user_repo.create_user_profile(user.id)
 
         await self.user_repo.session.commit()
 

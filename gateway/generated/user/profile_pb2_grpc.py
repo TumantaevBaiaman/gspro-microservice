@@ -3,7 +3,7 @@
 import grpc
 import warnings
 
-from generated.user import profile_pb2 as profile__pb2
+from generated.user import profile_pb2 as user_dot_profile__pb2
 
 GRPC_GENERATED_VERSION = '1.76.0'
 GRPC_VERSION = grpc.__version__
@@ -18,7 +18,7 @@ except ImportError:
 if _version_not_supported:
     raise RuntimeError(
         f'The grpc package installed is at version {GRPC_VERSION},'
-        + ' but the generated code in profile_pb2_grpc.py depends on'
+        + ' but the generated code in user/profile_pb2_grpc.py depends on'
         + f' grpcio>={GRPC_GENERATED_VERSION}.'
         + f' Please upgrade your grpc module to grpcio>={GRPC_GENERATED_VERSION}'
         + f' or downgrade your generated code using grpcio-tools<={GRPC_VERSION}.'
@@ -36,8 +36,8 @@ class UserProfileServiceStub(object):
         """
         self.GetUserProfile = channel.unary_unary(
                 '/user_profile.UserProfileService/GetUserProfile',
-                request_serializer=profile__pb2.GetUserProfileRequest.SerializeToString,
-                response_deserializer=profile__pb2.GetUserProfileResponse.FromString,
+                request_serializer=user_dot_profile__pb2.GetUserProfileRequest.SerializeToString,
+                response_deserializer=user_dot_profile__pb2.GetUserProfileResponse.FromString,
                 _registered_method=True)
 
 
@@ -55,8 +55,8 @@ def add_UserProfileServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
             'GetUserProfile': grpc.unary_unary_rpc_method_handler(
                     servicer.GetUserProfile,
-                    request_deserializer=profile__pb2.GetUserProfileRequest.FromString,
-                    response_serializer=profile__pb2.GetUserProfileResponse.SerializeToString,
+                    request_deserializer=user_dot_profile__pb2.GetUserProfileRequest.FromString,
+                    response_serializer=user_dot_profile__pb2.GetUserProfileResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -84,8 +84,8 @@ class UserProfileService(object):
             request,
             target,
             '/user_profile.UserProfileService/GetUserProfile',
-            profile__pb2.GetUserProfileRequest.SerializeToString,
-            profile__pb2.GetUserProfileResponse.FromString,
+            user_dot_profile__pb2.GetUserProfileRequest.SerializeToString,
+            user_dot_profile__pb2.GetUserProfileResponse.FromString,
             options,
             channel_credentials,
             insecure,

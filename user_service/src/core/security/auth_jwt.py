@@ -32,17 +32,3 @@ def verify_refresh_token(token: str):
         raise ValueError("Refresh token expired")
     except jwt.InvalidTokenError:
         raise ValueError("Invalid refresh token")
-
-
-def decode_token(token: str):
-    try:
-        payload = jwt.decode(
-            token,
-            settings.JWT_SECRET,
-            algorithms=[settings.JWT_ALGORITHM]
-        )
-        return payload
-    except jwt.ExpiredSignatureError:
-        raise ValueError("Token expired")
-    except jwt.InvalidTokenError:
-        raise ValueError("Invalid token")

@@ -1,3 +1,3 @@
 from .user_model import UserModel
 from .auth_account_model import AuthAccountModel
-from .user_profile import UserProfileModel
+from .profile_model import UserProfileModel

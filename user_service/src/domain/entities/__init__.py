@@ -1,1 +1,1 @@
-from .profile import ProfileEntity
+from .profile_entity import ProfileEntity

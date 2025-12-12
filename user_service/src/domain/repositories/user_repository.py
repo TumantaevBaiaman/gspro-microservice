@@ -21,4 +21,8 @@ class IUserRepository(ABC):
     async def get_user_by_id(self, user_id: int) -> User:
         pass
 
+    @abstractmethod
+    async def create_user_profile(self, user_id: int):
+        pass
+
 
