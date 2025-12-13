@@ -2,7 +2,7 @@ from fastapi import HTTPException
 from pymongo.errors import DuplicateKeyError
 
 from src.domain.dto.admin_category_dto import AdminCategoryCreateDTO, AdminCategoryUpdateDTO
-from src.domain.repositories import AdminCategoryRepository
+from src.infrastructure.db.mongo.repositories import AdminCategoryRepository
 
 
 class AdminCategoryService:

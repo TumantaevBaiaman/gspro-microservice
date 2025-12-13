@@ -1,21 +1,27 @@
-from src.domain.dto.admin_course_dto import AdminCourseCreateDTO, AdminCourseUpdateDTO
+from abc import ABC, abstractmethod
+
+from src.domain.dto.admin_course_dto import AdminCourseCreateDTO
 from src.domain.entities import CourseEntity
 
 
-class AdminCourseRepository:
+class IAdminCourseRepository(ABC):
 
+    @abstractmethod
     async def create(self, dto: AdminCourseCreateDTO) -> CourseEntity:
-        course = CourseEntity(**dto.dict())
-        return await course.insert()
+        pass
 
+    @abstractmethod
     async def get(self, course_id: str) -> CourseEntity | None:
-        return await CourseEntity.get(course_id)
+        pass
 
+    @abstractmethod
     async def list(self) -> list[CourseEntity]:
-        return await CourseEntity.find_all().to_list()
+        pass
 
+    @abstractmethod
     async def save(self, course: CourseEntity) -> CourseEntity:
-        return await course.save()
+        pass
 
+    @abstractmethod
     async def delete(self, course: CourseEntity):
-        return await course.delete()
+        pass

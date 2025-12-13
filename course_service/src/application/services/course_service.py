@@ -1,5 +1,5 @@
 from src.domain.dto.course_dto import CourseCreateDTO
-from src.domain.repositories import CourseRepository
+from src.infrastructure.db.mongo.repositories import CourseRepository
 
 
 class CourseService:

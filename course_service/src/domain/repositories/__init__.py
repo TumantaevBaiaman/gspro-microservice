@@ -1,13 +1,13 @@
-from .course_repository import CourseRepository
-from .admin_category_repository import AdminCategoryRepository
-from .admin_course_repository import AdminCourseRepository
-from .admin_lesson_repository import AdminLessonRepository
-from .admin_module_repository import AdminModuleRepository
+from .course_repository import ICourseRepository
+from .admin_category_repository import IAdminCategoryRepository
+from .admin_course_repository import IAdminCourseRepository
+from .admin_lesson_repository import IAdminLessonRepository
+from .admin_module_repository import IAdminModuleRepository
 
 __all__ = [
-    "CourseRepository",
-    "AdminCategoryRepository",
-    "AdminCourseRepository",
-    "AdminLessonRepository",
-    "AdminModuleRepository"
+    "ICourseRepository",
+    "IAdminCategoryRepository",
+    "IAdminCourseRepository",
+    "IAdminLessonRepository",
+    "IAdminModuleRepository"
 ]

@@ -1,15 +1,11 @@
-from abc import ABC, abstractmethod
-
 from src.domain.dto.course_dto import CourseCreateDTO
 from src.domain.entities.course_entity import CourseEntity
 
 
-class ICourseRepository(ABC):
-
-    @abstractmethod
+class CourseRepository:
     async def create_course(self, dto: CourseCreateDTO) -> CourseEntity:
-        pass
+        course = CourseEntity(**dto.dict())
+        return await course.insert()
 
-    @abstractmethod
     async def get_course_by_id(self, course_id: str) -> CourseEntity:
-        pass
+        return await CourseEntity.get(course_id)

@@ -1,28 +1,24 @@
-from abc import ABC, abstractmethod
-
 from typing import List
 from src.domain.entities.module_entity import ModuleEntity
 from src.domain.dto.admin_module_dto import AdminModuleCreateDTO, AdminModuleUpdateDTO
 
 
-class IAdminModuleRepository(ABC):
+class AdminModuleRepository:
 
-    @abstractmethod
     async def create(self, dto: AdminModuleCreateDTO) -> ModuleEntity:
-        pass
+        module = ModuleEntity(**dto.model_dump())
+        return await module.insert()
 
-    @abstractmethod
     async def get(self, module_id: str) -> ModuleEntity | None:
-        pass
+        return await ModuleEntity.get(module_id)
 
-    @abstractmethod
     async def list(self, course_id: str | None = None) -> List[ModuleEntity]:
-        pass
+        if course_id:
+            return await ModuleEntity.find(ModuleEntity.course_id == course_id).to_list()
+        return await ModuleEntity.find_all().to_list()
 
-    @abstractmethod
     async def save(self, module: ModuleEntity) -> ModuleEntity:
-        pass
+        return await module.save()
 
-    @abstractmethod
     async def delete(self, module: ModuleEntity):
-        pass
+        return await module.delete()

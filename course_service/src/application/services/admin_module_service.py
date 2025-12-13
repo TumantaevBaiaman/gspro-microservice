@@ -1,7 +1,7 @@
 from fastapi import HTTPException
 
 from src.domain.dto.admin_module_dto import AdminModuleCreateDTO, AdminModuleUpdateDTO
-from src.domain.repositories.admin_module_repository import AdminModuleRepository
+from src.infrastructure.db.mongo.repositories.admin_module_repository import AdminModuleRepository
 
 
 class AdminModuleService:

@@ -1,27 +1,21 @@
-from abc import ABC, abstractmethod
-
 from src.domain.dto.admin_category_dto import AdminCategoryCreateDTO
 from src.domain.entities import CategoryEntity
 
 
-class IAdminCategoryRepository(ABC):
+class AdminCategoryRepository:
 
-    @abstractmethod
     async def create(self, dto: AdminCategoryCreateDTO) -> CategoryEntity:
-        pass
+        category = CategoryEntity(**dto.dict())
+        return await category.insert()
 
-    @abstractmethod
     async def get(self, category_id: str) -> CategoryEntity | None:
-        pass
+        return await CategoryEntity.get(category_id)
 
-    @abstractmethod
     async def list(self):
-        pass
+        return await CategoryEntity.find_all().to_list()
 
-    @abstractmethod
     async def save(self, category: CategoryEntity) -> CategoryEntity:
-        pass
+        return await category.save()
 
-    @abstractmethod
     async def delete(self, category: CategoryEntity):
-        pass
+        return await category.delete()

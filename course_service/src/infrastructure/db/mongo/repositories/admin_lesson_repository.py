@@ -1,28 +1,24 @@
-from abc import ABC, abstractmethod
-
 from typing import List
 from src.domain.entities.lesson_entity import LessonEntity
 from src.domain.dto.admin_lesson_dto import AdminLessonCreateDTO, AdminLessonUpdateDTO
 
 
-class IAdminLessonRepository(ABC):
+class AdminLessonRepository:
 
-    @abstractmethod
     async def create(self, dto: AdminLessonCreateDTO) -> LessonEntity:
-        pass
+        lesson = LessonEntity(**dto.model_dump())
+        return await lesson.insert()
 
-    @abstractmethod
     async def get(self, lesson_id: str) -> LessonEntity | None:
-        pass
+        return await LessonEntity.get(lesson_id)
 
-    @abstractmethod
     async def list(self, module_id: str | None = None) -> List[LessonEntity]:
-        pass
+        if module_id:
+            return await LessonEntity.find(LessonEntity.module_id == module_id).to_list()
+        return await LessonEntity.find_all().to_list()
 
-    @abstractmethod
     async def save(self, lesson: LessonEntity) -> LessonEntity:
-        pass
+        return await lesson.save()
 
-    @abstractmethod
     async def delete(self, lesson: LessonEntity):
-        pass
+        return await lesson.delete()

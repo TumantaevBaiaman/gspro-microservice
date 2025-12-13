@@ -2,7 +2,7 @@ from fastapi import HTTPException
 from pymongo.errors import DuplicateKeyError
 
 from src.domain.dto.admin_course_dto import AdminCourseCreateDTO, AdminCourseUpdateDTO
-from src.domain.repositories import AdminCourseRepository
+from src.infrastructure.db.mongo.repositories import AdminCourseRepository
 
 
 class AdminCourseService:
