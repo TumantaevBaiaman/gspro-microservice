@@ -1,9 +1,11 @@
 from typing import List
+
 from src.domain.entities.module_entity import ModuleEntity
 from src.domain.dto.admin_module_dto import AdminModuleCreateDTO, AdminModuleUpdateDTO
+from src.domain.repositories.admin_module_repository import IAdminModuleRepository
 
 
-class AdminModuleRepository:
+class AdminModuleRepository(IAdminModuleRepository):
 
     async def create(self, dto: AdminModuleCreateDTO) -> ModuleEntity:
         module = ModuleEntity(**dto.model_dump())

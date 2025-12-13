@@ -1,8 +1,9 @@
 from src.domain.dto.admin_category_dto import AdminCategoryCreateDTO
 from src.domain.entities import CategoryEntity
+from src.domain.repositories.admin_category_repository import IAdminCategoryRepository
 
 
-class AdminCategoryRepository:
+class AdminCategoryRepository(IAdminCategoryRepository):
 
     async def create(self, dto: AdminCategoryCreateDTO) -> CategoryEntity:
         category = CategoryEntity(**dto.dict())

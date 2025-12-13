@@ -1,9 +1,10 @@
 from typing import List
 from src.domain.entities.lesson_entity import LessonEntity
-from src.domain.dto.admin_lesson_dto import AdminLessonCreateDTO, AdminLessonUpdateDTO
+from src.domain.dto.admin_lesson_dto import AdminLessonCreateDTO
+from src.domain.repositories.admin_lesson_repository import IAdminLessonRepository
 
 
-class AdminLessonRepository:
+class AdminLessonRepository(IAdminLessonRepository):
 
     async def create(self, dto: AdminLessonCreateDTO) -> LessonEntity:
         lesson = LessonEntity(**dto.model_dump())
