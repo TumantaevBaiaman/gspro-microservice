@@ -4,6 +4,7 @@ package user_profile;
 
 service UserProfileService {
   rpc GetUserProfile(GetUserProfileRequest) returns (GetUserProfileResponse);
+  rpc UpdateUserProfile(UpdateUserProfileRequest) returns (UpdateUserProfileResponse);
 }
 
 message GetUserProfileRequest {
@@ -16,4 +17,22 @@ message GetUserProfileResponse {
   string city = 3;
   string industry = 4;
   string experience_level = 5;
+}
+
+message UpdateUserProfileRequest {
+  string user_id = 1;
+  optional string full_name = 2;
+  optional string bio = 3;
+  optional string city = 4;
+  optional string industry = 5;
+  optional string experience_level = 6;
+}
+
+message UpdateUserProfileResponse {
+  string user_id = 1;
+  string full_name = 2;
+  string bio = 3;
+  string city = 4;
+  string industry = 5;
+  string experience_level = 6;
 }

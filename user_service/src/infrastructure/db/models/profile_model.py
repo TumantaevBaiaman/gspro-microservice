@@ -13,7 +13,8 @@ class UserProfileModel(Base):
     user_id = Column(
         UUID(as_uuid=True),
         ForeignKey("users.id", ondelete="CASCADE"),
-        primary_key=True
+        nullable=False,
+        unique=True
     )
 
     full_name = Column(String(255), nullable=True)

@@ -9,3 +9,19 @@ class GetUserProfileResponseSchema(BaseModel):
     city: Optional[str] = None
     industry: Optional[str] = None
     experience_level: Optional[str] = None
+
+
+class UpdateUserProfileRequestSchema(BaseModel):
+    full_name: Optional[str] = None
+    bio: Optional[str] = None
+    city: Optional[str] = None
+    industry: Optional[str] = None
+    experience_level: Optional[str] = None
+
+
+class UpdateUserProfileResponseSchema(BaseModel):
+    full_name: Optional[str] = None
+    bio: Optional[str] = None
+    city: Optional[str] = None
+    industry: Optional[str] = None
+    experience_level: Optional[str] = None

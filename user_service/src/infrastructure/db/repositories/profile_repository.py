@@ -18,3 +18,17 @@ class ProfileRepository(IProfileRepository):
 
         result = await self.session.execute(stmt)
         return result.scalar_one_or_none()
+
+    async def update_profile(self, profile_id: UUID, data: dict) -> ProfileEntity:
+        profile: ProfileEntity | None = await self.session.get(UserProfileModel, profile_id)
+        if not profile:
+            raise Exception("Profile not found")
+
+        for key, value in data.items():
+            if value is None or value == "":
+                continue
+            setattr(profile, key, value)
+
+        await self.session.commit()
+        await self.session.refresh(profile)
+        return profile

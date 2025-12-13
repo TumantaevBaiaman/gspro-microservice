@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+from uuid import UUID
 
 from src.domain.entities.profile_entity import ProfileEntity
 
@@ -6,5 +7,9 @@ from src.domain.entities.profile_entity import ProfileEntity
 class IProfileRepository(ABC):
 
     @abstractmethod
-    async def get_profile_by_user_id(self, user_id: str) -> ProfileEntity | None:
+    async def get_profile_by_user_id(self, user_id: UUID) -> ProfileEntity | None:
+        pass
+
+    @abstractmethod
+    async def update_profile(self, profile_id: UUID, data: dict) -> ProfileEntity:
         pass

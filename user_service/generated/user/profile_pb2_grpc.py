@@ -39,12 +39,23 @@ class UserProfileServiceStub(object):
                 request_serializer=profile__pb2.GetUserProfileRequest.SerializeToString,
                 response_deserializer=profile__pb2.GetUserProfileResponse.FromString,
                 _registered_method=True)
+        self.UpdateUserProfile = channel.unary_unary(
+                '/user_profile.UserProfileService/UpdateUserProfile',
+                request_serializer=profile__pb2.UpdateUserProfileRequest.SerializeToString,
+                response_deserializer=profile__pb2.UpdateUserProfileResponse.FromString,
+                _registered_method=True)
 
 
 class UserProfileServiceServicer(object):
     """Missing associated documentation comment in .proto file."""
 
     def GetUserProfile(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def UpdateUserProfile(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -57,6 +68,11 @@ def add_UserProfileServiceServicer_to_server(servicer, server):
                     servicer.GetUserProfile,
                     request_deserializer=profile__pb2.GetUserProfileRequest.FromString,
                     response_serializer=profile__pb2.GetUserProfileResponse.SerializeToString,
+            ),
+            'UpdateUserProfile': grpc.unary_unary_rpc_method_handler(
+                    servicer.UpdateUserProfile,
+                    request_deserializer=profile__pb2.UpdateUserProfileRequest.FromString,
+                    response_serializer=profile__pb2.UpdateUserProfileResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -86,6 +102,33 @@ class UserProfileService(object):
             '/user_profile.UserProfileService/GetUserProfile',
             profile__pb2.GetUserProfileRequest.SerializeToString,
             profile__pb2.GetUserProfileResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def UpdateUserProfile(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/user_profile.UserProfileService/UpdateUserProfile',
+            profile__pb2.UpdateUserProfileRequest.SerializeToString,
+            profile__pb2.UpdateUserProfileResponse.FromString,
             options,
             channel_credentials,
             insecure,
