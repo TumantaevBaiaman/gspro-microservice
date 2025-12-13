@@ -1,44 +1,15 @@
-from fastapi import HTTPException
-from pymongo.errors import DuplicateKeyError
-
-from src.domain.dto.admin_category_dto import AdminCategoryCreateDTO, AdminCategoryUpdateDTO
+from src.application.commands.admin_category.create_category import CreateCategoryCommand
+from src.application.commands.admin_category.update_category import UpdateCategoryCommand
+from src.application.commands.admin_category.delete_category import DeleteCategoryCommand
+from src.application.queries.admin_category.get_category import GetCategoryQuery
+from src.application.queries.admin_category.list_categories import ListCategoriesQuery
 from src.domain.repositories import IAdminCategoryRepository
 
 
 class AdminCategoryService:
     def __init__(self, repo: IAdminCategoryRepository):
-        self.repo = repo
-
-    async def create_category(self, dto: AdminCategoryCreateDTO):
-        try:
-            return await self.repo.create(dto)
-        except DuplicateKeyError:
-            raise HTTPException(409, "Category with this codename already exists")
-
-    async def get_category(self, category_id: str):
-        category = await self.repo.get(category_id)
-        if not category:
-            raise HTTPException(404, "Category not found")
-        return category
-
-    async def delete_category(self, category_id: str):
-        category = await self.get_category(category_id)
-        await self.repo.delete(category)
-        return True
-
-    async def update_category(self, category_id: str, dto: AdminCategoryUpdateDTO):
-        category = await self.get_category(category_id)
-
-        for key, value in dto.model_dump(exclude_unset=True).items():
-            setattr(category, key, value)
-
-        try:
-            return await self.repo.save(category)
-        except DuplicateKeyError:
-            raise HTTPException(409, "Codename already exists")
-
-    async def list_categories(self):
-        return await self.repo.list()
-
-
-
+        self.create = CreateCategoryCommand(repo)
+        self.update = UpdateCategoryCommand(repo)
+        self.delete = DeleteCategoryCommand(repo)
+        self.get = GetCategoryQuery(repo)
+        self.list = ListCategoriesQuery(repo)
