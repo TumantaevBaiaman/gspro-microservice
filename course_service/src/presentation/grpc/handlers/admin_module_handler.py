@@ -11,8 +11,8 @@ from src.application.services.admin_module_service import AdminModuleService
 
 class AdminModuleHandler(pb2_grpc.AdminModuleServiceServicer):
 
-    def __init__(self):
-        self.service = AdminModuleService()
+    def __init__(self, service: AdminModuleService):
+        self.service = service
 
     async def AdminCreateModule(self, request, context):
         dto = AdminModuleCreateDTO(**MessageToDict(request))

@@ -12,8 +12,8 @@ from src.application.services.admin_category_service import AdminCategoryService
 
 class AdminCategoryHandler(pb2_grpc.AdminCategoryServiceServicer):
 
-    def __init__(self):
-        self.service = AdminCategoryService()
+    def __init__(self, service: AdminCategoryService):
+        self.service = service
 
     async def AdminCreateCategory(self, request, context):
         dto = admin_category_dto.AdminCategoryCreateDTO(**MessageToDict(request))

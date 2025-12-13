@@ -2,12 +2,12 @@ from fastapi import HTTPException
 from pymongo.errors import DuplicateKeyError
 
 from src.domain.dto.admin_category_dto import AdminCategoryCreateDTO, AdminCategoryUpdateDTO
-from src.infrastructure.db.mongo.repositories import AdminCategoryRepository
+from src.domain.repositories import IAdminCategoryRepository
 
 
 class AdminCategoryService:
-    def __init__(self):
-        self.repo = AdminCategoryRepository()
+    def __init__(self, repo: IAdminCategoryRepository):
+        self.repo = repo
 
     async def create_category(self, dto: AdminCategoryCreateDTO):
         try:

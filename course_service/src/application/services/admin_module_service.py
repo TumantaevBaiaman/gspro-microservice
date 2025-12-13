@@ -1,12 +1,12 @@
 from fastapi import HTTPException
 
 from src.domain.dto.admin_module_dto import AdminModuleCreateDTO, AdminModuleUpdateDTO
-from src.infrastructure.db.mongo.repositories.admin_module_repository import AdminModuleRepository
+from src.domain.repositories.admin_module_repository import IAdminModuleRepository
 
 
 class AdminModuleService:
-    def __init__(self):
-        self.repo = AdminModuleRepository()
+    def __init__(self, repo: IAdminModuleRepository):
+        self.repo = repo
 
     async def create_module(self, dto: AdminModuleCreateDTO):
         return await self.repo.create(dto)

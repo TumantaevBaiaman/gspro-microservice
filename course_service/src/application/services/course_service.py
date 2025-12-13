@@ -1,10 +1,10 @@
 from src.domain.dto.course_dto import CourseCreateDTO
-from src.infrastructure.db.mongo.repositories import CourseRepository
+from src.domain.repositories.course_repository import ICourseRepository
 
 
 class CourseService:
-    def __init__(self):
-        self.repo = CourseRepository()
+    def __init__(self, repo: ICourseRepository):
+        self.repo = repo
 
     async def create_course(self, dto: CourseCreateDTO):
         return await self.repo.create_course(dto)

@@ -11,8 +11,8 @@ from src.application.services.course_service import CourseService
 
 class CourseHandler(pb2_grpc.CourseServiceServicer):
 
-    def __init__(self):
-        self.service = CourseService()
+    def __init__(self, service: CourseService):
+        self.service = service
 
     async def CreateCourse(self, request, context):
 

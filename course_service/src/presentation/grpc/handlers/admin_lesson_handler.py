@@ -11,8 +11,8 @@ from src.application.services.admin_lesson_service import AdminLessonService
 
 class AdminLessonHandler(pb2_grpc.AdminLessonServiceServicer):
 
-    def __init__(self):
-        self.service = AdminLessonService()
+    def __init__(self, service: AdminLessonService):
+        self.service = service
 
     async def AdminCreateLesson(self, request, context):
         dto = AdminLessonCreateDTO(**MessageToDict(request))

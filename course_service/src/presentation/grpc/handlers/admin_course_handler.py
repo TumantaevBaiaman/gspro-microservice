@@ -12,8 +12,8 @@ from src.application.services.admin_course_service import AdminCourseService
 
 class AdminCourseHandler(pb2_grpc.AdminCourseServiceServicer):
 
-    def __init__(self):
-        self.service = AdminCourseService()
+    def __init__(self, service: AdminCourseService):
+        self.service = service
 
     async def AdminCreateCourse(self, request, context):
         dto = admin_course_dto.AdminCourseCreateDTO(**MessageToDict(request))

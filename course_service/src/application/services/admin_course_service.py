@@ -2,12 +2,12 @@ from fastapi import HTTPException
 from pymongo.errors import DuplicateKeyError
 
 from src.domain.dto.admin_course_dto import AdminCourseCreateDTO, AdminCourseUpdateDTO
-from src.infrastructure.db.mongo.repositories import AdminCourseRepository
+from src.domain.repositories import IAdminCourseRepository
 
 
 class AdminCourseService:
-    def __init__(self):
-        self.repo = AdminCourseRepository()
+    def __init__(self, repo: IAdminCourseRepository):
+        self.repo = repo
 
     async def create_course(self, dto: AdminCourseCreateDTO):
         try:

@@ -1,12 +1,12 @@
 from fastapi import HTTPException
 
 from src.domain.dto.admin_lesson_dto import AdminLessonCreateDTO, AdminLessonUpdateDTO
-from src.infrastructure.db.mongo.repositories.admin_lesson_repository import AdminLessonRepository
+from src.domain.repositories.admin_lesson_repository import IAdminLessonRepository
 
 
 class AdminLessonService:
-    def __init__(self):
-        self.repo = AdminLessonRepository()
+    def __init__(self, repo: IAdminLessonRepository):
+        self.repo = repo
 
     async def create_lesson(self, dto: AdminLessonCreateDTO):
         return await self.repo.create(dto)
