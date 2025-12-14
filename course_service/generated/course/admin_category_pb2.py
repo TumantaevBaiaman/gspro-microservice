@@ -24,7 +24,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x14\x61\x64min_category.proto\x12\x0e\x61\x64min_category\"P\n\x1a\x41\x64minCreateCategoryRequest\x12\r\n\x05title\x18\x01 \x01(\t\x12\x10\n\x08\x63odename\x18\x02 \x01(\t\x12\x11\n\tparent_id\x18\x03 \x01(\t\")\n\x1b\x41\x64minCreateCategoryResponse\x12\n\n\x02id\x18\x01 \x01(\t\"%\n\x17\x41\x64minGetCategoryRequest\x12\n\n\x02id\x18\x01 \x01(\t\"Z\n\x18\x41\x64minGetCategoryResponse\x12\n\n\x02id\x18\x01 \x01(\t\x12\r\n\x05title\x18\x02 \x01(\t\x12\x10\n\x08\x63odename\x18\x03 \x01(\t\x12\x11\n\tparent_id\x18\x04 \x01(\t\"P\n\x1a\x41\x64minUpdateCategoryRequest\x12\r\n\x05title\x18\x02 \x01(\t\x12\x10\n\x08\x63odename\x18\x03 \x01(\t\x12\x11\n\tparent_id\x18\x04 \x01(\t\")\n\x1b\x41\x64minUpdateCategoryResponse\x12\n\n\x02id\x18\x01 \x01(\t\"(\n\x1a\x41\x64minDeleteCategoryRequest\x12\n\n\x02id\x18\x01 \x01(\t\".\n\x1b\x41\x64minDeleteCategoryResponse\x12\x0f\n\x07success\x18\x01 \x01(\x08\x32\xcd\x03\n\x14\x41\x64minCategoryService\x12n\n\x13\x41\x64minCreateCategory\x12*.admin_category.AdminCreateCategoryRequest\x1a+.admin_category.AdminCreateCategoryResponse\x12\x65\n\x10\x41\x64minGetCategory\x12\'.admin_category.AdminGetCategoryRequest\x1a(.admin_category.AdminGetCategoryResponse\x12n\n\x13\x41\x64minUpdateCategory\x12*.admin_category.AdminUpdateCategoryRequest\x1a+.admin_category.AdminUpdateCategoryResponse\x12n\n\x13\x41\x64minDeleteCategory\x12*.admin_category.AdminDeleteCategoryRequest\x1a+.admin_category.AdminDeleteCategoryResponseb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x14\x61\x64min_category.proto\x12\x0e\x61\x64min_category\"P\n\x1a\x41\x64minCreateCategoryRequest\x12\r\n\x05title\x18\x01 \x01(\t\x12\x10\n\x08\x63odename\x18\x02 \x01(\t\x12\x11\n\tparent_id\x18\x03 \x01(\t\")\n\x1b\x41\x64minCreateCategoryResponse\x12\n\n\x02id\x18\x01 \x01(\t\"%\n\x17\x41\x64minGetCategoryRequest\x12\n\n\x02id\x18\x01 \x01(\t\"m\n\x18\x41\x64minGetCategoryResponse\x12\n\n\x02id\x18\x01 \x01(\t\x12\r\n\x05title\x18\x02 \x01(\t\x12\x10\n\x08\x63odename\x18\x03 \x01(\t\x12\x16\n\tparent_id\x18\x04 \x01(\tH\x00\x88\x01\x01\x42\x0c\n\n_parent_id\"\x90\x01\n\x1a\x41\x64minUpdateCategoryRequest\x12\n\n\x02id\x18\x01 \x01(\t\x12\x12\n\x05title\x18\x02 \x01(\tH\x00\x88\x01\x01\x12\x15\n\x08\x63odename\x18\x03 \x01(\tH\x01\x88\x01\x01\x12\x16\n\tparent_id\x18\x04 \x01(\tH\x02\x88\x01\x01\x42\x08\n\x06_titleB\x0b\n\t_codenameB\x0c\n\n_parent_id\"p\n\x1b\x41\x64minUpdateCategoryResponse\x12\n\n\x02id\x18\x01 \x01(\t\x12\r\n\x05title\x18\x02 \x01(\t\x12\x10\n\x08\x63odename\x18\x03 \x01(\t\x12\x16\n\tparent_id\x18\x04 \x01(\tH\x00\x88\x01\x01\x42\x0c\n\n_parent_id\"(\n\x1a\x41\x64minDeleteCategoryRequest\x12\n\n\x02id\x18\x01 \x01(\t\".\n\x1b\x41\x64minDeleteCategoryResponse\x12\x0f\n\x07success\x18\x01 \x01(\x08\x32\xcd\x03\n\x14\x41\x64minCategoryService\x12n\n\x13\x41\x64minCreateCategory\x12*.admin_category.AdminCreateCategoryRequest\x1a+.admin_category.AdminCreateCategoryResponse\x12\x65\n\x10\x41\x64minGetCategory\x12\'.admin_category.AdminGetCategoryRequest\x1a(.admin_category.AdminGetCategoryResponse\x12n\n\x13\x41\x64minUpdateCategory\x12*.admin_category.AdminUpdateCategoryRequest\x1a+.admin_category.AdminUpdateCategoryResponse\x12n\n\x13\x41\x64minDeleteCategory\x12*.admin_category.AdminDeleteCategoryRequest\x1a+.admin_category.AdminDeleteCategoryResponseb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -38,15 +38,15 @@ if not _descriptor._USE_C_DESCRIPTORS:
   _globals['_ADMINGETCATEGORYREQUEST']._serialized_start=165
   _globals['_ADMINGETCATEGORYREQUEST']._serialized_end=202
   _globals['_ADMINGETCATEGORYRESPONSE']._serialized_start=204
-  _globals['_ADMINGETCATEGORYRESPONSE']._serialized_end=294
-  _globals['_ADMINUPDATECATEGORYREQUEST']._serialized_start=296
-  _globals['_ADMINUPDATECATEGORYREQUEST']._serialized_end=376
-  _globals['_ADMINUPDATECATEGORYRESPONSE']._serialized_start=378
-  _globals['_ADMINUPDATECATEGORYRESPONSE']._serialized_end=419
-  _globals['_ADMINDELETECATEGORYREQUEST']._serialized_start=421
-  _globals['_ADMINDELETECATEGORYREQUEST']._serialized_end=461
-  _globals['_ADMINDELETECATEGORYRESPONSE']._serialized_start=463
-  _globals['_ADMINDELETECATEGORYRESPONSE']._serialized_end=509
-  _globals['_ADMINCATEGORYSERVICE']._serialized_start=512
-  _globals['_ADMINCATEGORYSERVICE']._serialized_end=973
+  _globals['_ADMINGETCATEGORYRESPONSE']._serialized_end=313
+  _globals['_ADMINUPDATECATEGORYREQUEST']._serialized_start=316
+  _globals['_ADMINUPDATECATEGORYREQUEST']._serialized_end=460
+  _globals['_ADMINUPDATECATEGORYRESPONSE']._serialized_start=462
+  _globals['_ADMINUPDATECATEGORYRESPONSE']._serialized_end=574
+  _globals['_ADMINDELETECATEGORYREQUEST']._serialized_start=576
+  _globals['_ADMINDELETECATEGORYREQUEST']._serialized_end=616
+  _globals['_ADMINDELETECATEGORYRESPONSE']._serialized_start=618
+  _globals['_ADMINDELETECATEGORYRESPONSE']._serialized_end=664
+  _globals['_ADMINCATEGORYSERVICE']._serialized_start=667
+  _globals['_ADMINCATEGORYSERVICE']._serialized_end=1128
 # @@protoc_insertion_point(module_scope)

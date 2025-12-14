@@ -1,5 +1,4 @@
 from typing import Optional
-from beanie import Document
 
 from .base_entity import BaseEntity
 

@@ -3,7 +3,7 @@ import grpc
 import generated.user.user_pb2 as pb2
 import generated.user.user_pb2_grpc as pb2_grpc
 
-from src.application.services.user_service import UserService
+from src.application.services import UserService
 from src.infrastructure.db.session import async_session_maker
 from src.infrastructure.db.repositories.user_repository import UserRepository
 

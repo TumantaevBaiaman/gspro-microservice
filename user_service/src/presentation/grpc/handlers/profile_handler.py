@@ -3,7 +3,7 @@ import grpc
 import generated.user.profile_pb2 as pb2
 import generated.user.profile_pb2_grpc as pb2_grpc
 
-from src.application.services.profile_service import ProfileService
+from src.application.services import ProfileService
 from src.infrastructure.db.session import async_session_maker
 from src.infrastructure.db.repositories.profile_repository import ProfileRepository
 

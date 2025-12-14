@@ -35,7 +35,6 @@ class ProfileClient:
             response = await self.stub.UpdateUserProfile(request)
             return response
         except grpc.RpcError as e:
-            print(e)
             if e.code() == grpc.StatusCode.NOT_FOUND:
                 raise HTTPException(status_code=404, detail=e.details())
             raise HTTPException(status_code=500, detail="Internal error")

@@ -23,8 +23,7 @@ class AdminCategoryClient:
         request = pb2.AdminGetCategoryRequest(id=category_id)
 
         try:
-            response = self.stub.AdminGetCategory(request)
-            return MessageToDict(response)
+            return self.stub.AdminGetCategory(request)
         except grpc.RpcError as e:
             self._handle_error(e)
 
@@ -42,6 +41,7 @@ class AdminCategoryClient:
         try:
             return self.stub.AdminDeleteCategory(request)
         except grpc.RpcError as e:
+            print(e)
             self._handle_error(e)
 
     @staticmethod
