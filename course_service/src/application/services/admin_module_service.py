@@ -9,7 +9,7 @@ from src.domain.repositories.admin_module_repository import IAdminModuleReposito
 class AdminModuleService:
     def __init__(self, repo: IAdminModuleRepository):
         self.create = CreateModuleCommand(repo)
-        self.update = UpdateModuleCommand(repo)
+        self.update = UpdateModuleCommand(repo)     # problem update method
         self.delete = DeleteModuleCommand(repo)
         self.get = GetModuleQuery(repo)
         self.list = ListModulesQuery(repo)

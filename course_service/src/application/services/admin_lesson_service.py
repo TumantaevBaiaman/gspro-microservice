@@ -9,7 +9,7 @@ from src.domain.repositories.admin_lesson_repository import IAdminLessonReposito
 class AdminLessonService:
     def __init__(self, repo: IAdminLessonRepository):
         self.create = CreateLessonCommand(repo)
-        self.update = UpdateLessonCommand(repo)
+        self.update = UpdateLessonCommand(repo)     # problem update method
         self.delete = DeleteLessonCommand(repo)
         self.get = GetLessonQuery(repo)
         self.list = ListLessonsQuery(repo)

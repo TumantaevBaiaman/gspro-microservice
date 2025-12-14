@@ -18,7 +18,7 @@ class AdminCourseHandler(pb2_grpc.AdminCourseServiceServicer):
         self.service = service
 
     async def AdminCreateCourse(self, request, context):
-        dto = admin_course_dto.AdminCourseCreateDTO(**MessageToDict(request))
+        dto = admin_course_dto.AdminCourseCreateDTO(**MessageToDict(request, preserving_proto_field_name=True))
 
         try:
             course = await self.service.create.execute(dto)
@@ -28,7 +28,18 @@ class AdminCourseHandler(pb2_grpc.AdminCourseServiceServicer):
             await context.abort(grpc.StatusCode.ALREADY_EXISTS, str(e))
 
     async def AdminUpdateCourse(self, request, context):
-        dto = admin_course_dto.AdminCourseUpdateDTO(**MessageToDict(request))
+        raw = MessageToDict(
+            request,
+            preserving_proto_field_name=True
+        )
+
+        data = {
+            k: v
+            for k, v in raw.items()
+            if k != "id" and v not in ("", None)
+        }
+
+        dto = admin_course_dto.AdminCourseUpdateDTO(**data)
 
         try:
             course = await self.service.update.execute(

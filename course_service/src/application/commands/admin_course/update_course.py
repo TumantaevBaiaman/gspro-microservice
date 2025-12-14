@@ -13,16 +13,22 @@ class UpdateCourseCommand:
         self.repo = repo
 
     async def execute(self, course_id: str, dto: AdminCourseUpdateDTO):
-        course = await self.repo.get(course_id)
-        if not course:
-            raise CourseNotFoundError("Course not found")
+        data = dto.model_dump(exclude_unset=True)
 
-        for key, value in dto.model_dump(exclude_unset=True).items():
-            setattr(course, key, value)
+        if not data:
+            course = await self.repo.get(course_id)
+            if not course:
+                raise CourseNotFoundError("Course not found")
+            return course
 
         try:
-            return await self.repo.save(course)
+            updated = await self.repo.update(course_id, data)
         except DuplicateKeyError:
             raise CourseAlreadyExistsError(
                 "Course already exists with given unique values"
             )
+
+        if not updated:
+            raise CourseNotFoundError("Course not found")
+
+        return await self.repo.get(course_id)

@@ -9,7 +9,7 @@ from src.domain.repositories import IAdminCategoryRepository
 class AdminCategoryService:
     def __init__(self, repo: IAdminCategoryRepository):
         self.create = CreateCategoryCommand(repo)
-        self.update = UpdateCategoryCommand(repo)
+        self.update = UpdateCategoryCommand(repo)   # problem update method
         self.delete = DeleteCategoryCommand(repo)
         self.get = GetCategoryQuery(repo)
         self.list = ListCategoriesQuery(repo)

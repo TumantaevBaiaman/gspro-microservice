@@ -19,7 +19,7 @@ class IAdminCourseRepository(ABC):
         pass
 
     @abstractmethod
-    async def save(self, course: CourseEntity) -> CourseEntity:
+    async def update(self, course_id: str, data: dict) -> CourseEntity:
         pass
 
     @abstractmethod
