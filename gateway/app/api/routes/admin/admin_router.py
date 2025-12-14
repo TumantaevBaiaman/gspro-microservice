@@ -1,8 +1,8 @@
 from fastapi import APIRouter
 
-from .category import admin_category_router
-from .course import admin_course_router
-from .module import admin_module_router
+from .category_router import admin_category_router
+from .course_router import admin_course_router
+from .module_router import admin_module_router
 
 
 router = APIRouter(prefix="/admin")
