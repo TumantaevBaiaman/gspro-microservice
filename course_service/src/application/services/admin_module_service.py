@@ -1,34 +1,15 @@
-from fastapi import HTTPException
-
-from src.domain.dto.admin_module_dto import AdminModuleCreateDTO, AdminModuleUpdateDTO
+from src.application.commands.admin_module.create_module import CreateModuleCommand
+from src.application.commands.admin_module.update_module import UpdateModuleCommand
+from src.application.commands.admin_module.delete_module import DeleteModuleCommand
+from src.application.queries.admin_module.get_module import GetModuleQuery
+from src.application.queries.admin_module.list_modules import ListModulesQuery
 from src.domain.repositories.admin_module_repository import IAdminModuleRepository
 
 
 class AdminModuleService:
     def __init__(self, repo: IAdminModuleRepository):
-        self.repo = repo
-
-    async def create_module(self, dto: AdminModuleCreateDTO):
-        return await self.repo.create(dto)
-
-    async def get_module(self, module_id: str):
-        module = await self.repo.get(module_id)
-        if not module:
-            raise HTTPException(404, "Module not found")
-        return module
-
-    async def delete_module(self, module_id: str):
-        module = await self.get_module(module_id)
-        await self.repo.delete(module)
-        return True
-
-    async def update_module(self, module_id: str, dto: AdminModuleUpdateDTO):
-        module = await self.get_module(module_id)
-
-        for key, value in dto.model_dump(exclude_unset=True).items():
-            setattr(module, key, value)
-
-        return await self.repo.save(module)
-
-    async def list_modules(self, course_id: str | None = None):
-        return await self.repo.list(course_id)
+        self.create = CreateModuleCommand(repo)
+        self.update = UpdateModuleCommand(repo)
+        self.delete = DeleteModuleCommand(repo)
+        self.get = GetModuleQuery(repo)
+        self.list = ListModulesQuery(repo)
