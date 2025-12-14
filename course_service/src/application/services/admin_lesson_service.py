@@ -1,34 +1,15 @@
-from fastapi import HTTPException
-
-from src.domain.dto.admin_lesson_dto import AdminLessonCreateDTO, AdminLessonUpdateDTO
+from src.application.commands.admin_lesson.create_lesson import CreateLessonCommand
+from src.application.commands.admin_lesson.update_lesson import UpdateLessonCommand
+from src.application.commands.admin_lesson.delete_lesson import DeleteLessonCommand
+from src.application.queries.admin_lesson.get_lesson import GetLessonQuery
+from src.application.queries.admin_lesson.list_lessons import ListLessonsQuery
 from src.domain.repositories.admin_lesson_repository import IAdminLessonRepository
 
 
 class AdminLessonService:
     def __init__(self, repo: IAdminLessonRepository):
-        self.repo = repo
-
-    async def create_lesson(self, dto: AdminLessonCreateDTO):
-        return await self.repo.create(dto)
-
-    async def get_lesson(self, lesson_id: str):
-        lesson = await self.repo.get(lesson_id)
-        if not lesson:
-            raise HTTPException(404, "Lesson not found")
-        return lesson
-
-    async def delete_lesson(self, lesson_id: str):
-        lesson = await self.get_lesson(lesson_id)
-        await self.repo.delete(lesson)
-        return True
-
-    async def update_lesson(self, lesson_id: str, dto: AdminLessonUpdateDTO):
-        lesson = await self.get_lesson(lesson_id)
-
-        for key, value in dto.model_dump(exclude_unset=True).items():
-            setattr(lesson, key, value)
-
-        return await self.repo.save(lesson)
-
-    async def list_lessons(self, module_id: str | None = None):
-        return await self.repo.list(module_id)
+        self.create = CreateLessonCommand(repo)
+        self.update = UpdateLessonCommand(repo)
+        self.delete = DeleteLessonCommand(repo)
+        self.get = GetLessonQuery(repo)
+        self.list = ListLessonsQuery(repo)
