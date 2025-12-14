@@ -7,9 +7,9 @@ from src.domain.entities.course_entity import CourseEntity
 class ICourseRepository(ABC):
 
     @abstractmethod
-    async def create_course(self, dto: CourseCreateDTO) -> CourseEntity:
+    async def get_course_by_id(self, course_id: str) -> CourseEntity:
         pass
 
     @abstractmethod
-    async def get_course_by_id(self, course_id: str) -> CourseEntity:
+    async def list_courses(self, limit: int,  offset: int) -> list[CourseEntity]:
         pass

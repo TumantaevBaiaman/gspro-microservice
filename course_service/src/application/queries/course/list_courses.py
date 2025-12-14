@@ -1,4 +1,4 @@
-from src.domain.repositories import ICourseRepository
+from src.domain.repositories.course_repository import ICourseRepository
 
 
 class ListCoursesQuery:
@@ -6,7 +6,8 @@ class ListCoursesQuery:
         self.repo = repo
 
     async def execute(self, limit: int, offset: int):
-        return await self.repo.list_courses(
+        items, total = await self.repo.list_courses(
             limit=limit,
             offset=offset
         )
+        return items, total

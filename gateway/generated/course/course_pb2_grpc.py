@@ -34,28 +34,28 @@ class CourseServiceStub(object):
         Args:
             channel: A grpc.Channel.
         """
-        self.CreateCourse = channel.unary_unary(
-                '/course.CourseService/CreateCourse',
-                request_serializer=course_dot_course__pb2.CreateCourseRequest.SerializeToString,
-                response_deserializer=course_dot_course__pb2.CreateCourseResponse.FromString,
-                _registered_method=True)
         self.GetCourse = channel.unary_unary(
                 '/course.CourseService/GetCourse',
                 request_serializer=course_dot_course__pb2.GetCourseRequest.SerializeToString,
                 response_deserializer=course_dot_course__pb2.GetCourseResponse.FromString,
+                _registered_method=True)
+        self.ListCourses = channel.unary_unary(
+                '/course.CourseService/ListCourses',
+                request_serializer=course_dot_course__pb2.ListCoursesRequest.SerializeToString,
+                response_deserializer=course_dot_course__pb2.ListCoursesResponse.FromString,
                 _registered_method=True)
 
 
 class CourseServiceServicer(object):
     """Missing associated documentation comment in .proto file."""
 
-    def CreateCourse(self, request, context):
+    def GetCourse(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def GetCourse(self, request, context):
+    def ListCourses(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -64,15 +64,15 @@ class CourseServiceServicer(object):
 
 def add_CourseServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
-            'CreateCourse': grpc.unary_unary_rpc_method_handler(
-                    servicer.CreateCourse,
-                    request_deserializer=course_dot_course__pb2.CreateCourseRequest.FromString,
-                    response_serializer=course_dot_course__pb2.CreateCourseResponse.SerializeToString,
-            ),
             'GetCourse': grpc.unary_unary_rpc_method_handler(
                     servicer.GetCourse,
                     request_deserializer=course_dot_course__pb2.GetCourseRequest.FromString,
                     response_serializer=course_dot_course__pb2.GetCourseResponse.SerializeToString,
+            ),
+            'ListCourses': grpc.unary_unary_rpc_method_handler(
+                    servicer.ListCourses,
+                    request_deserializer=course_dot_course__pb2.ListCoursesRequest.FromString,
+                    response_serializer=course_dot_course__pb2.ListCoursesResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -84,33 +84,6 @@ def add_CourseServiceServicer_to_server(servicer, server):
  # This class is part of an EXPERIMENTAL API.
 class CourseService(object):
     """Missing associated documentation comment in .proto file."""
-
-    @staticmethod
-    def CreateCourse(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
-        return grpc.experimental.unary_unary(
-            request,
-            target,
-            '/course.CourseService/CreateCourse',
-            course_dot_course__pb2.CreateCourseRequest.SerializeToString,
-            course_dot_course__pb2.CreateCourseResponse.FromString,
-            options,
-            channel_credentials,
-            insecure,
-            call_credentials,
-            compression,
-            wait_for_ready,
-            timeout,
-            metadata,
-            _registered_method=True)
 
     @staticmethod
     def GetCourse(request,
@@ -129,6 +102,33 @@ class CourseService(object):
             '/course.CourseService/GetCourse',
             course_dot_course__pb2.GetCourseRequest.SerializeToString,
             course_dot_course__pb2.GetCourseResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def ListCourses(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/course.CourseService/ListCourses',
+            course_dot_course__pb2.ListCoursesRequest.SerializeToString,
+            course_dot_course__pb2.ListCoursesResponse.FromString,
             options,
             channel_credentials,
             insecure,

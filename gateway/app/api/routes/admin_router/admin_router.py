@@ -6,7 +6,7 @@ from .module_router import admin_module_router
 from .lesson_router import admin_lesson_router
 
 
-router = APIRouter(prefix="/admin_router")
+router = APIRouter(prefix="/admin")
 
 router.include_router(admin_category_router)
 router.include_router(admin_course_router)

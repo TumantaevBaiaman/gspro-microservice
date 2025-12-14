@@ -1,30 +1,49 @@
 import grpc
 from fastapi import HTTPException
+from google.protobuf.json_format import MessageToDict
 
-from generated.course import course_pb2, course_pb2_grpc
+
+from generated.course import course_pb2 as pb2
+from generated.course import course_pb2_grpc as pb2_grpc
 
 
 class CourseClient:
     def __init__(self):
         self.channel = grpc.insecure_channel("course_service:50052")
-        self.stub = course_pb2_grpc.CourseServiceStub(self.channel)
+        self.stub = pb2_grpc.CourseServiceStub(self.channel)
 
-    def create_course(self, data):
-        request = course_pb2.CreateCourseRequest(
-            title=data.title,
-            description=data.description,
-        )
+    def get_course(self, course_id: str):
         try:
-            response = self.stub.CreateCourse(request)
-            return response
+            res = self.stub.GetCourse(pb2.GetCourseRequest(id=course_id))
+            return MessageToDict(res)
         except grpc.RpcError as e:
-            status = e.code()
-            message = e.details()
+            self._err(e)
 
-            if status == grpc.StatusCode.ALREADY_EXISTS:
-                raise HTTPException(status_code=409, detail=message)
+    def list_courses(self, limit: int = 10, offset: int = 0):
+        try:
+            res = self.stub.ListCourses(
+                pb2.ListCoursesRequest(
+                    limit=limit,
+                    offset=offset
+                )
+            )
+            return {
+                "items": [MessageToDict(item) for item in res.items],
+                "total": res.total
+            }
+        except grpc.RpcError as e:
+            self._err(e)
 
-            raise HTTPException(status_code=400, detail=message)
+    @staticmethod
+    def _err(e: grpc.RpcError):
+        code = e.code()
+        msg = e.details()
+
+        if code == grpc.StatusCode.NOT_FOUND:
+            raise HTTPException(404, msg)
+        if code == grpc.StatusCode.ALREADY_EXISTS:
+            raise HTTPException(409, msg)
+        raise HTTPException(400, msg)
 
 
 course_client = CourseClient()

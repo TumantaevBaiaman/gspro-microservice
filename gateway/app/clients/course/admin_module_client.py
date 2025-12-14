@@ -18,7 +18,6 @@ class AdminModuleClient:
         except grpc.RpcError as e:
             self._err(e)
 
-    # GET
     def get_module(self, module_id):
         try:
             res = self.stub.AdminGetModule(pb2.AdminGetModuleRequest(id=module_id))

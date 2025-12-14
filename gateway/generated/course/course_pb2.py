@@ -24,21 +24,23 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x13\x63ourse/course.proto\x12\x06\x63ourse\"9\n\x13\x43reateCourseRequest\x12\r\n\x05title\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\"\"\n\x14\x43reateCourseResponse\x12\n\n\x02id\x18\x01 \x01(\t\"\x1e\n\x10GetCourseRequest\x12\n\n\x02id\x18\x01 \x01(\t\"C\n\x11GetCourseResponse\x12\n\n\x02id\x18\x01 \x01(\t\x12\r\n\x05title\x18\x02 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x03 \x01(\t2\x9c\x01\n\rCourseService\x12I\n\x0c\x43reateCourse\x12\x1b.course.CreateCourseRequest\x1a\x1c.course.CreateCourseResponse\x12@\n\tGetCourse\x12\x18.course.GetCourseRequest\x1a\x19.course.GetCourseResponseb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x13\x63ourse/course.proto\x12\x06\x63ourse\"\x1e\n\x10GetCourseRequest\x12\n\n\x02id\x18\x01 \x01(\t\"\x80\x01\n\x11GetCourseResponse\x12\n\n\x02id\x18\x01 \x01(\t\x12\r\n\x05title\x18\x02 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x03 \x01(\t\x12\x13\n\x0bpreview_url\x18\x04 \x01(\t\x12\x11\n\tmentor_id\x18\x05 \x01(\t\x12\x13\n\x0b\x63\x61tegory_id\x18\x06 \x01(\t\"3\n\x12ListCoursesRequest\x12\r\n\x05limit\x18\x01 \x01(\x05\x12\x0e\n\x06offset\x18\x02 \x01(\x05\"u\n\x06\x43ourse\x12\n\n\x02id\x18\x01 \x01(\t\x12\r\n\x05title\x18\x02 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x03 \x01(\t\x12\x13\n\x0bpreview_url\x18\x04 \x01(\t\x12\x11\n\tmentor_id\x18\x05 \x01(\t\x12\x13\n\x0b\x63\x61tegory_id\x18\x06 \x01(\t\"C\n\x13ListCoursesResponse\x12\x1d\n\x05items\x18\x01 \x03(\x0b\x32\x0e.course.Course\x12\r\n\x05total\x18\x02 \x01(\x05\x32\x99\x01\n\rCourseService\x12@\n\tGetCourse\x12\x18.course.GetCourseRequest\x1a\x19.course.GetCourseResponse\x12\x46\n\x0bListCourses\x12\x1a.course.ListCoursesRequest\x1a\x1b.course.ListCoursesResponseb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'course.course_pb2', _globals)
 if not _descriptor._USE_C_DESCRIPTORS:
   DESCRIPTOR._loaded_options = None
-  _globals['_CREATECOURSEREQUEST']._serialized_start=31
-  _globals['_CREATECOURSEREQUEST']._serialized_end=88
-  _globals['_CREATECOURSERESPONSE']._serialized_start=90
-  _globals['_CREATECOURSERESPONSE']._serialized_end=124
-  _globals['_GETCOURSEREQUEST']._serialized_start=126
-  _globals['_GETCOURSEREQUEST']._serialized_end=156
-  _globals['_GETCOURSERESPONSE']._serialized_start=158
-  _globals['_GETCOURSERESPONSE']._serialized_end=225
-  _globals['_COURSESERVICE']._serialized_start=228
-  _globals['_COURSESERVICE']._serialized_end=384
+  _globals['_GETCOURSEREQUEST']._serialized_start=31
+  _globals['_GETCOURSEREQUEST']._serialized_end=61
+  _globals['_GETCOURSERESPONSE']._serialized_start=64
+  _globals['_GETCOURSERESPONSE']._serialized_end=192
+  _globals['_LISTCOURSESREQUEST']._serialized_start=194
+  _globals['_LISTCOURSESREQUEST']._serialized_end=245
+  _globals['_COURSE']._serialized_start=247
+  _globals['_COURSE']._serialized_end=364
+  _globals['_LISTCOURSESRESPONSE']._serialized_start=366
+  _globals['_LISTCOURSESRESPONSE']._serialized_end=433
+  _globals['_COURSESERVICE']._serialized_start=436
+  _globals['_COURSESERVICE']._serialized_end=589
 # @@protoc_insertion_point(module_scope)
