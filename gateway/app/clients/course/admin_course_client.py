@@ -25,7 +25,6 @@ class AdminCourseClient:
         except grpc.RpcError as e:
             self._err(e)
 
-    # UPDATE
     def update_course(self, course_id, dto):
         req = pb2.AdminUpdateCourseRequest(id=course_id, **dto.model_dump(exclude_unset=True))
         try:

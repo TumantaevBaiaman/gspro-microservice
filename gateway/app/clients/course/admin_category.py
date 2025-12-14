@@ -41,7 +41,6 @@ class AdminCategoryClient:
         try:
             return self.stub.AdminDeleteCategory(request)
         except grpc.RpcError as e:
-            print(e)
             self._handle_error(e)
 
     @staticmethod
