@@ -24,7 +24,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0fuser/user.proto\x12\x04user\"7\n\x14RegisterEmailRequest\x12\r\n\x05\x65mail\x18\x01 \x01(\t\x12\x10\n\x08password\x18\x02 \x01(\t\"U\n\x15RegisterEmailResponse\x12\x0f\n\x07user_id\x18\x01 \x01(\t\x12\x14\n\x0c\x61\x63\x63\x65ss_token\x18\x02 \x01(\t\x12\x15\n\rrefresh_token\x18\x03 \x01(\t\"4\n\x11LoginEmailRequest\x12\r\n\x05\x65mail\x18\x01 \x01(\t\x12\x10\n\x08password\x18\x02 \x01(\t\"R\n\x12LoginEmailResponse\x12\x0f\n\x07user_id\x18\x01 \x01(\t\x12\x14\n\x0c\x61\x63\x63\x65ss_token\x18\x02 \x01(\t\x12\x15\n\rrefresh_token\x18\x03 \x01(\t\",\n\x13RefreshTokenRequest\x12\x15\n\rrefresh_token\x18\x01 \x01(\t\"C\n\x14RefreshTokenResponse\x12\x14\n\x0c\x61\x63\x63\x65ss_token\x18\x01 \x01(\t\x12\x15\n\rrefresh_token\x18\x02 \x01(\t2\xdf\x01\n\x0bUserService\x12H\n\rRegisterEmail\x12\x1a.user.RegisterEmailRequest\x1a\x1b.user.RegisterEmailResponse\x12?\n\nLoginEmail\x12\x17.user.LoginEmailRequest\x1a\x18.user.LoginEmailResponse\x12\x45\n\x0cRefreshToken\x12\x19.user.RefreshTokenRequest\x1a\x1a.user.RefreshTokenResponseb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0fuser/user.proto\x12\x04user\"M\n\x14RegisterEmailRequest\x12\r\n\x05\x65mail\x18\x01 \x01(\t\x12\x10\n\x08password\x18\x02 \x01(\t\x12\x14\n\x0cphone_number\x18\x03 \x01(\t\"U\n\x15RegisterEmailResponse\x12\x0f\n\x07user_id\x18\x01 \x01(\t\x12\x14\n\x0c\x61\x63\x63\x65ss_token\x18\x02 \x01(\t\x12\x15\n\rrefresh_token\x18\x03 \x01(\t\"4\n\x11LoginEmailRequest\x12\r\n\x05\x65mail\x18\x01 \x01(\t\x12\x10\n\x08password\x18\x02 \x01(\t\"R\n\x12LoginEmailResponse\x12\x0f\n\x07user_id\x18\x01 \x01(\t\x12\x14\n\x0c\x61\x63\x63\x65ss_token\x18\x02 \x01(\t\x12\x15\n\rrefresh_token\x18\x03 \x01(\t\",\n\x13RefreshTokenRequest\x12\x15\n\rrefresh_token\x18\x01 \x01(\t\"C\n\x14RefreshTokenResponse\x12\x14\n\x0c\x61\x63\x63\x65ss_token\x18\x01 \x01(\t\x12\x15\n\rrefresh_token\x18\x02 \x01(\t\"\"\n\x11\x41uthGoogleRequest\x12\r\n\x05token\x18\x01 \x01(\t\"R\n\x12\x41uthGoogleResponse\x12\x0f\n\x07user_id\x18\x01 \x01(\t\x12\x14\n\x0c\x61\x63\x63\x65ss_token\x18\x02 \x01(\t\x12\x15\n\rrefresh_token\x18\x03 \x01(\t2\xdf\x01\n\x0bUserService\x12H\n\rRegisterEmail\x12\x1a.user.RegisterEmailRequest\x1a\x1b.user.RegisterEmailResponse\x12?\n\nLoginEmail\x12\x17.user.LoginEmailRequest\x1a\x18.user.LoginEmailResponse\x12\x45\n\x0cRefreshToken\x12\x19.user.RefreshTokenRequest\x1a\x1a.user.RefreshTokenResponseb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -32,17 +32,21 @@ _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'user.user_pb2', _globals)
 if not _descriptor._USE_C_DESCRIPTORS:
   DESCRIPTOR._loaded_options = None
   _globals['_REGISTEREMAILREQUEST']._serialized_start=25
-  _globals['_REGISTEREMAILREQUEST']._serialized_end=80
-  _globals['_REGISTEREMAILRESPONSE']._serialized_start=82
-  _globals['_REGISTEREMAILRESPONSE']._serialized_end=167
-  _globals['_LOGINEMAILREQUEST']._serialized_start=169
-  _globals['_LOGINEMAILREQUEST']._serialized_end=221
-  _globals['_LOGINEMAILRESPONSE']._serialized_start=223
-  _globals['_LOGINEMAILRESPONSE']._serialized_end=305
-  _globals['_REFRESHTOKENREQUEST']._serialized_start=307
-  _globals['_REFRESHTOKENREQUEST']._serialized_end=351
-  _globals['_REFRESHTOKENRESPONSE']._serialized_start=353
-  _globals['_REFRESHTOKENRESPONSE']._serialized_end=420
-  _globals['_USERSERVICE']._serialized_start=423
-  _globals['_USERSERVICE']._serialized_end=646
+  _globals['_REGISTEREMAILREQUEST']._serialized_end=102
+  _globals['_REGISTEREMAILRESPONSE']._serialized_start=104
+  _globals['_REGISTEREMAILRESPONSE']._serialized_end=189
+  _globals['_LOGINEMAILREQUEST']._serialized_start=191
+  _globals['_LOGINEMAILREQUEST']._serialized_end=243
+  _globals['_LOGINEMAILRESPONSE']._serialized_start=245
+  _globals['_LOGINEMAILRESPONSE']._serialized_end=327
+  _globals['_REFRESHTOKENREQUEST']._serialized_start=329
+  _globals['_REFRESHTOKENREQUEST']._serialized_end=373
+  _globals['_REFRESHTOKENRESPONSE']._serialized_start=375
+  _globals['_REFRESHTOKENRESPONSE']._serialized_end=442
+  _globals['_AUTHGOOGLEREQUEST']._serialized_start=444
+  _globals['_AUTHGOOGLEREQUEST']._serialized_end=478
+  _globals['_AUTHGOOGLERESPONSE']._serialized_start=480
+  _globals['_AUTHGOOGLERESPONSE']._serialized_end=562
+  _globals['_USERSERVICE']._serialized_start=565
+  _globals['_USERSERVICE']._serialized_end=788
 # @@protoc_insertion_point(module_scope)

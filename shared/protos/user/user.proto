@@ -11,6 +11,7 @@ service UserService {
 message RegisterEmailRequest {
     string email = 1;
     string password = 2;
+    string phone_number = 3;
 }
 
 message RegisterEmailResponse {
@@ -37,5 +38,15 @@ message RefreshTokenRequest {
 message RefreshTokenResponse {
     string access_token = 1;
     string refresh_token = 2;
+}
+
+message AuthGoogleRequest {
+    string token = 1;
+}
+
+message AuthGoogleResponse {
+    string user_id = 1;
+    string access_token = 2;
+    string refresh_token = 3;
 }
 

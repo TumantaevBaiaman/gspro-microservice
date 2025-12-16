@@ -13,6 +13,7 @@ class UserClient:
         request = user_pb2.RegisterEmailRequest(
             email=data.email,
             password=data.password,
+            phone_number=data.phone_number,
         )
         try:
             response = await self.stub.RegisterEmail(request)

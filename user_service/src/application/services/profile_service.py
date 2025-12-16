@@ -20,6 +20,7 @@ class ProfileService:
 
         return GetProfileResponseDTO(
             full_name=profile.full_name,
+            phone_number=profile.phone_number,
             bio=profile.bio,
             industry=profile.industry,
             city=profile.city,

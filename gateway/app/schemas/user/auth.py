@@ -4,6 +4,7 @@ from pydantic import BaseModel, EmailStr
 class RegisterEmailRequestSchema(BaseModel):
     email: EmailStr
     password: str
+    phone_number: str
 
 
 class RegisterEmailResponseSchema(BaseModel):

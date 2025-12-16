@@ -24,6 +24,7 @@ class ProfileHandler(pb2_grpc.UserProfileServiceServicer):
 
             return pb2.GetUserProfileResponse(
                 full_name=profile_dto.full_name or "",
+                phone_number=profile_dto.phone_number or "",
                 bio=profile_dto.bio or "",
                 city=profile_dto.city or "",
                 industry=profile_dto.industry or "",
