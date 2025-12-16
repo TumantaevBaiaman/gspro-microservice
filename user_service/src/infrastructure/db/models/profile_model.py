@@ -16,6 +16,7 @@ class UserProfileModel(Base):
         nullable=False,
         unique=True
     )
+    phone_number = Column(String(20), nullable=True)
 
     full_name = Column(String(255), nullable=True)
     bio = Column(String, nullable=True)

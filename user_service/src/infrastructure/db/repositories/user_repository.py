@@ -45,7 +45,7 @@ class UserRepository(IUserRepository):
         result = await self.session.execute(stmt)
         return result.scalar_one_or_none()
 
-    async def create_user_profile(self, user_id: UUID):
-        profile = UserProfileModel(user_id=user_id)
+    async def create_user_profile(self, user_id: UUID, phone_number: str):
+        profile = UserProfileModel(user_id=user_id, phone_number=phone_number)
         self.session.add(profile)
         return profile

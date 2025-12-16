@@ -4,6 +4,7 @@ from pydantic import BaseModel, EmailStr, field_validator
 class RegisterEmailRequestDTO(BaseModel):
     email: EmailStr
     password: str
+    phone_number: str
 
     @field_validator('password')
     def validate_password(cls, v):

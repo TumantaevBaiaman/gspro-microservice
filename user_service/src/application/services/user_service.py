@@ -30,7 +30,7 @@ class UserService:
             dto.email,
             hash_password(dto.password)
         )
-        await self.user_repo.create_user_profile(user.id)
+        await self.user_repo.create_user_profile(user.id, dto.phone_number)
 
         await self.user_repo.session.commit()
 

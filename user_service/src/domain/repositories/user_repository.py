@@ -22,7 +22,7 @@ class IUserRepository(ABC):
         pass
 
     @abstractmethod
-    async def create_user_profile(self, user_id: int):
+    async def create_user_profile(self, user_id: int, phone_number: str):
         pass
 
 
