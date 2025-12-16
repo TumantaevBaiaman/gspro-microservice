@@ -36,5 +36,3 @@ class UserProfileModel(Base):
         nullable=True,
         default=ExperienceLevel.beginner
     )
-
-    updated_at = Column(DateTime(timezone=True), default=datetime.datetime.utcnow, onupdate=datetime.datetime.utcnow)

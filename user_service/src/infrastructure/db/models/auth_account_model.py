@@ -37,10 +37,3 @@ class AuthAccountModel(Base):
         String,
         nullable=True,
     )
-
-    updated_at = Column(
-        DateTime(timezone=True),
-        default=datetime.datetime.utcnow,
-        onupdate=datetime.datetime.utcnow,
-        nullable=False
-    )
