@@ -41,6 +41,16 @@ class UserClient:
                 raise HTTPException(401, e.details())
             raise HTTPException(500, "Internal error")
 
+    async def auth_google(self, data):
+        request = user_pb2.AuthGoogleRequest(token=data.token)
+        try:
+            response = await self.stub.AuthGoogle(request)
+            return response
+        except grpc.RpcError as e:
+            if e.code() == grpc.StatusCode.UNAUTHENTICATED:
+                raise HTTPException(status_code=401, detail=e.details())
+            raise HTTPException(status_code=500, detail="Internal error")
+
     async def refresh_tokens(self, data):
         request = user_pb2.RefreshTokenRequest(
             refresh_token=data.refresh_token

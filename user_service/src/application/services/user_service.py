@@ -1,3 +1,4 @@
+from src.application.commands.user.auth_google import AuthGoogleCommand
 from src.core.security.auth_jwt import create_access_token, create_refresh_token, verify_refresh_token
 from src.domain.dto.auth_dto import (
     RegisterEmailRequestDTO,
@@ -9,6 +10,7 @@ from src.domain.dto.auth_dto import (
 )
 from src.core.security.password import hash_password
 from src.domain.entities.user import User
+from src.infrastructure.oauth.google_oauth_client import GoogleOAuthClient
 from src.services.registration_service import verify_password
 
 
@@ -16,15 +18,17 @@ class UserService:
 
     def __init__(self, user_repo):
         self.user_repo = user_repo
+        self.auth_google = AuthGoogleCommand(user_repo, GoogleOAuthClient())
 
     async def register_by_email(self, dto: RegisterEmailRequestDTO):
         acc = await self.user_repo.get_auth_account_by_email(dto.email)
         if acc:
             raise ValueError("User already exists")
 
-        user = User.create()
+        user = User.create(dto.email)
 
         await self.user_repo.create_user(user)
+        await self.user_repo.session.flush()
         await self.user_repo.create_auth_account(
             user.id,
             dto.email,

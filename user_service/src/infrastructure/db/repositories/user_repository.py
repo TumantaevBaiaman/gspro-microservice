@@ -3,6 +3,7 @@ from uuid import UUID
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from src.domain.entities.user import User
 from src.domain.repositories.user_repository import IUserRepository
 from src.infrastructure.db.models import UserProfileModel
 from src.infrastructure.db.models.user_model import UserModel
@@ -15,11 +16,14 @@ class UserRepository(IUserRepository):
     def __init__(self, session: AsyncSession):
         self.session = session
 
-    async def create_user(self, user):
-        model = UserModel(id=user.id)
+    async def create_user(self, user: User) -> None:
+        model = UserModel(
+            id=user.id,
+            email=user.email,
+            is_active=user.is_active,
+        )
         self.session.add(model)
-        await self.session.commit()
-        return user
+
 
     async def create_auth_account(self, user_id, email, password_hash):
         model = AuthAccountModel(
@@ -49,3 +53,18 @@ class UserRepository(IUserRepository):
         profile = UserProfileModel(user_id=user_id, phone_number=phone_number)
         self.session.add(profile)
         return profile
+
+    async def create_user_profile_google(self, user_id: UUID):
+        profile = UserProfileModel(user_id=user_id)
+        self.session.add(profile)
+        return profile
+
+    async def create_auth_account_google(self, user_id, email):
+        model = AuthAccountModel(
+            user_id=user_id,
+            provider="google",
+            identifier=email,
+            verified=False,
+        )
+        self.session.add(model)
+        await self.session.commit()

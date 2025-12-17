@@ -37,3 +37,13 @@ class RefreshTokensRequestDTO(BaseModel):
 class RefreshTokensResponseDTO(BaseModel):
     access_token: str
     refresh_token: str
+
+
+class AuthGoogleRequestDTO(BaseModel):
+    token: str
+
+
+class AuthGoogleResponseDTO(BaseModel):
+    user_id: str
+    access_token: str
+    refresh_token: str

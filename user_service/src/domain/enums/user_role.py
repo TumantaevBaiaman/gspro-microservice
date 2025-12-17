@@ -2,7 +2,7 @@ from enum import Enum
 
 
 class UserRole(str, Enum):
-    USER = "user"
-    ADMIN = "admin"
-    MODERATOR = "moderator"
-    MENTOR = "mentor"
+    user = "user"
+    admin = "admin"
+    moderator = "moderator"
+    mentor = "mentor"

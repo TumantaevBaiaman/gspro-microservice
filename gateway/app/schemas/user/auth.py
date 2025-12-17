@@ -33,3 +33,11 @@ class RefreshTokensResponseSchema(BaseModel):
     refresh_token: str
 
 
+class AuthGoogleRequestSchema(BaseModel):
+    token: str
+
+
+class AuthGoogleResponseSchema(BaseModel):
+    user_id: str
+    access_token: str
+    refresh_token: str

@@ -1,16 +1,22 @@
+import datetime
+
 from dataclasses import dataclass
 from uuid import UUID, uuid4
-from datetime import datetime
 
 
-@dataclass
+@dataclass(frozen=True)
 class User:
     id: UUID
-    created_at: datetime
+    email: str
+    is_active: bool
 
     @staticmethod
-    def create():
+    def create(email: str) -> "User":
+        if not email:
+            raise ValueError("Email is required")
+
         return User(
             id=uuid4(),
-            created_at=datetime.utcnow(),
+            email=email,
+            is_active=True,
         )

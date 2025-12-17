@@ -6,6 +6,7 @@ service UserService {
     rpc RegisterEmail(RegisterEmailRequest) returns (RegisterEmailResponse);
     rpc LoginEmail(LoginEmailRequest) returns (LoginEmailResponse);
     rpc RefreshToken(RefreshTokenRequest) returns (RefreshTokenResponse);
+    rpc AuthGoogle(AuthGoogleRequest) returns (AuthGoogleResponse);
 }
 
 message RegisterEmailRequest {

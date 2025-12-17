@@ -66,4 +66,23 @@ class UserHandler(pb2_grpc.UserServiceServicer):
                 refresh_token=str(res.refresh_token)
             )
 
+    async def AuthGoogle(self, request, context):
+        async with async_session_maker() as session:
+            repo = UserRepository(session)
+            service = UserService(repo)
+
+            try:
+                res = await service.auth_google.execute(request)
+            except ValueError as e:
+                await context.abort(
+                    grpc.StatusCode.INVALID_ARGUMENT,
+                    str(e)
+                )
+
+            return pb2.AuthGoogleResponse(
+                user_id=str(res.user_id),
+                access_token=str(res.access_token),
+                refresh_token=str(res.refresh_token)
+            )
+
 

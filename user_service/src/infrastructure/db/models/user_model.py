@@ -18,6 +18,6 @@ class UserModel(Base):
     role = Column(
         Enum(UserRole, name="user_role_enum"),
         nullable=False,
-        server_default=UserRole.USER.value,
+        server_default=UserRole.user.value,
     )
 
