@@ -39,7 +39,7 @@ class ProfileHandler(pb2_grpc.UserProfileServiceServicer):
             try:
                 profile = await container.profile_service.update_profile.execute(
                     user_id=request.user_id,
-                    data={
+                    update_data={
                         "full_name": request.full_name,
                         "bio": request.bio,
                         "city": request.city,
