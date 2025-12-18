@@ -3,58 +3,62 @@ import grpc
 import generated.user.profile_pb2 as pb2
 import generated.user.profile_pb2_grpc as pb2_grpc
 
-from src.application.services import ProfileService
 from src.infrastructure.db.session import async_session_maker
-from src.infrastructure.db.repositories.profile_repository import ProfileRepository
+from src.presentation.grpc.container import Container
+from src.domain.exceptions.profile import ProfileNotFoundError
 
 
 class ProfileHandler(pb2_grpc.UserProfileServiceServicer):
 
     async def GetUserProfile(self, request, context):
         async with async_session_maker() as session:
-            repo = ProfileRepository(session)
-            service = ProfileService(repo)
+            container = Container(session)
 
-            profile_dto = await service.get_profile_by_user_id(request)
-            if profile_dto is None:
+            try:
+                profile = await container.profile_service.get_profile_by_user_id.execute(
+                    request
+                )
+            except ProfileNotFoundError as e:
                 await context.abort(
                     grpc.StatusCode.NOT_FOUND,
-                    "Profile not found"
                 )
 
             return pb2.GetUserProfileResponse(
-                full_name=profile_dto.full_name or "",
-                phone_number=profile_dto.phone_number or "",
-                bio=profile_dto.bio or "",
-                city=profile_dto.city or "",
-                industry=profile_dto.industry or "",
-                experience_level=profile_dto.experience_level or ""
+                full_name=profile.full_name or "",
+                phone_number=profile.phone_number or "",
+                bio=profile.bio or "",
+                city=profile.city or "",
+                industry=profile.industry or "",
+                experience_level=profile.experience_level or "",
             )
 
     async def UpdateUserProfile(self, request, context):
         async with async_session_maker() as session:
-            repo = ProfileRepository(session)
-            service = ProfileService(repo)
+            container = Container(session)
 
-            update_data = {
-                "full_name": request.full_name,
-                "bio": request.bio,
-                "city": request.city,
-                "industry": request.industry,
-                "experience_level": request.experience_level
-            }
-
-            profile_dto = await service.update_profile(request.user_id, update_data)
-            if profile_dto is None:
+            try:
+                profile = await container.profile_service.update_profile.execute(
+                    user_id=request.user_id,
+                    data={
+                        "full_name": request.full_name,
+                        "bio": request.bio,
+                        "city": request.city,
+                        "industry": request.industry,
+                        "experience_level": request.experience_level,
+                    },
+                )
+                await container.uow.commit()
+            except ProfileNotFoundError as e:
+                await container.uow.rollback()
                 await context.abort(
                     grpc.StatusCode.NOT_FOUND,
-                    "Profile not found"
+                    str(e)
                 )
 
             return pb2.UpdateUserProfileResponse(
-                full_name=profile_dto.full_name or "",
-                bio=profile_dto.bio or "",
-                city=profile_dto.city or "",
-                industry=profile_dto.industry or "",
-                experience_level=profile_dto.experience_level or ""
+                full_name=profile.full_name or "",
+                bio=profile.bio or "",
+                city=profile.city or "",
+                industry=profile.industry or "",
+                experience_level=profile.experience_level or "",
             )

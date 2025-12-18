@@ -1,6 +1,6 @@
 from grpc import aio
 
-from src.container import build_services
+from src.presentation.grpc.container import build_services
 from src.core.config import settings
 from src.infrastructure.db.mongo.models import init_mongo
 from src.core.logging.logger import logger
