@@ -1,0 +1,2 @@
+class UserCategoryNotFoundError(Exception):
+    pass

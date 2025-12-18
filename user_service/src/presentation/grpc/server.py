@@ -1,10 +1,11 @@
 from grpc import aio
-from generated.user import user_pb2_grpc, profile_pb2_grpc
+from generated.user import user_pb2_grpc, profile_pb2_grpc, user_category_pb2_grpc
 
 from src.core.config import settings
 from src.core.logging import logger
 from src.presentation.grpc.handlers.user_handler import UserHandler
 from src.presentation.grpc.handlers.profile_handler import ProfileHandler
+from src.presentation.grpc.handlers.user_category_handler import UserCategoryHandler
 
 
 async def start_grpc_server():
@@ -15,6 +16,10 @@ async def start_grpc_server():
     )
     profile_pb2_grpc.add_UserProfileServiceServicer_to_server(
         ProfileHandler(),
+        server
+    )
+    user_category_pb2_grpc.add_UserCategoryServiceServicer_to_server(
+        UserCategoryHandler(),
         server
     )
 

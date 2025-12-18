@@ -1,0 +1,44 @@
+syntax = "proto3";
+
+package user_category;
+
+service UserCategoryService {
+    rpc AddUserCategory(AddUserCategoryRequest) returns (AddUserCategoryResponse);
+    rpc RemoveUserCategory(RemoveUserCategoryRequest) returns (RemoveUserCategoryResponse);
+    rpc ListUserCategories(ListUserCategoriesRequest) returns (ListUserCategoriesResponse);
+}
+
+message AddUserCategoryRequest {
+    string user_id = 1;
+    repeated string categories = 2;
+}
+
+message AddUserCategoryResponse {
+    bool success = 1;
+}
+
+message RemoveUserCategoryRequest {
+    string user_id = 1;
+    string id = 2;
+}
+
+message RemoveUserCategoryResponse {
+    bool success = 1;
+}
+
+message ListUserCategoriesRequest {
+    string user_id = 1;
+    int32 limit = 2;
+    int32 offset = 3;
+}
+
+message UserCategoryItem {
+    string id = 1;
+    string user_id = 2;
+    string category_id = 3;
+}
+
+message ListUserCategoriesResponse {
+    repeated UserCategoryItem items = 1;
+    int32 total = 2;
+}
