@@ -13,3 +13,7 @@ class IProfileRepository(ABC):
     @abstractmethod
     async def update_profile(self, profile_id: UUID, data: dict) -> ProfileEntity:
         pass
+
+    @abstractmethod
+    async def list_profiles(self, limit: int, offset: int) -> tuple[list[ProfileEntity], int]:
+        pass

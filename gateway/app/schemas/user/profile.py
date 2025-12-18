@@ -26,3 +26,17 @@ class UpdateUserProfileResponseSchema(BaseModel):
     city: Optional[str] = None
     industry: Optional[str] = None
     experience_level: Optional[str] = None
+
+
+class UserProfileListItemSchema(BaseModel):
+    user_id: str
+    full_name: Optional[str] = None
+    phone_number: Optional[str] = None
+    city: Optional[str] = None
+    industry: Optional[str] = None
+    experience_level: Optional[str] = None
+
+
+class ListUserProfilesResponseSchema(BaseModel):
+    items: list[UserProfileListItemSchema]
+    total: int

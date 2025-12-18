@@ -1,6 +1,6 @@
 from uuid import UUID
 
-from sqlalchemy import select
+from sqlalchemy import select, func
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from src.domain.repositories.profile_repository import IProfileRepository
@@ -32,3 +32,25 @@ class ProfileRepository(IProfileRepository):
         await self.session.commit()
         await self.session.refresh(profile)
         return profile
+
+    async def list_profiles(
+            self,
+            limit: int,
+            offset: int,
+    ) -> tuple[list[UserProfileModel], int]:
+
+        stmt = (
+            select(UserProfileModel)
+            .limit(limit)
+            .offset(offset)
+        )
+
+        count_stmt = select(func.count()).select_from(UserProfileModel)
+
+        result = await self.session.execute(stmt)
+        profiles = result.scalars().all()
+
+        count_result = await self.session.execute(count_stmt)
+        total = count_result.scalar_one()
+
+        return profiles, total

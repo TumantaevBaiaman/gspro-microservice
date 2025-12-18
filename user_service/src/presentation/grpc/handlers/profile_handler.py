@@ -62,3 +62,26 @@ class ProfileHandler(pb2_grpc.UserProfileServiceServicer):
                 industry=profile.industry or "",
                 experience_level=profile.experience_level or "",
             )
+
+    async def ListUserProfiles(self, request, context):
+        async with async_session_maker() as session:
+            container = Container(session)
+
+            response_dto = await container.profile_service.list_profiles.execute(request)
+
+            items = [
+                pb2.UserProfileItem(
+                    user_id=item.user_id,
+                    full_name=item.full_name or "",
+                    phone_number=item.phone_number or "",
+                    city=item.city or "",
+                    industry=item.industry or "",
+                    experience_level=item.experience_level or "",
+                )
+                for item in response_dto.items
+            ]
+
+            return pb2.ListUserProfilesResponse(
+                items=items,
+                total=response_dto.total
+            )

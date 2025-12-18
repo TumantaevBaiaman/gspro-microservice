@@ -17,7 +17,6 @@ class ProfileClient:
             response = await self.stub.GetUserProfile(request)
             return response
         except grpc.RpcError as e:
-            print(e)
             if e.code() == grpc.StatusCode.NOT_FOUND:
                 raise HTTPException(status_code=404, detail=e.details())
             raise HTTPException(status_code=500, detail="Internal error")
@@ -38,6 +37,14 @@ class ProfileClient:
         except grpc.RpcError as e:
             if e.code() == grpc.StatusCode.NOT_FOUND:
                 raise HTTPException(status_code=404, detail=e.details())
+            raise HTTPException(status_code=500, detail="Internal error")
+
+    async def list_user_profiles(self, limit: int = 10, offset: int = 0):
+        request = profile_pb2.ListUserProfilesRequest(limit=limit, offset=offset)
+        try:
+            response = await self.stub.ListUserProfiles(request)
+            return response
+        except grpc.RpcError as e:
             raise HTTPException(status_code=500, detail="Internal error")
 
 
