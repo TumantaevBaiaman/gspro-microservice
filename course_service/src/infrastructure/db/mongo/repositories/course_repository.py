@@ -1,4 +1,3 @@
-from src.domain.dto.course_dto import CourseCreateDTO
 from src.domain.entities.course_entity import CourseEntity
 from src.domain.repositories.course_repository import ICourseRepository
 

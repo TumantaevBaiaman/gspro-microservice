@@ -6,6 +6,7 @@ from src.application.services import (
     AdminCourseService,
     AdminModuleService,
     AdminLessonService,
+    CategoryService
 )
 
 from src.infrastructure.db.mongo.repositories import (
@@ -14,6 +15,7 @@ from src.infrastructure.db.mongo.repositories import (
     AdminCourseRepository,
     AdminModuleRepository,
     AdminLessonRepository,
+    CategoryRepository,
 )
 
 
@@ -23,6 +25,7 @@ class Services(TypedDict):
     admin_course: AdminCourseService
     admin_module: AdminModuleService
     admin_lesson: AdminLessonService
+    category: CategoryService
 
 
 def build_repositories():
@@ -32,6 +35,7 @@ def build_repositories():
         "admin_course": AdminCourseRepository(),
         "admin_module": AdminModuleRepository(),
         "admin_lesson": AdminLessonRepository(),
+        "category": CategoryRepository(),
     }
 
 
@@ -44,4 +48,5 @@ def build_services() -> Services:
         "admin_course": AdminCourseService(repos["admin_course"]),
         "admin_module": AdminModuleService(repos["admin_module"]),
         "admin_lesson": AdminLessonService(repos["admin_lesson"]),
+        "category": CategoryService(repos["category"]),
     }

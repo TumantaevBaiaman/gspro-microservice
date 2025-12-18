@@ -3,6 +3,7 @@
 import grpc
 import warnings
 
+from generated.course import category_pb2 as course_dot_category__pb2
 
 GRPC_GENERATED_VERSION = '1.76.0'
 GRPC_VERSION = grpc.__version__
@@ -22,3 +23,118 @@ if _version_not_supported:
         + f' Please upgrade your grpc module to grpcio>={GRPC_GENERATED_VERSION}'
         + f' or downgrade your generated code using grpcio-tools<={GRPC_VERSION}.'
     )
+
+
+class CourseCategoryServiceStub(object):
+    """Missing associated documentation comment in .proto file."""
+
+    def __init__(self, channel):
+        """Constructor.
+
+        Args:
+            channel: A grpc.Channel.
+        """
+        self.GetCategory = channel.unary_unary(
+                '/course_category.CourseCategoryService/GetCategory',
+                request_serializer=course_dot_category__pb2.GetCategoryRequest.SerializeToString,
+                response_deserializer=course_dot_category__pb2.GetCategoryResponse.FromString,
+                _registered_method=True)
+        self.ListCategories = channel.unary_unary(
+                '/course_category.CourseCategoryService/ListCategories',
+                request_serializer=course_dot_category__pb2.ListCategoriesRequest.SerializeToString,
+                response_deserializer=course_dot_category__pb2.ListCategoriesResponse.FromString,
+                _registered_method=True)
+
+
+class CourseCategoryServiceServicer(object):
+    """Missing associated documentation comment in .proto file."""
+
+    def GetCategory(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def ListCategories(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+
+def add_CourseCategoryServiceServicer_to_server(servicer, server):
+    rpc_method_handlers = {
+            'GetCategory': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetCategory,
+                    request_deserializer=course_dot_category__pb2.GetCategoryRequest.FromString,
+                    response_serializer=course_dot_category__pb2.GetCategoryResponse.SerializeToString,
+            ),
+            'ListCategories': grpc.unary_unary_rpc_method_handler(
+                    servicer.ListCategories,
+                    request_deserializer=course_dot_category__pb2.ListCategoriesRequest.FromString,
+                    response_serializer=course_dot_category__pb2.ListCategoriesResponse.SerializeToString,
+            ),
+    }
+    generic_handler = grpc.method_handlers_generic_handler(
+            'course_category.CourseCategoryService', rpc_method_handlers)
+    server.add_generic_rpc_handlers((generic_handler,))
+    server.add_registered_method_handlers('course_category.CourseCategoryService', rpc_method_handlers)
+
+
+ # This class is part of an EXPERIMENTAL API.
+class CourseCategoryService(object):
+    """Missing associated documentation comment in .proto file."""
+
+    @staticmethod
+    def GetCategory(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/course_category.CourseCategoryService/GetCategory',
+            course_dot_category__pb2.GetCategoryRequest.SerializeToString,
+            course_dot_category__pb2.GetCategoryResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def ListCategories(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/course_category.CourseCategoryService/ListCategories',
+            course_dot_category__pb2.ListCategoriesRequest.SerializeToString,
+            course_dot_category__pb2.ListCategoriesResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)

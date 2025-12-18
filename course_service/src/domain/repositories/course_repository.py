@@ -1,6 +1,5 @@
 from abc import ABC, abstractmethod
 
-from src.domain.dto.course_dto import CourseCreateDTO
 from src.domain.entities.course_entity import CourseEntity
 
 

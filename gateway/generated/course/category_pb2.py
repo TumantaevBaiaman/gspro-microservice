@@ -24,11 +24,23 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x15\x63ourse/category.proto')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x15\x63ourse/category.proto\x12\x0f\x63ourse_category\" \n\x12GetCategoryRequest\x12\n\n\x02id\x18\x01 \x01(\t\"h\n\x13GetCategoryResponse\x12\n\n\x02id\x18\x01 \x01(\t\x12\r\n\x05title\x18\x02 \x01(\t\x12\x10\n\x08\x63odename\x18\x03 \x01(\t\x12\x16\n\tparent_id\x18\x04 \x01(\tH\x00\x88\x01\x01\x42\x0c\n\n_parent_id\"6\n\x15ListCategoriesRequest\x12\r\n\x05limit\x18\x01 \x01(\x05\x12\x0e\n\x06offset\x18\x02 \x01(\x05\"a\n\x0c\x43\x61tegoryItem\x12\n\n\x02id\x18\x01 \x01(\t\x12\r\n\x05title\x18\x02 \x01(\t\x12\x10\n\x08\x63odename\x18\x03 \x01(\t\x12\x16\n\tparent_id\x18\x04 \x01(\tH\x00\x88\x01\x01\x42\x0c\n\n_parent_id\"U\n\x16ListCategoriesResponse\x12,\n\x05items\x18\x01 \x03(\x0b\x32\x1d.course_category.CategoryItem\x12\r\n\x05total\x18\x02 \x01(\x05\x32\xd4\x01\n\x15\x43ourseCategoryService\x12X\n\x0bGetCategory\x12#.course_category.GetCategoryRequest\x1a$.course_category.GetCategoryResponse\x12\x61\n\x0eListCategories\x12&.course_category.ListCategoriesRequest\x1a\'.course_category.ListCategoriesResponseb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'course.category_pb2', _globals)
 if not _descriptor._USE_C_DESCRIPTORS:
   DESCRIPTOR._loaded_options = None
+  _globals['_GETCATEGORYREQUEST']._serialized_start=42
+  _globals['_GETCATEGORYREQUEST']._serialized_end=74
+  _globals['_GETCATEGORYRESPONSE']._serialized_start=76
+  _globals['_GETCATEGORYRESPONSE']._serialized_end=180
+  _globals['_LISTCATEGORIESREQUEST']._serialized_start=182
+  _globals['_LISTCATEGORIESREQUEST']._serialized_end=236
+  _globals['_CATEGORYITEM']._serialized_start=238
+  _globals['_CATEGORYITEM']._serialized_end=335
+  _globals['_LISTCATEGORIESRESPONSE']._serialized_start=337
+  _globals['_LISTCATEGORIESRESPONSE']._serialized_end=422
+  _globals['_COURSECATEGORYSERVICE']._serialized_start=425
+  _globals['_COURSECATEGORYSERVICE']._serialized_end=637
 # @@protoc_insertion_point(module_scope)

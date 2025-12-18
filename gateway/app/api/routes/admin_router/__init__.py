@@ -1,3 +1,3 @@
-from .admin_router import router
+from .router import router
 
 __all__ = ["router"]

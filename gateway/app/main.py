@@ -1,23 +1,28 @@
-from fastapi import FastAPI
-from starlette.middleware import Middleware
+from fastapi import FastAPI, APIRouter
 
-from app.api.routes import profile_router, auth_router, course_router, admin_router
+from app.api.routes import (
+    user_router,
+    auth_router,
+    course_router,
+    admin_router,
+    category_router,
+    profiles_router,
+)
 from app.core.config import settings
 
 app = FastAPI(
     title=settings.app.APP_NAME,
 )
 
-app.include_router(profile_router.router)
-app.include_router(auth_router.router)
-app.include_router(course_router.router)
-app.include_router(admin_router.router)
+router = (APIRouter(prefix="/api"))
+router.include_router(auth_router.router)
+router.include_router(user_router.router)
+router.include_router(profiles_router.router)
+router.include_router(category_router.router)
+router.include_router(course_router.router)
+router.include_router(admin_router.router)
 
-
-@app.get("/")
-def root():
-    return {"message": f"{settings.app.APP_NAME} is running!"}
-
+app.include_router(router)
 
 if __name__ == "__main__":
     import uvicorn
