@@ -31,6 +31,8 @@ services:
     environment:
       JWT_SECRET_KEY: ${JWT_SECRET_KEY}
       JWT_ALGORITHM: ${JWT_ALGORITHM}
+      DB_PASSWORD: ${POSTGRES_PASSWORD}
+      DB_USER: ${POSTGRES_USER}
     expose:
       - "50051"
     restart: unless-stopped

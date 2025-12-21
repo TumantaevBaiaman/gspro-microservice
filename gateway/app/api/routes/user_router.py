@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, Query
+from fastapi import APIRouter, Depends, Query, UploadFile, File
 
 from google.protobuf.json_format import MessageToDict
 
@@ -6,6 +6,9 @@ from app.api.dependencies.auth import get_current_user
 from app.clients.user import user_profile_client, user_category_client
 from app.schemas.user.profile import *
 from app.schemas.user.user_category import *
+from app.services.media.image_upload_service import upload_image
+from app.services.media.thumbnail_service import create_thumbnails
+from app.utils.image_validation import validate_image
 
 router = APIRouter(prefix="/users", tags=["User"])
 
@@ -41,6 +44,38 @@ async def update_profile(data: UpdateUserProfileRequestSchema, user=Depends(get_
 
     return UpdateUserProfileResponseSchema(
         **updated_profile_data
+    )
+
+
+@router.post(
+    "/me/profile/avatar",
+    response_model=SetAvatarResponseSchema,
+    summary="Upload User Avatar",
+    description="Endpoint to upload and set user avatar image."
+)
+async def upload_avatar(file: UploadFile = File(...), user=Depends(get_current_user)):
+    user_id = user.get("sub")
+    image_bytes = await validate_image(file)
+
+    thumbnails = create_thumbnails(image_bytes)
+
+    image_id, urls = await upload_image(
+        original=image_bytes,
+        thumbnails=thumbnails,
+        entity="users",
+        entity_id=user_id,
+        image_type="avatar",
+    )
+
+    response = await user_profile_client.set_user_avatar(
+        user_id=user_id,
+        original_url=urls["original"],
+        thumb_small_url=urls.get("small"),
+        thumb_medium_url=urls.get("medium"),
+    )
+
+    return SetAvatarResponseSchema(
+        image_id=response.image_id,
     )
 
 

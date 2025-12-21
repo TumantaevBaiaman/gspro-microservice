@@ -1,3 +1,5 @@
+from uuid import UUID
+
 import grpc
 
 import generated.user.profile_pb2 as pb2
@@ -84,4 +86,36 @@ class ProfileHandler(pb2_grpc.UserProfileServiceServicer):
             return pb2.ListUserProfilesResponse(
                 items=items,
                 total=response_dto.total
+            )
+
+    async def SetUserAvatar(self, request, context):
+        async with async_session_maker() as session:
+            container = Container(session)
+
+            try:
+                image_id = await container.profile_service.set_avatar.execute(
+                    user_id=UUID(request.user_id),
+                    original_url=request.original_url,
+                    thumb_small_url=request.thumb_small_url or None,
+                    thumb_medium_url=request.thumb_medium_url or None,
+                )
+
+                await container.uow.commit()
+
+            except ProfileNotFoundError as e:
+                await container.uow.rollback()
+                await context.abort(
+                    grpc.StatusCode.NOT_FOUND,
+                    str(e),
+                )
+
+            except Exception as e:
+                await container.uow.rollback()
+                await context.abort(
+                    grpc.StatusCode.INTERNAL,
+                    "Failed to set user avatar",
+                )
+
+            return pb2.SetUserAvatarResponse(
+                image_id=str(image_id),
             )

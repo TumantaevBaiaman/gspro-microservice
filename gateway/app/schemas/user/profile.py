@@ -40,3 +40,7 @@ class UserProfileListItemSchema(BaseModel):
 class ListUserProfilesResponseSchema(BaseModel):
     items: list[UserProfileListItemSchema]
     total: int
+
+
+class SetAvatarResponseSchema(BaseModel):
+    image_id: str

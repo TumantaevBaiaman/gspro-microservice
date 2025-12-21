@@ -17,3 +17,7 @@ class IProfileRepository(ABC):
     @abstractmethod
     async def list_profiles(self, limit: int, offset: int) -> tuple[list[ProfileEntity], int]:
         pass
+
+    @abstractmethod
+    async def set_avatar_image(self, user_id: UUID, image_id: UUID) -> None:
+        pass

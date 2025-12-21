@@ -6,6 +6,7 @@ service UserProfileService {
   rpc GetUserProfile(GetUserProfileRequest) returns (GetUserProfileResponse);
   rpc UpdateUserProfile(UpdateUserProfileRequest) returns (UpdateUserProfileResponse);
   rpc ListUserProfiles(ListUserProfilesRequest) returns (ListUserProfilesResponse);
+  rpc SetUserAvatar(SetUserAvatarRequest) returns (SetUserAvatarResponse);
 }
 
 message GetUserProfileRequest {
@@ -56,4 +57,16 @@ message UserProfileItem {
 message ListUserProfilesResponse {
   repeated UserProfileItem items = 1;
   int32 total = 2;
+}
+
+message SetUserAvatarRequest {
+  string user_id = 1;
+
+  string original_url = 2;
+  string thumb_small_url = 3;
+  string thumb_medium_url = 4;
+}
+
+message SetUserAvatarResponse {
+  string image_id = 1;
 }
