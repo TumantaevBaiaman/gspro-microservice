@@ -24,31 +24,33 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\rprofile.proto\x12\x0cuser_profile\"(\n\x15GetUserProfileRequest\x12\x0f\n\x07user_id\x18\x01 \x01(\t\"\x88\x01\n\x16GetUserProfileResponse\x12\x11\n\tfull_name\x18\x01 \x01(\t\x12\x14\n\x0cphone_number\x18\x02 \x01(\t\x12\x0b\n\x03\x62io\x18\x03 \x01(\t\x12\x0c\n\x04\x63ity\x18\x04 \x01(\t\x12\x10\n\x08industry\x18\x05 \x01(\t\x12\x18\n\x10\x65xperience_level\x18\x06 \x01(\t\"\xdf\x01\n\x18UpdateUserProfileRequest\x12\x0f\n\x07user_id\x18\x01 \x01(\t\x12\x16\n\tfull_name\x18\x02 \x01(\tH\x00\x88\x01\x01\x12\x10\n\x03\x62io\x18\x03 \x01(\tH\x01\x88\x01\x01\x12\x11\n\x04\x63ity\x18\x04 \x01(\tH\x02\x88\x01\x01\x12\x15\n\x08industry\x18\x05 \x01(\tH\x03\x88\x01\x01\x12\x1d\n\x10\x65xperience_level\x18\x06 \x01(\tH\x04\x88\x01\x01\x42\x0c\n\n_full_nameB\x06\n\x04_bioB\x07\n\x05_cityB\x0b\n\t_industryB\x13\n\x11_experience_level\"\x86\x01\n\x19UpdateUserProfileResponse\x12\x0f\n\x07user_id\x18\x01 \x01(\t\x12\x11\n\tfull_name\x18\x02 \x01(\t\x12\x0b\n\x03\x62io\x18\x03 \x01(\t\x12\x0c\n\x04\x63ity\x18\x04 \x01(\t\x12\x10\n\x08industry\x18\x05 \x01(\t\x12\x18\n\x10\x65xperience_level\x18\x06 \x01(\t\"8\n\x17ListUserProfilesRequest\x12\r\n\x05limit\x18\x01 \x01(\x05\x12\x0e\n\x06offset\x18\x02 \x01(\x05\"\x85\x01\n\x0fUserProfileItem\x12\x0f\n\x07user_id\x18\x01 \x01(\t\x12\x11\n\tfull_name\x18\x02 \x01(\t\x12\x14\n\x0cphone_number\x18\x03 \x01(\t\x12\x0c\n\x04\x63ity\x18\x04 \x01(\t\x12\x10\n\x08industry\x18\x05 \x01(\t\x12\x18\n\x10\x65xperience_level\x18\x06 \x01(\t\"W\n\x18ListUserProfilesResponse\x12,\n\x05items\x18\x01 \x03(\x0b\x32\x1d.user_profile.UserProfileItem\x12\r\n\x05total\x18\x02 \x01(\x05\"p\n\x14SetUserAvatarRequest\x12\x0f\n\x07user_id\x18\x01 \x01(\t\x12\x14\n\x0coriginal_url\x18\x02 \x01(\t\x12\x17\n\x0fthumb_small_url\x18\x03 \x01(\t\x12\x18\n\x10thumb_medium_url\x18\x04 \x01(\t\")\n\x15SetUserAvatarResponse\x12\x10\n\x08image_id\x18\x01 \x01(\t2\x94\x03\n\x12UserProfileService\x12[\n\x0eGetUserProfile\x12#.user_profile.GetUserProfileRequest\x1a$.user_profile.GetUserProfileResponse\x12\x64\n\x11UpdateUserProfile\x12&.user_profile.UpdateUserProfileRequest\x1a\'.user_profile.UpdateUserProfileResponse\x12\x61\n\x10ListUserProfiles\x12%.user_profile.ListUserProfilesRequest\x1a&.user_profile.ListUserProfilesResponse\x12X\n\rSetUserAvatar\x12\".user_profile.SetUserAvatarRequest\x1a#.user_profile.SetUserAvatarResponseb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\rprofile.proto\x12\x0cuser_profile\"U\n\nUserAvatar\x12\x14\n\x0coriginal_url\x18\x01 \x01(\t\x12\x17\n\x0fthumb_small_url\x18\x02 \x01(\t\x12\x18\n\x10thumb_medium_url\x18\x03 \x01(\t\"(\n\x15GetUserProfileRequest\x12\x0f\n\x07user_id\x18\x01 \x01(\t\"\xb2\x01\n\x16GetUserProfileResponse\x12\x11\n\tfull_name\x18\x01 \x01(\t\x12\x14\n\x0cphone_number\x18\x02 \x01(\t\x12\x0b\n\x03\x62io\x18\x03 \x01(\t\x12\x0c\n\x04\x63ity\x18\x04 \x01(\t\x12\x10\n\x08industry\x18\x05 \x01(\t\x12\x18\n\x10\x65xperience_level\x18\x06 \x01(\t\x12(\n\x06\x61vatar\x18\x07 \x01(\x0b\x32\x18.user_profile.UserAvatar\"\xdf\x01\n\x18UpdateUserProfileRequest\x12\x0f\n\x07user_id\x18\x01 \x01(\t\x12\x16\n\tfull_name\x18\x02 \x01(\tH\x00\x88\x01\x01\x12\x10\n\x03\x62io\x18\x03 \x01(\tH\x01\x88\x01\x01\x12\x11\n\x04\x63ity\x18\x04 \x01(\tH\x02\x88\x01\x01\x12\x15\n\x08industry\x18\x05 \x01(\tH\x03\x88\x01\x01\x12\x1d\n\x10\x65xperience_level\x18\x06 \x01(\tH\x04\x88\x01\x01\x42\x0c\n\n_full_nameB\x06\n\x04_bioB\x07\n\x05_cityB\x0b\n\t_industryB\x13\n\x11_experience_level\",\n\x19UpdateUserProfileResponse\x12\x0f\n\x07success\x18\x01 \x01(\x08\"8\n\x17ListUserProfilesRequest\x12\r\n\x05limit\x18\x01 \x01(\x05\x12\x0e\n\x06offset\x18\x02 \x01(\x05\"\x85\x01\n\x0fUserProfileItem\x12\x0f\n\x07user_id\x18\x01 \x01(\t\x12\x11\n\tfull_name\x18\x02 \x01(\t\x12\x14\n\x0cphone_number\x18\x03 \x01(\t\x12\x0c\n\x04\x63ity\x18\x04 \x01(\t\x12\x10\n\x08industry\x18\x05 \x01(\t\x12\x18\n\x10\x65xperience_level\x18\x06 \x01(\t\"W\n\x18ListUserProfilesResponse\x12,\n\x05items\x18\x01 \x03(\x0b\x32\x1d.user_profile.UserProfileItem\x12\r\n\x05total\x18\x02 \x01(\x05\"p\n\x14SetUserAvatarRequest\x12\x0f\n\x07user_id\x18\x01 \x01(\t\x12\x14\n\x0coriginal_url\x18\x02 \x01(\t\x12\x17\n\x0fthumb_small_url\x18\x03 \x01(\t\x12\x18\n\x10thumb_medium_url\x18\x04 \x01(\t\")\n\x15SetUserAvatarResponse\x12\x10\n\x08image_id\x18\x01 \x01(\t2\x94\x03\n\x12UserProfileService\x12[\n\x0eGetUserProfile\x12#.user_profile.GetUserProfileRequest\x1a$.user_profile.GetUserProfileResponse\x12\x64\n\x11UpdateUserProfile\x12&.user_profile.UpdateUserProfileRequest\x1a\'.user_profile.UpdateUserProfileResponse\x12\x61\n\x10ListUserProfiles\x12%.user_profile.ListUserProfilesRequest\x1a&.user_profile.ListUserProfilesResponse\x12X\n\rSetUserAvatar\x12\".user_profile.SetUserAvatarRequest\x1a#.user_profile.SetUserAvatarResponseb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'profile_pb2', _globals)
 if not _descriptor._USE_C_DESCRIPTORS:
   DESCRIPTOR._loaded_options = None
-  _globals['_GETUSERPROFILEREQUEST']._serialized_start=31
-  _globals['_GETUSERPROFILEREQUEST']._serialized_end=71
-  _globals['_GETUSERPROFILERESPONSE']._serialized_start=74
-  _globals['_GETUSERPROFILERESPONSE']._serialized_end=210
-  _globals['_UPDATEUSERPROFILEREQUEST']._serialized_start=213
-  _globals['_UPDATEUSERPROFILEREQUEST']._serialized_end=436
-  _globals['_UPDATEUSERPROFILERESPONSE']._serialized_start=439
-  _globals['_UPDATEUSERPROFILERESPONSE']._serialized_end=573
-  _globals['_LISTUSERPROFILESREQUEST']._serialized_start=575
-  _globals['_LISTUSERPROFILESREQUEST']._serialized_end=631
-  _globals['_USERPROFILEITEM']._serialized_start=634
-  _globals['_USERPROFILEITEM']._serialized_end=767
-  _globals['_LISTUSERPROFILESRESPONSE']._serialized_start=769
-  _globals['_LISTUSERPROFILESRESPONSE']._serialized_end=856
-  _globals['_SETUSERAVATARREQUEST']._serialized_start=858
-  _globals['_SETUSERAVATARREQUEST']._serialized_end=970
-  _globals['_SETUSERAVATARRESPONSE']._serialized_start=972
-  _globals['_SETUSERAVATARRESPONSE']._serialized_end=1013
-  _globals['_USERPROFILESERVICE']._serialized_start=1016
-  _globals['_USERPROFILESERVICE']._serialized_end=1420
+  _globals['_USERAVATAR']._serialized_start=31
+  _globals['_USERAVATAR']._serialized_end=116
+  _globals['_GETUSERPROFILEREQUEST']._serialized_start=118
+  _globals['_GETUSERPROFILEREQUEST']._serialized_end=158
+  _globals['_GETUSERPROFILERESPONSE']._serialized_start=161
+  _globals['_GETUSERPROFILERESPONSE']._serialized_end=339
+  _globals['_UPDATEUSERPROFILEREQUEST']._serialized_start=342
+  _globals['_UPDATEUSERPROFILEREQUEST']._serialized_end=565
+  _globals['_UPDATEUSERPROFILERESPONSE']._serialized_start=567
+  _globals['_UPDATEUSERPROFILERESPONSE']._serialized_end=611
+  _globals['_LISTUSERPROFILESREQUEST']._serialized_start=613
+  _globals['_LISTUSERPROFILESREQUEST']._serialized_end=669
+  _globals['_USERPROFILEITEM']._serialized_start=672
+  _globals['_USERPROFILEITEM']._serialized_end=805
+  _globals['_LISTUSERPROFILESRESPONSE']._serialized_start=807
+  _globals['_LISTUSERPROFILESRESPONSE']._serialized_end=894
+  _globals['_SETUSERAVATARREQUEST']._serialized_start=896
+  _globals['_SETUSERAVATARREQUEST']._serialized_end=1008
+  _globals['_SETUSERAVATARRESPONSE']._serialized_start=1010
+  _globals['_SETUSERAVATARRESPONSE']._serialized_end=1051
+  _globals['_USERPROFILESERVICE']._serialized_start=1054
+  _globals['_USERPROFILESERVICE']._serialized_end=1458
 # @@protoc_insertion_point(module_scope)

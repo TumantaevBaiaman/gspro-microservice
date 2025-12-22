@@ -13,7 +13,7 @@ class ProfileRepository(IProfileRepository):
     def __init__(self, session: AsyncSession):
         self.session = session
 
-    async def get_profile_by_user_id(self, user_id: UUID):
+    async def get_profile_by_user_id(self, user_id: UUID) -> UserProfileModel | None:
         stmt = select(UserProfileModel).where(UserProfileModel.user_id == user_id)
 
         result = await self.session.execute(stmt)

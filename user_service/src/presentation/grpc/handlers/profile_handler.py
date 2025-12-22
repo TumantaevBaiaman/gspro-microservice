@@ -32,6 +32,11 @@ class ProfileHandler(pb2_grpc.UserProfileServiceServicer):
                 city=profile.city or "",
                 industry=profile.industry or "",
                 experience_level=profile.experience_level or "",
+                avatar=pb2.UserAvatar(
+                    original_url=profile.avatar.original_url,
+                    thumb_small_url=profile.avatar.thumb_small_url or "",
+                    thumb_medium_url=profile.avatar.thumb_medium_url or "",
+                ) if profile.avatar else None,
             )
 
     async def UpdateUserProfile(self, request, context):
@@ -39,7 +44,7 @@ class ProfileHandler(pb2_grpc.UserProfileServiceServicer):
             container = Container(session)
 
             try:
-                profile = await container.profile_service.update_profile.execute(
+                await container.profile_service.update_profile.execute(
                     user_id=request.user_id,
                     update_data={
                         "full_name": request.full_name,
@@ -58,11 +63,7 @@ class ProfileHandler(pb2_grpc.UserProfileServiceServicer):
                 )
 
             return pb2.UpdateUserProfileResponse(
-                full_name=profile.full_name or "",
-                bio=profile.bio or "",
-                city=profile.city or "",
-                industry=profile.industry or "",
-                experience_level=profile.experience_level or "",
+                success=True
             )
 
     async def ListUserProfiles(self, request, context):

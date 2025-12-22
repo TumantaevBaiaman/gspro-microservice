@@ -1,3 +1,5 @@
+from sqlalchemy import select
+
 from src.domain.entities import UserImageEntity
 from src.domain.repositories.user_image_repository import IUserImageRepository
 from src.infrastructure.db.models import UserImageModel
@@ -20,3 +22,8 @@ class UserImageRepository(IUserImageRepository):
         self.session.add(model)
         await self.session.flush()
         image.id = model.id
+
+    async def get_by_id(self, image_id: str) -> UserImageModel | None:
+        stmt = select(UserImageModel).where(UserImageModel.id == image_id)
+        result = await self.session.execute(stmt)
+        return result.scalar_one_or_none()
