@@ -17,8 +17,14 @@ class AdminCourseHandler(pb2_grpc.AdminCourseServiceServicer):
     def __init__(self, service: AdminCourseService):
         self.service = service
 
+    # ---------------- CREATE ----------------
     async def AdminCreateCourse(self, request, context):
-        dto = admin_course_dto.AdminCourseCreateDTO(**MessageToDict(request, preserving_proto_field_name=True))
+        data = MessageToDict(
+            request,
+            preserving_proto_field_name=True
+        )
+
+        dto = admin_course_dto.AdminCourseCreateDTO(**data)
 
         try:
             course = await self.service.create.execute(dto)
@@ -27,6 +33,7 @@ class AdminCourseHandler(pb2_grpc.AdminCourseServiceServicer):
         except CourseAlreadyExistsError as e:
             await context.abort(grpc.StatusCode.ALREADY_EXISTS, str(e))
 
+    # ---------------- UPDATE ----------------
     async def AdminUpdateCourse(self, request, context):
         raw = MessageToDict(
             request,
@@ -36,7 +43,7 @@ class AdminCourseHandler(pb2_grpc.AdminCourseServiceServicer):
         data = {
             k: v
             for k, v in raw.items()
-            if k != "id" and v not in ("", None)
+            if k != "id"
         }
 
         dto = admin_course_dto.AdminCourseUpdateDTO(**data)
@@ -54,6 +61,7 @@ class AdminCourseHandler(pb2_grpc.AdminCourseServiceServicer):
         except CourseAlreadyExistsError as e:
             await context.abort(grpc.StatusCode.ALREADY_EXISTS, str(e))
 
+    # ---------------- GET ----------------
     async def AdminGetCourse(self, request, context):
         try:
             course = await self.service.get.execute(request.id)
@@ -62,14 +70,25 @@ class AdminCourseHandler(pb2_grpc.AdminCourseServiceServicer):
                 id=str(course.id),
                 title=course.title,
                 description=course.description or "",
-                preview_url=course.preview_url or "",
-                mentor_id=course.mentor_id or "",
-                category_id=course.category_id or "",
+
+                level=course.level,
+                duration_minutes=course.duration_minutes,
+                language=course.language,
+                requires_experience=course.requires_experience,
+
+                price=pb2.CoursePrice(
+                    type=course.price.type,
+                    amount=course.price.amount,
+                ),
+
+                category_ids=course.category_ids,
+                mentor_ids=course.mentor_ids,
             )
 
         except CourseNotFoundError as e:
             await context.abort(grpc.StatusCode.NOT_FOUND, str(e))
 
+    # ---------------- DELETE ----------------
     async def AdminDeleteCourse(self, request, context):
         try:
             await self.service.delete.execute(request.id)
@@ -78,8 +97,10 @@ class AdminCourseHandler(pb2_grpc.AdminCourseServiceServicer):
         except CourseNotFoundError as e:
             await context.abort(grpc.StatusCode.NOT_FOUND, str(e))
 
+    # ---------------- LIST ----------------
     async def AdminListCourses(self, request, context):
         courses = await self.service.list.execute()
+
         response = pb2.AdminListCoursesResponse()
 
         for course in courses:
@@ -87,9 +108,19 @@ class AdminCourseHandler(pb2_grpc.AdminCourseServiceServicer):
                 id=str(course.id),
                 title=course.title,
                 description=course.description or "",
-                preview_url=course.preview_url or "",
-                mentor_id=course.mentor_id or "",
-                category_id=course.category_id or "",
+
+                level=course.level,
+                duration_minutes=course.duration_minutes,
+                language=course.language,
+                requires_experience=course.requires_experience,
+
+                price=pb2.CoursePrice(
+                    type=course.price.type,
+                    amount=course.price.amount,
+                ),
+
+                category_ids=course.category_ids,
+                mentor_ids=course.mentor_ids,
             )
 
         return response

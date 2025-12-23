@@ -12,7 +12,11 @@ class AdminCourseClient:
         self.stub = pb2_grpc.AdminCourseServiceStub(self.channel)
 
     def create_course(self, dto):
-        req = ParseDict(dto.model_dump(), pb2.AdminCreateCourseRequest())
+        req = ParseDict(
+            dto.model_dump(),
+            pb2.AdminCreateCourseRequest(),
+            ignore_unknown_fields=True,
+        )
         try:
             return self.stub.AdminCreateCourse(req)
         except grpc.RpcError as e:
@@ -20,29 +24,43 @@ class AdminCourseClient:
 
     def get_course(self, course_id: str):
         try:
-            res = self.stub.AdminGetCourse(pb2.AdminGetCourseRequest(id=course_id))
-            return MessageToDict(res)
+            res = self.stub.AdminGetCourse(
+                pb2.AdminGetCourseRequest(id=course_id)
+            )
+            return MessageToDict(
+                res,
+                preserving_proto_field_name=True,
+            )
         except grpc.RpcError as e:
             self._err(e)
 
-    def update_course(self, course_id, dto):
-        req = pb2.AdminUpdateCourseRequest(id=course_id, **dto.model_dump(exclude_unset=True))
+    def update_course(self, course_id: str, dto):
+        req = pb2.AdminUpdateCourseRequest(
+            id=course_id,
+            **dto.model_dump(exclude_unset=True),
+        )
         try:
             return self.stub.AdminUpdateCourse(req)
         except grpc.RpcError as e:
             self._err(e)
 
-    def delete_course(self, course_id):
+    def delete_course(self, course_id: str):
         try:
-            return self.stub.AdminDeleteCourse(pb2.AdminDeleteCourseRequest(id=course_id))
+            return self.stub.AdminDeleteCourse(
+                pb2.AdminDeleteCourseRequest(id=course_id)
+            )
         except grpc.RpcError as e:
             self._err(e)
 
-    def list_courses(self, category_id=None):
-        req = pb2.AdminListCoursesRequest(category_id=category_id or "")
+    def list_courses(self):
         try:
-            res = self.stub.AdminListCourses(req)
-            return MessageToDict(res)
+            res = self.stub.AdminListCourses(
+                pb2.AdminListCoursesRequest()
+            )
+            return MessageToDict(
+                res,
+                preserving_proto_field_name=True,
+            )
         except grpc.RpcError as e:
             self._err(e)
 
