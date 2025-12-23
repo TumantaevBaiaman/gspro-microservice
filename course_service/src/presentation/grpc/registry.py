@@ -9,6 +9,7 @@ from src.application.services import (
     AdminLessonService,
     CategoryService,
     ModuleService,
+    LessonService,
 )
 
 from src.presentation.grpc.handlers import (
@@ -19,6 +20,7 @@ from src.presentation.grpc.handlers import (
     AdminLessonHandler,
     CategoryHandler,
     ModuleHandler,
+    LessonHandler,
 )
 
 from generated.course.course_pb2_grpc import add_CourseServiceServicer_to_server
@@ -28,6 +30,7 @@ from generated.course.admin_module_pb2_grpc import add_AdminModuleServiceService
 from generated.course.admin_lesson_pb2_grpc import add_AdminLessonServiceServicer_to_server
 from generated.course.category_pb2_grpc import add_CourseCategoryServiceServicer_to_server
 from generated.course.module_pb2_grpc import add_ModuleServiceServicer_to_server
+from generated.course.lesson_pb2_grpc import add_LessonServiceServicer_to_server
 
 
 @dataclass(frozen=True)
@@ -72,5 +75,10 @@ GRPC_SERVICES: list[GrpcServiceConfig] = [
         add_ModuleServiceServicer_to_server,
         ModuleService,
         ModuleHandler,
+    ),
+    GrpcServiceConfig(
+        add_LessonServiceServicer_to_server,
+        LessonService,
+        LessonHandler,
     ),
 ]

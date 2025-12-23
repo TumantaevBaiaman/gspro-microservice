@@ -13,3 +13,6 @@ class MediaSettings(BaseConfig):
     STORAGE_CDN_BASE_URL: str = Field(..., description="Base URL for CDN access to stored media")
     STORAGE_MAX_FILE_SIZE_MB: int = Field(5, description="Maximum file size for uploads in megabytes")
 
+    BUNNY_VIDEO_LIBRARY_ID: str = Field(..., description="Bunny video library identifier")
+    BUNNY_VIDEO_SECURITY_KEY: str = Field(..., description="Security key for Bunny video service")
+

@@ -48,6 +48,8 @@ async def list_modules_by_course(course_id: str):
 @router.get(
     "/{course_id}/modules/{module_id}",
     response_model=ModuleGetResponseSchema,
+    summary="Get module by ID within a course",
+    description="Retrieve detailed information about a specific module within a course using the module's unique identifier.",
 )
 def get_course_module(course_id: str, module_id: str):
     module = module_client.get_module(module_id)

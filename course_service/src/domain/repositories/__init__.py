@@ -5,6 +5,7 @@ from .admin_lesson_repository import IAdminLessonRepository
 from .admin_module_repository import IAdminModuleRepository
 from .category_repository import ICategoryRepository
 from .module_repository import IModuleRepository
+from .lesson_repository import ILessonRepository
 
 __all__ = [
     "ICourseRepository",
@@ -14,4 +15,5 @@ __all__ = [
     "IAdminModuleRepository",
     "ICategoryRepository",
     "IModuleRepository",
+    "ILessonRepository",
 ]

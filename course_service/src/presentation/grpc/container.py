@@ -6,6 +6,7 @@ from src.infrastructure.db.mongo.repositories import (
     AdminLessonRepository,
     CategoryRepository,
     ModuleRepository,
+    LessonRepository,
 )
 
 from src.application.services import (
@@ -16,6 +17,7 @@ from src.application.services import (
     AdminLessonService,
     CategoryService,
     ModuleService,
+    LessonService,
 )
 
 
@@ -28,4 +30,5 @@ def build_services() -> dict[type, object]:
         AdminLessonService: AdminLessonService(AdminLessonRepository()),
         CategoryService: CategoryService(CategoryRepository()),
         ModuleService: ModuleService(ModuleRepository()),
+        LessonService: LessonService(LessonRepository()),
     }
