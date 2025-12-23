@@ -120,3 +120,29 @@ class ProfileHandler(pb2_grpc.UserProfileServiceServicer):
             return pb2.SetUserAvatarResponse(
                 image_id=str(image_id),
             )
+
+    async def GetUserByIds(self, request, context):
+        async with async_session_maker() as session:
+            container = Container(session)
+
+            response_dto = await container.profile_service.get_profiles_by_ids.execute(request)
+
+            items = [
+                pb2.ListProfilesByIdsItem(
+                    user_id=item.user_id,
+                    full_name=item.full_name or "",
+                    bio=item.bio or "",
+                    industry=item.industry or "",
+                    experience_level=item.experience_level or "",
+                    avatar=pb2.UserAvatar(
+                        original_url=item.avatar.original_url,
+                        thumb_small_url=item.avatar.thumb_small_url or "",
+                        thumb_medium_url=item.avatar.thumb_medium_url or "",
+                    ) if item.avatar else None,
+                )
+                for item in response_dto.items
+            ]
+
+            return pb2.ListProfilesByIdsResponse(
+                items=items
+            )
