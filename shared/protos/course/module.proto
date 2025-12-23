@@ -1,0 +1,39 @@
+syntax = "proto3";
+
+package module;
+
+service ModuleService {
+    rpc GetModule (GetModuleRequest)
+        returns (GetModuleResponse);
+
+    rpc ListModulesByCourse (ListModulesByCourseRequest)
+        returns (ListModulesResponse);
+}
+
+message GetModuleRequest {
+    string id = 1;
+}
+
+message ListModulesByCourseRequest {
+    string course_id = 1;
+}
+
+message GetModuleResponse {
+    string id = 1;
+    string course_id = 2;
+    string title = 3;
+    string description = 4;
+    int32 order_number = 5;
+}
+
+message Module {
+    string id = 1;
+    string course_id = 2;
+    string title = 3;
+    string description = 4;
+    int32 order_number = 5;
+}
+
+message ListModulesResponse {
+    repeated Module items = 1;
+}
