@@ -27,8 +27,7 @@ def create_module(data: AdminModuleCreateRequestSchema):
     description="Endpoint to retrieve a module by its ID."
 )
 def get_module(module_id: str):
-    response = admin_module_client.get_module(module_id)
-    response_data = MessageToDict(response, preserving_proto_field_name=True)
+    response_data = admin_module_client.get_module(module_id)
     return AdminModuleGetResponseSchema(**response_data)
 
 
