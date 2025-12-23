@@ -10,5 +10,9 @@ class ICourseRepository(ABC):
         pass
 
     @abstractmethod
-    async def list_courses(self, limit: int,  offset: int) -> list[CourseEntity]:
+    async def list(
+            self,
+            limit: int,
+            offset: int
+    ) -> tuple[list[CourseEntity], int]:
         pass

@@ -21,7 +21,12 @@ class CourseEntity(BaseEntity):
     language: CourseLanguage = CourseLanguage.RU
     requires_experience: bool = False
 
-    price: CoursePrice = Field(default_factory=CoursePrice)
+    price: CoursePrice = Field(
+        default_factory=lambda: CoursePrice(
+            type=PriceType.FREE,
+            amount=0
+        )
+    )
 
     category_ids: Optional[List[str]] = Field(default_factory=list)
     mentor_ids: Optional[List[str]] = Field(default_factory=list)
