@@ -12,7 +12,11 @@ class AdminLessonClient:
         self.stub = pb2_grpc.AdminLessonServiceStub(self.channel)
 
     def create_lesson(self, dto):
-        req = ParseDict(dto.model_dump(), pb2.AdminCreateLessonRequest())
+        req = ParseDict(
+            dto.model_dump(),
+            pb2.AdminCreateLessonRequest(),
+            ignore_unknown_fields=True,
+        )
         try:
             return self.stub.AdminCreateLesson(req)
         except grpc.RpcError as e:
@@ -20,13 +24,21 @@ class AdminLessonClient:
 
     def get_lesson(self, lesson_id):
         try:
-            res = self.stub.AdminGetLesson(pb2.AdminGetLessonRequest(id=lesson_id))
-            return MessageToDict(res)
+            res = self.stub.AdminGetLesson(
+                pb2.AdminGetLessonRequest(id=lesson_id)
+            )
+            return MessageToDict(
+                res,
+                preserving_proto_field_name=True,
+            )
         except grpc.RpcError as e:
             self._err(e)
 
     def update_lesson(self, lesson_id, dto):
-        req = pb2.AdminUpdateLessonRequest(id=lesson_id, **dto.model_dump(exclude_unset=True))
+        req = pb2.AdminUpdateLessonRequest(
+            id=lesson_id,
+            **dto.model_dump(exclude_unset=True)
+        )
         try:
             return self.stub.AdminUpdateLesson(req)
         except grpc.RpcError as e:

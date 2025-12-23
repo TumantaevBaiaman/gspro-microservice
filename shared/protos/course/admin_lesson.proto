@@ -11,14 +11,18 @@ service AdminLessonService {
 }
 
 message AdminCreateLessonRequest {
-    string module_id     = 1;
-    string title         = 2;
-    string type          = 3;
-    string content       = 4;
-    string video_url     = 5;
-    string duration      = 6;
-    int32  order_number  = 7;
-    bool   is_active     = 8;
+    string module_id = 1;
+    string title     = 2;
+
+    string type = 3;
+    string access_type = 4;
+
+    optional string content   = 5;
+    optional string video_id  = 6;
+    optional string duration  = 7;
+
+    optional int32 order_number = 8;
+    bool is_active = 9;
 }
 
 message AdminCreateLessonResponse {
@@ -30,27 +34,36 @@ message AdminGetLessonRequest {
 }
 
 message AdminGetLessonResponse {
-    string id           = 1;
-    string module_id    = 2;
-    string title        = 3;
-    string type         = 4;
-    string content      = 5;
-    string video_url    = 6;
-    string duration     = 7;
-    int32  order_number = 8;
-    bool   is_active    = 9;
+    string id        = 1;
+    string module_id = 2;
+    string title     = 3;
+
+    string type = 4;
+    string access_type = 5;
+
+    optional string content   = 6;
+    optional string video_id  = 7;
+    optional string duration  = 8;
+
+    int32 order_number = 9;
+    bool is_active = 10;
 }
 
 message AdminUpdateLessonRequest {
-    string id           = 1;
-    string module_id    = 2;
-    string title        = 3;
-    string type         = 4;
-    string content      = 5;
-    string video_url    = 6;
-    string duration     = 7;
-    int32  order_number = 8;
-    bool   is_active    = 9;
+    string id = 1;
+
+    optional string module_id = 2;
+    optional string title     = 3;
+
+    string type = 4;
+    string access_type = 5;
+
+    optional string content   = 6;
+    optional string video_id  = 7;
+    optional string duration  = 8;
+
+    optional int32 order_number = 9;
+    optional bool is_active = 10;
 }
 
 message AdminUpdateLessonResponse {

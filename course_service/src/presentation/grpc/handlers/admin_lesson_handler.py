@@ -18,7 +18,11 @@ class AdminLessonHandler(pb2_grpc.AdminLessonServiceServicer):
         self.service = service
 
     async def AdminCreateLesson(self, request, context):
-        dto = AdminLessonCreateDTO(**MessageToDict(request))
+        data = MessageToDict(
+            request,
+            preserving_proto_field_name=True
+        )
+        dto = AdminLessonCreateDTO(**data)
 
         lesson = await self.service.create.execute(dto)
 
@@ -29,14 +33,18 @@ class AdminLessonHandler(pb2_grpc.AdminLessonServiceServicer):
     async def AdminGetLesson(self, request, context):
         try:
             lesson = await self.service.get.execute(request.id)
-
+            print(lesson)
             return pb2.AdminGetLessonResponse(
                 id=str(lesson.id),
                 module_id=lesson.module_id,
                 title=lesson.title,
+
                 type=lesson.type.value,
+                access_type=lesson.access_type.value,
+
                 content=lesson.content or "",
-                video_url=lesson.video_url or "",
+                video_id=lesson.video_id or "",
+
                 duration=lesson.duration or "",
                 order_number=lesson.order_number or 0,
                 is_active=lesson.is_active,
