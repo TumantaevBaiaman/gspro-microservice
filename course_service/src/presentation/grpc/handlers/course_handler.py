@@ -20,16 +20,23 @@ class CourseHandler(pb2_grpc.CourseServiceServicer):
                 id=str(course.id),
                 title=course.title,
                 description=course.description or "",
-                preview_url=course.preview_url or "",
-                mentor_id=course.mentor_id,
-                category_id=course.category_id,
+
+                level=course.level.value,
+                duration_minutes=course.duration_minutes,
+                language=course.language.value,
+                requires_experience=course.requires_experience,
+
+                price=pb2.CoursePrice(
+                    type=course.price.type.value,
+                    amount=course.price.amount or 0,
+                ),
+
+                category_ids=list(course.category_ids),
+                mentor_ids=list(course.mentor_ids),
             )
 
         except CourseNotFoundError as e:
-            await context.abort(
-                grpc.StatusCode.NOT_FOUND,
-                str(e)
-            )
+            await context.abort(grpc.StatusCode.NOT_FOUND, str(e))
 
     async def ListCourses(self, request, context):
         limit = request.limit or 10
@@ -46,9 +53,19 @@ class CourseHandler(pb2_grpc.CourseServiceServicer):
                     id=str(course.id),
                     title=course.title,
                     description=course.description or "",
-                    preview_url=course.preview_url or "",
-                    mentor_id=course.mentor_id,
-                    category_id=course.category_id,
+
+                    level=course.level.value,
+                    duration_minutes=course.duration_minutes,
+                    language=course.language.value,
+                    requires_experience=course.requires_experience,
+
+                    price=pb2.CoursePrice(
+                        type=course.price.type.value,
+                        amount=course.price.amount or 0,
+                    ),
+
+                    category_ids=list(course.category_ids),
+                    mentor_ids=list(course.mentor_ids),
                 )
                 for course in items
             ],

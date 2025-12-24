@@ -1,9 +1,16 @@
-from generated.course.course_pb2_grpc import add_CourseServiceServicer_to_server
-from generated.course.admin_category_pb2_grpc import add_AdminCategoryServiceServicer_to_server
-from generated.course.admin_course_pb2_grpc import add_AdminCourseServiceServicer_to_server
-from generated.course.admin_module_pb2_grpc import add_AdminModuleServiceServicer_to_server
-from generated.course.admin_lesson_pb2_grpc import add_AdminLessonServiceServicer_to_server
-from generated.course.category_pb2_grpc import add_CourseCategoryServiceServicer_to_server
+from dataclasses import dataclass
+from typing import Type, Callable
+
+from src.application.services import (
+    CourseService,
+    AdminCategoryService,
+    AdminCourseService,
+    AdminModuleService,
+    AdminLessonService,
+    CategoryService,
+    ModuleService,
+    LessonService,
+)
 
 from src.presentation.grpc.handlers import (
     CourseHandler,
@@ -12,14 +19,66 @@ from src.presentation.grpc.handlers import (
     AdminModuleHandler,
     AdminLessonHandler,
     CategoryHandler,
+    ModuleHandler,
+    LessonHandler,
 )
 
+from generated.course.course_pb2_grpc import add_CourseServiceServicer_to_server
+from generated.course.admin_category_pb2_grpc import add_AdminCategoryServiceServicer_to_server
+from generated.course.admin_course_pb2_grpc import add_AdminCourseServiceServicer_to_server
+from generated.course.admin_module_pb2_grpc import add_AdminModuleServiceServicer_to_server
+from generated.course.admin_lesson_pb2_grpc import add_AdminLessonServiceServicer_to_server
+from generated.course.category_pb2_grpc import add_CourseCategoryServiceServicer_to_server
+from generated.course.module_pb2_grpc import add_ModuleServiceServicer_to_server
+from generated.course.lesson_pb2_grpc import add_LessonServiceServicer_to_server
 
-GRPC_SERVICES = [
-    (add_CourseServiceServicer_to_server, "course", CourseHandler),
-    (add_AdminCategoryServiceServicer_to_server, "admin_category", AdminCategoryHandler),
-    (add_AdminCourseServiceServicer_to_server, "admin_course", AdminCourseHandler),
-    (add_AdminModuleServiceServicer_to_server, "admin_module", AdminModuleHandler),
-    (add_AdminLessonServiceServicer_to_server, "admin_lesson", AdminLessonHandler),
-    (add_CourseCategoryServiceServicer_to_server, "category", CategoryHandler),
+
+@dataclass(frozen=True)
+class GrpcServiceConfig:
+    add_to_server: Callable
+    service_cls: Type
+    handler_cls: Type
+
+
+GRPC_SERVICES: list[GrpcServiceConfig] = [
+    GrpcServiceConfig(
+        add_CourseServiceServicer_to_server,
+        CourseService,
+        CourseHandler,
+    ),
+    GrpcServiceConfig(
+        add_AdminCategoryServiceServicer_to_server,
+        AdminCategoryService,
+        AdminCategoryHandler,
+    ),
+    GrpcServiceConfig(
+        add_AdminCourseServiceServicer_to_server,
+        AdminCourseService,
+        AdminCourseHandler,
+    ),
+    GrpcServiceConfig(
+        add_AdminModuleServiceServicer_to_server,
+        AdminModuleService,
+        AdminModuleHandler,
+    ),
+    GrpcServiceConfig(
+        add_AdminLessonServiceServicer_to_server,
+        AdminLessonService,
+        AdminLessonHandler,
+    ),
+    GrpcServiceConfig(
+        add_CourseCategoryServiceServicer_to_server,
+        CategoryService,
+        CategoryHandler,
+    ),
+    GrpcServiceConfig(
+        add_ModuleServiceServicer_to_server,
+        ModuleService,
+        ModuleHandler,
+    ),
+    GrpcServiceConfig(
+        add_LessonServiceServicer_to_server,
+        LessonService,
+        LessonHandler,
+    ),
 ]

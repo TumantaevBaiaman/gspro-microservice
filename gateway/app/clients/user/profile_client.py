@@ -47,5 +47,34 @@ class ProfileClient:
         except grpc.RpcError as e:
             raise HTTPException(status_code=500, detail="Internal error")
 
+    async def set_user_avatar(
+            self,
+            *,
+            user_id: str,
+            original_url: str,
+            thumb_small_url: str | None,
+            thumb_medium_url: str | None,
+    ):
+        request = profile_pb2.SetUserAvatarRequest(
+            user_id=user_id,
+            original_url=original_url,
+            thumb_small_url=thumb_small_url or "",
+            thumb_medium_url=thumb_medium_url or "",
+        )
+        try:
+            return await self.stub.SetUserAvatar(request)
+        except grpc.RpcError as e:
+            if e.code() == grpc.StatusCode.NOT_FOUND:
+                raise HTTPException(status_code=404, detail=e.details())
+            raise HTTPException(status_code=500, detail="Internal error")
+
+    async def list_profiles_by_ids(self, user_ids: list[str]):
+        request = profile_pb2.ListProfilesByIdsRequest(user_ids=user_ids)
+        try:
+            response = await self.stub.ListProfilesByIds(request)
+            return response
+        except grpc.RpcError as e:
+            raise HTTPException(status_code=500, detail="Internal error")
+
 
 user_profile_client = ProfileClient()

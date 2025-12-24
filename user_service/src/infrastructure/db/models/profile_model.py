@@ -16,6 +16,11 @@ class UserProfileModel(Base):
         nullable=False,
         unique=True
     )
+    avatar_image_id = Column(
+        UUID(as_uuid=True),
+        ForeignKey("user_images.id", ondelete="SET NULL"),
+        nullable=True,
+    )
     phone_number = Column(String(20), nullable=True)
 
     full_name = Column(String(255), nullable=True)

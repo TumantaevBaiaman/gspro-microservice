@@ -10,9 +10,4 @@ class CreateCourseCommand:
         self.repo = repo
 
     async def execute(self, dto: AdminCourseCreateDTO):
-        try:
-            return await self.repo.create(dto)
-        except DuplicateKeyError:
-            raise CourseAlreadyExistsError(
-                "Course with this title or codename already exists"
-            )
+        return await self.repo.create(dto)

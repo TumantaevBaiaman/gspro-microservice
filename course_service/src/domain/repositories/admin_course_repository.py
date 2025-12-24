@@ -1,21 +1,21 @@
 from abc import ABC, abstractmethod
+from typing import Optional, List
 
-from src.domain.dto.admin_course_dto import AdminCourseCreateDTO
 from src.domain.entities import CourseEntity
 
 
 class IAdminCourseRepository(ABC):
 
     @abstractmethod
-    async def create(self, dto: AdminCourseCreateDTO) -> CourseEntity:
+    async def create(self, dto) -> CourseEntity:
         pass
 
     @abstractmethod
-    async def get(self, course_id: str) -> CourseEntity | None:
+    async def get(self, course_id: str) -> Optional[CourseEntity]:
         pass
 
     @abstractmethod
-    async def list(self) -> list[CourseEntity]:
+    async def list(self) -> List[CourseEntity]:
         pass
 
     @abstractmethod
@@ -23,5 +23,5 @@ class IAdminCourseRepository(ABC):
         pass
 
     @abstractmethod
-    async def delete(self, course: CourseEntity):
+    async def delete(self, course_id: str) -> None:
         pass

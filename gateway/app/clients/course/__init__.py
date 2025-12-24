@@ -4,6 +4,8 @@ from .admin_course_client import admin_course_client
 from .admin_lesson_client import admin_lesson_client
 from .admin_module_client import admin_module_client
 from .category_client import category_client
+from .module_client import module_client
+from .lesson_client import lesson_client
 
 
 __all__ = [
@@ -13,4 +15,6 @@ __all__ = [
     "admin_lesson_client",
     "admin_module_client",
     "category_client",
+    "module_client",
+    "lesson_client",
 ]

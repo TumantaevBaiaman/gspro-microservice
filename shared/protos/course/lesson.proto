@@ -1,0 +1,56 @@
+syntax = "proto3";
+
+package lesson;
+
+service LessonService {
+    rpc GetLesson (GetLessonRequest)
+        returns (GetLessonResponse);
+
+    rpc ListLessonsByModule (ListLessonsByModuleRequest)
+        returns (ListLessonsResponse);
+}
+
+message GetLessonRequest {
+    string id = 1;
+}
+
+message ListLessonsByModuleRequest {
+    string module_id = 1;
+}
+
+message Lesson {
+    string id = 1;
+    string module_id = 2;
+    string title = 3;
+
+    string type = 4;
+    string content = 5;
+
+    string video_id = 6;
+    string duration = 7;
+
+    int32 order_number = 8;
+    bool is_active = 9;
+
+    string access_type = 10;
+}
+
+message LessonShort {
+    string id = 1;
+    string title = 2;
+
+    string type = 3;
+    string access_type = 4;
+    string duration = 5;
+
+    int32 order_number = 6;
+    bool is_active = 7;
+}
+
+message GetLessonResponse {
+    Lesson lesson = 1;
+}
+
+message ListLessonsResponse {
+    repeated LessonShort items = 1;
+}

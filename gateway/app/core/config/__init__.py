@@ -1,11 +1,3 @@
-from .app_settings import AppSettings
-from .service_settings import ServiceSettings
-from .jwt_settings import JWTSettings
+from .settings import settings
 
-class Settings:
-    app: AppSettings = AppSettings()
-    services: ServiceSettings = ServiceSettings()
-    jwt: JWTSettings = JWTSettings()
-
-
-settings = Settings()
+__all__ = ["settings"]

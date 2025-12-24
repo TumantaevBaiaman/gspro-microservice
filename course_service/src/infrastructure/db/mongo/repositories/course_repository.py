@@ -7,7 +7,7 @@ class CourseRepository(ICourseRepository):
     async def get_course_by_id(self, course_id: str) -> CourseEntity:
         return await CourseEntity.get(course_id)
 
-    async def list_courses(self, limit: int, offset: int):
+    async def list(self, limit: int, offset: int):
         query = CourseEntity.find()
 
         total = await query.count()

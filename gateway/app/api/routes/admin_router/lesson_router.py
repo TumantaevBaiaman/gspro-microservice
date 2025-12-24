@@ -28,8 +28,7 @@ def create_lesson(data: AdminLessonCreateRequestSchema):
 )
 def get_lesson(lesson_id: str):
     response = admin_lesson_client.get_lesson(lesson_id)
-    response_data = MessageToDict(response, preserving_proto_field_name=True)
-    return AdminLessonGetResponseSchema(**response_data)
+    return AdminLessonGetResponseSchema(**response)
 
 
 @admin_lesson_router.patch(

@@ -49,6 +49,16 @@ class UserProfileServiceStub(object):
                 request_serializer=user_dot_profile__pb2.ListUserProfilesRequest.SerializeToString,
                 response_deserializer=user_dot_profile__pb2.ListUserProfilesResponse.FromString,
                 _registered_method=True)
+        self.SetUserAvatar = channel.unary_unary(
+                '/user_profile.UserProfileService/SetUserAvatar',
+                request_serializer=user_dot_profile__pb2.SetUserAvatarRequest.SerializeToString,
+                response_deserializer=user_dot_profile__pb2.SetUserAvatarResponse.FromString,
+                _registered_method=True)
+        self.ListProfilesByIds = channel.unary_unary(
+                '/user_profile.UserProfileService/ListProfilesByIds',
+                request_serializer=user_dot_profile__pb2.ListProfilesByIdsRequest.SerializeToString,
+                response_deserializer=user_dot_profile__pb2.ListProfilesByIdsResponse.FromString,
+                _registered_method=True)
 
 
 class UserProfileServiceServicer(object):
@@ -72,6 +82,18 @@ class UserProfileServiceServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def SetUserAvatar(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def ListProfilesByIds(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_UserProfileServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -89,6 +111,16 @@ def add_UserProfileServiceServicer_to_server(servicer, server):
                     servicer.ListUserProfiles,
                     request_deserializer=user_dot_profile__pb2.ListUserProfilesRequest.FromString,
                     response_serializer=user_dot_profile__pb2.ListUserProfilesResponse.SerializeToString,
+            ),
+            'SetUserAvatar': grpc.unary_unary_rpc_method_handler(
+                    servicer.SetUserAvatar,
+                    request_deserializer=user_dot_profile__pb2.SetUserAvatarRequest.FromString,
+                    response_serializer=user_dot_profile__pb2.SetUserAvatarResponse.SerializeToString,
+            ),
+            'ListProfilesByIds': grpc.unary_unary_rpc_method_handler(
+                    servicer.ListProfilesByIds,
+                    request_deserializer=user_dot_profile__pb2.ListProfilesByIdsRequest.FromString,
+                    response_serializer=user_dot_profile__pb2.ListProfilesByIdsResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -172,6 +204,60 @@ class UserProfileService(object):
             '/user_profile.UserProfileService/ListUserProfiles',
             user_dot_profile__pb2.ListUserProfilesRequest.SerializeToString,
             user_dot_profile__pb2.ListUserProfilesResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def SetUserAvatar(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/user_profile.UserProfileService/SetUserAvatar',
+            user_dot_profile__pb2.SetUserAvatarRequest.SerializeToString,
+            user_dot_profile__pb2.SetUserAvatarResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def ListProfilesByIds(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/user_profile.UserProfileService/ListProfilesByIds',
+            user_dot_profile__pb2.ListProfilesByIdsRequest.SerializeToString,
+            user_dot_profile__pb2.ListProfilesByIdsResponse.FromString,
             options,
             channel_credentials,
             insecure,

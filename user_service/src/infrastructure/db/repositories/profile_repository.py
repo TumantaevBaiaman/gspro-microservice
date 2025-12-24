@@ -13,7 +13,7 @@ class ProfileRepository(IProfileRepository):
     def __init__(self, session: AsyncSession):
         self.session = session
 
-    async def get_profile_by_user_id(self, user_id: UUID):
+    async def get_profile_by_user_id(self, user_id: UUID) -> UserProfileModel | None:
         stmt = select(UserProfileModel).where(UserProfileModel.user_id == user_id)
 
         result = await self.session.execute(stmt)
@@ -54,3 +54,15 @@ class ProfileRepository(IProfileRepository):
         total = count_result.scalar_one()
 
         return profiles, total
+
+    async def set_avatar_image(self, user_id: UUID, image_id: UUID) -> None:
+        stmt = select(UserProfileModel).where(UserProfileModel.user_id == user_id)
+
+        result = await self.session.execute(stmt)
+        profile: ProfileEntity | None = result.scalar_one_or_none()
+        if not profile:
+            raise Exception("Profile not found")
+
+        profile.avatar_image_id = image_id
+
+        await self.session.commit()

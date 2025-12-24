@@ -11,5 +11,4 @@ class DeleteCourseCommand:
         if not course:
             raise CourseNotFoundError("Course not found")
 
-        await self.repo.delete(course)
-        return True
+        await self.repo.delete(course_id)

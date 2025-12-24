@@ -18,7 +18,12 @@ class AdminModuleHandler(pb2_grpc.AdminModuleServiceServicer):
         self.service = service
 
     async def AdminCreateModule(self, request, context):
-        dto = AdminModuleCreateDTO(**MessageToDict(request))
+        data = MessageToDict(
+            request,
+            preserving_proto_field_name=True
+        )
+
+        dto = AdminModuleCreateDTO(**data)
 
         module = await self.service.create.execute(dto)
 

@@ -1,29 +1,48 @@
 from typing import Optional
-
-from pydantic import BaseModel, Field
+from pydantic import BaseModel
 
 
 class CourseGetRequestSchema(BaseModel):
     id: str
 
 
+class CoursePriceSchema(BaseModel):
+    type: str
+    amount: int = 0
+
+
 class CourseGetResponseSchema(BaseModel):
     id: str
     title: str
-    description: Optional[str]
-    preview_url: Optional[str] = None
-    mentor_id: Optional[str] = None
-    category_id: Optional[str] = None
+    description: Optional[str] = None
+
+    level: str
+    duration_minutes: int = 0
+    language: str
+    requires_experience: bool = False
+
+    price: CoursePriceSchema
+
+    category_ids: list[str] = []
+    mentor_ids: list[str] = []
 
 
 class CourseListItemSchema(BaseModel):
     id: str
     title: str
-    preview_url: str | None = None
-    mentor_id: str | None = None
-    category_id: str | None = None
+    description: Optional[str] = None
+
+    level: str
+    duration_minutes: int = 0
+    language: str
+    requires_experience: bool = False
+
+    price: CoursePriceSchema
+
+    category_ids: list[str] = []
+    mentor_ids: list[str] = []
 
 
 class CourseListResponseSchema(BaseModel):
     items: list[CourseListItemSchema]
-    total: int = Field(..., example=120)
+    total: int

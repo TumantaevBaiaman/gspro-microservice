@@ -24,7 +24,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x19\x63ourse/admin_lesson.proto\x12\x0c\x61\x64min_lesson\"\xa9\x01\n\x18\x41\x64minCreateLessonRequest\x12\x11\n\tmodule_id\x18\x01 \x01(\t\x12\r\n\x05title\x18\x02 \x01(\t\x12\x0c\n\x04type\x18\x03 \x01(\t\x12\x0f\n\x07\x63ontent\x18\x04 \x01(\t\x12\x11\n\tvideo_url\x18\x05 \x01(\t\x12\x10\n\x08\x64uration\x18\x06 \x01(\t\x12\x14\n\x0corder_number\x18\x07 \x01(\x05\x12\x11\n\tis_active\x18\x08 \x01(\x08\"\'\n\x19\x41\x64minCreateLessonResponse\x12\n\n\x02id\x18\x01 \x01(\t\"#\n\x15\x41\x64minGetLessonRequest\x12\n\n\x02id\x18\x01 \x01(\t\"\xb3\x01\n\x16\x41\x64minGetLessonResponse\x12\n\n\x02id\x18\x01 \x01(\t\x12\x11\n\tmodule_id\x18\x02 \x01(\t\x12\r\n\x05title\x18\x03 \x01(\t\x12\x0c\n\x04type\x18\x04 \x01(\t\x12\x0f\n\x07\x63ontent\x18\x05 \x01(\t\x12\x11\n\tvideo_url\x18\x06 \x01(\t\x12\x10\n\x08\x64uration\x18\x07 \x01(\t\x12\x14\n\x0corder_number\x18\x08 \x01(\x05\x12\x11\n\tis_active\x18\t \x01(\x08\"\xb5\x01\n\x18\x41\x64minUpdateLessonRequest\x12\n\n\x02id\x18\x01 \x01(\t\x12\x11\n\tmodule_id\x18\x02 \x01(\t\x12\r\n\x05title\x18\x03 \x01(\t\x12\x0c\n\x04type\x18\x04 \x01(\t\x12\x0f\n\x07\x63ontent\x18\x05 \x01(\t\x12\x11\n\tvideo_url\x18\x06 \x01(\t\x12\x10\n\x08\x64uration\x18\x07 \x01(\t\x12\x14\n\x0corder_number\x18\x08 \x01(\x05\x12\x11\n\tis_active\x18\t \x01(\x08\"\'\n\x19\x41\x64minUpdateLessonResponse\x12\n\n\x02id\x18\x01 \x01(\t\"&\n\x18\x41\x64minDeleteLessonRequest\x12\n\n\x02id\x18\x01 \x01(\t\",\n\x19\x41\x64minDeleteLessonResponse\x12\x0f\n\x07success\x18\x01 \x01(\x08\"?\n\x17\x41\x64minListLessonsRequest\x12\x16\n\tmodule_id\x18\x01 \x01(\tH\x00\x88\x01\x01\x42\x0c\n\n_module_id\"O\n\x18\x41\x64minListLessonsResponse\x12\x33\n\x05items\x18\x01 \x03(\x0b\x32$.admin_lesson.AdminGetLessonResponse2\x86\x04\n\x12\x41\x64minLessonService\x12\x64\n\x11\x41\x64minCreateLesson\x12&.admin_lesson.AdminCreateLessonRequest\x1a\'.admin_lesson.AdminCreateLessonResponse\x12[\n\x0e\x41\x64minGetLesson\x12#.admin_lesson.AdminGetLessonRequest\x1a$.admin_lesson.AdminGetLessonResponse\x12\x64\n\x11\x41\x64minUpdateLesson\x12&.admin_lesson.AdminUpdateLessonRequest\x1a\'.admin_lesson.AdminUpdateLessonResponse\x12\x64\n\x11\x41\x64minDeleteLesson\x12&.admin_lesson.AdminDeleteLessonRequest\x1a\'.admin_lesson.AdminDeleteLessonResponse\x12\x61\n\x10\x41\x64minListLessons\x12%.admin_lesson.AdminListLessonsRequest\x1a&.admin_lesson.AdminListLessonsResponseb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x19\x63ourse/admin_lesson.proto\x12\x0c\x61\x64min_lesson\"\x88\x02\n\x18\x41\x64minCreateLessonRequest\x12\x11\n\tmodule_id\x18\x01 \x01(\t\x12\r\n\x05title\x18\x02 \x01(\t\x12\x0c\n\x04type\x18\x03 \x01(\t\x12\x13\n\x0b\x61\x63\x63\x65ss_type\x18\x04 \x01(\t\x12\x14\n\x07\x63ontent\x18\x05 \x01(\tH\x00\x88\x01\x01\x12\x15\n\x08video_id\x18\x06 \x01(\tH\x01\x88\x01\x01\x12\x15\n\x08\x64uration\x18\x07 \x01(\tH\x02\x88\x01\x01\x12\x19\n\x0corder_number\x18\x08 \x01(\x05H\x03\x88\x01\x01\x12\x11\n\tis_active\x18\t \x01(\x08\x42\n\n\x08_contentB\x0b\n\t_video_idB\x0b\n\t_durationB\x0f\n\r_order_number\"\'\n\x19\x41\x64minCreateLessonResponse\x12\n\n\x02id\x18\x01 \x01(\t\"#\n\x15\x41\x64minGetLessonRequest\x12\n\n\x02id\x18\x01 \x01(\t\"\xfc\x01\n\x16\x41\x64minGetLessonResponse\x12\n\n\x02id\x18\x01 \x01(\t\x12\x11\n\tmodule_id\x18\x02 \x01(\t\x12\r\n\x05title\x18\x03 \x01(\t\x12\x0c\n\x04type\x18\x04 \x01(\t\x12\x13\n\x0b\x61\x63\x63\x65ss_type\x18\x05 \x01(\t\x12\x14\n\x07\x63ontent\x18\x06 \x01(\tH\x00\x88\x01\x01\x12\x15\n\x08video_id\x18\x07 \x01(\tH\x01\x88\x01\x01\x12\x15\n\x08\x64uration\x18\x08 \x01(\tH\x02\x88\x01\x01\x12\x14\n\x0corder_number\x18\t \x01(\x05\x12\x11\n\tis_active\x18\n \x01(\x08\x42\n\n\x08_contentB\x0b\n\t_video_idB\x0b\n\t_duration\"\xc9\x02\n\x18\x41\x64minUpdateLessonRequest\x12\n\n\x02id\x18\x01 \x01(\t\x12\x16\n\tmodule_id\x18\x02 \x01(\tH\x00\x88\x01\x01\x12\x12\n\x05title\x18\x03 \x01(\tH\x01\x88\x01\x01\x12\x0c\n\x04type\x18\x04 \x01(\t\x12\x13\n\x0b\x61\x63\x63\x65ss_type\x18\x05 \x01(\t\x12\x14\n\x07\x63ontent\x18\x06 \x01(\tH\x02\x88\x01\x01\x12\x15\n\x08video_id\x18\x07 \x01(\tH\x03\x88\x01\x01\x12\x15\n\x08\x64uration\x18\x08 \x01(\tH\x04\x88\x01\x01\x12\x19\n\x0corder_number\x18\t \x01(\x05H\x05\x88\x01\x01\x12\x16\n\tis_active\x18\n \x01(\x08H\x06\x88\x01\x01\x42\x0c\n\n_module_idB\x08\n\x06_titleB\n\n\x08_contentB\x0b\n\t_video_idB\x0b\n\t_durationB\x0f\n\r_order_numberB\x0c\n\n_is_active\"\'\n\x19\x41\x64minUpdateLessonResponse\x12\n\n\x02id\x18\x01 \x01(\t\"&\n\x18\x41\x64minDeleteLessonRequest\x12\n\n\x02id\x18\x01 \x01(\t\",\n\x19\x41\x64minDeleteLessonResponse\x12\x0f\n\x07success\x18\x01 \x01(\x08\"?\n\x17\x41\x64minListLessonsRequest\x12\x16\n\tmodule_id\x18\x01 \x01(\tH\x00\x88\x01\x01\x42\x0c\n\n_module_id\"O\n\x18\x41\x64minListLessonsResponse\x12\x33\n\x05items\x18\x01 \x03(\x0b\x32$.admin_lesson.AdminGetLessonResponse2\x86\x04\n\x12\x41\x64minLessonService\x12\x64\n\x11\x41\x64minCreateLesson\x12&.admin_lesson.AdminCreateLessonRequest\x1a\'.admin_lesson.AdminCreateLessonResponse\x12[\n\x0e\x41\x64minGetLesson\x12#.admin_lesson.AdminGetLessonRequest\x1a$.admin_lesson.AdminGetLessonResponse\x12\x64\n\x11\x41\x64minUpdateLesson\x12&.admin_lesson.AdminUpdateLessonRequest\x1a\'.admin_lesson.AdminUpdateLessonResponse\x12\x64\n\x11\x41\x64minDeleteLesson\x12&.admin_lesson.AdminDeleteLessonRequest\x1a\'.admin_lesson.AdminDeleteLessonResponse\x12\x61\n\x10\x41\x64minListLessons\x12%.admin_lesson.AdminListLessonsRequest\x1a&.admin_lesson.AdminListLessonsResponseb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -32,25 +32,25 @@ _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'course.admin_lesson_pb2', _
 if not _descriptor._USE_C_DESCRIPTORS:
   DESCRIPTOR._loaded_options = None
   _globals['_ADMINCREATELESSONREQUEST']._serialized_start=44
-  _globals['_ADMINCREATELESSONREQUEST']._serialized_end=213
-  _globals['_ADMINCREATELESSONRESPONSE']._serialized_start=215
-  _globals['_ADMINCREATELESSONRESPONSE']._serialized_end=254
-  _globals['_ADMINGETLESSONREQUEST']._serialized_start=256
-  _globals['_ADMINGETLESSONREQUEST']._serialized_end=291
-  _globals['_ADMINGETLESSONRESPONSE']._serialized_start=294
-  _globals['_ADMINGETLESSONRESPONSE']._serialized_end=473
-  _globals['_ADMINUPDATELESSONREQUEST']._serialized_start=476
-  _globals['_ADMINUPDATELESSONREQUEST']._serialized_end=657
-  _globals['_ADMINUPDATELESSONRESPONSE']._serialized_start=659
-  _globals['_ADMINUPDATELESSONRESPONSE']._serialized_end=698
-  _globals['_ADMINDELETELESSONREQUEST']._serialized_start=700
-  _globals['_ADMINDELETELESSONREQUEST']._serialized_end=738
-  _globals['_ADMINDELETELESSONRESPONSE']._serialized_start=740
-  _globals['_ADMINDELETELESSONRESPONSE']._serialized_end=784
-  _globals['_ADMINLISTLESSONSREQUEST']._serialized_start=786
-  _globals['_ADMINLISTLESSONSREQUEST']._serialized_end=849
-  _globals['_ADMINLISTLESSONSRESPONSE']._serialized_start=851
-  _globals['_ADMINLISTLESSONSRESPONSE']._serialized_end=930
-  _globals['_ADMINLESSONSERVICE']._serialized_start=933
-  _globals['_ADMINLESSONSERVICE']._serialized_end=1451
+  _globals['_ADMINCREATELESSONREQUEST']._serialized_end=308
+  _globals['_ADMINCREATELESSONRESPONSE']._serialized_start=310
+  _globals['_ADMINCREATELESSONRESPONSE']._serialized_end=349
+  _globals['_ADMINGETLESSONREQUEST']._serialized_start=351
+  _globals['_ADMINGETLESSONREQUEST']._serialized_end=386
+  _globals['_ADMINGETLESSONRESPONSE']._serialized_start=389
+  _globals['_ADMINGETLESSONRESPONSE']._serialized_end=641
+  _globals['_ADMINUPDATELESSONREQUEST']._serialized_start=644
+  _globals['_ADMINUPDATELESSONREQUEST']._serialized_end=973
+  _globals['_ADMINUPDATELESSONRESPONSE']._serialized_start=975
+  _globals['_ADMINUPDATELESSONRESPONSE']._serialized_end=1014
+  _globals['_ADMINDELETELESSONREQUEST']._serialized_start=1016
+  _globals['_ADMINDELETELESSONREQUEST']._serialized_end=1054
+  _globals['_ADMINDELETELESSONRESPONSE']._serialized_start=1056
+  _globals['_ADMINDELETELESSONRESPONSE']._serialized_end=1100
+  _globals['_ADMINLISTLESSONSREQUEST']._serialized_start=1102
+  _globals['_ADMINLISTLESSONSREQUEST']._serialized_end=1165
+  _globals['_ADMINLISTLESSONSRESPONSE']._serialized_start=1167
+  _globals['_ADMINLISTLESSONSRESPONSE']._serialized_end=1246
+  _globals['_ADMINLESSONSERVICE']._serialized_start=1249
+  _globals['_ADMINLESSONSERVICE']._serialized_end=1767
 # @@protoc_insertion_point(module_scope)

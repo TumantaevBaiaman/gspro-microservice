@@ -22,7 +22,7 @@ class AdminModuleGetResponseSchema(BaseModel):
     course_id: str
     title: str
     description: Optional[str] = None
-    order_number: int
+    order_number: int = 0
 
 
 class AdminModuleUpdateRequestSchema(BaseModel):

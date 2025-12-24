@@ -3,10 +3,17 @@ from typing import Optional
 from pydantic import BaseModel
 
 
+class AvatarSchema(BaseModel):
+    original_url: str
+    thumb_small_url: str | None = None
+    thumb_medium_url: str | None = None
+
+
 class GetUserProfileResponseSchema(BaseModel):
     full_name: Optional[str] = None
     phone_number: Optional[str] = None
     bio: Optional[str] = None
+    avatar: AvatarSchema | None = None
     city: Optional[str] = None
     industry: Optional[str] = None
     experience_level: Optional[str] = None
@@ -21,11 +28,7 @@ class UpdateUserProfileRequestSchema(BaseModel):
 
 
 class UpdateUserProfileResponseSchema(BaseModel):
-    full_name: Optional[str] = None
-    bio: Optional[str] = None
-    city: Optional[str] = None
-    industry: Optional[str] = None
-    experience_level: Optional[str] = None
+    success: bool
 
 
 class UserProfileListItemSchema(BaseModel):
@@ -40,3 +43,7 @@ class UserProfileListItemSchema(BaseModel):
 class ListUserProfilesResponseSchema(BaseModel):
     items: list[UserProfileListItemSchema]
     total: int
+
+
+class SetAvatarResponseSchema(BaseModel):
+    image_id: str

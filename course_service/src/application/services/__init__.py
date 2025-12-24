@@ -4,6 +4,8 @@ from .admin_category_service import AdminCategoryService
 from .admin_module_service import AdminModuleService
 from .admin_lesson_service import AdminLessonService
 from .category_service import CategoryService
+from .module_service import ModuleService
+from .lesson_service import LessonService
 
 __all__ = [
     "CourseService",
@@ -12,4 +14,6 @@ __all__ = [
     "AdminModuleService",
     "AdminLessonService",
     "CategoryService",
+    "ModuleService",
+    "LessonService",
 ]

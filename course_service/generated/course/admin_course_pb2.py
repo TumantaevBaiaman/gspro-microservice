@@ -24,33 +24,35 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x12\x61\x64min_course.proto\x12\x0c\x61\x64min_course\"{\n\x18\x41\x64minCreateCourseRequest\x12\r\n\x05title\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12\x13\n\x0bpreview_url\x18\x03 \x01(\t\x12\x11\n\tmentor_id\x18\x04 \x01(\t\x12\x13\n\x0b\x63\x61tegory_id\x18\x05 \x01(\t\"\'\n\x19\x41\x64minCreateCourseResponse\x12\n\n\x02id\x18\x01 \x01(\t\"#\n\x15\x41\x64minGetCourseRequest\x12\n\n\x02id\x18\x01 \x01(\t\"\x85\x01\n\x16\x41\x64minGetCourseResponse\x12\n\n\x02id\x18\x01 \x01(\t\x12\r\n\x05title\x18\x02 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x03 \x01(\t\x12\x13\n\x0bpreview_url\x18\x04 \x01(\t\x12\x11\n\tmentor_id\x18\x05 \x01(\t\x12\x13\n\x0b\x63\x61tegory_id\x18\x06 \x01(\t\"\xe8\x01\n\x18\x41\x64minUpdateCourseRequest\x12\n\n\x02id\x18\x01 \x01(\t\x12\x12\n\x05title\x18\x02 \x01(\tH\x00\x88\x01\x01\x12\x18\n\x0b\x64\x65scription\x18\x03 \x01(\tH\x01\x88\x01\x01\x12\x18\n\x0bpreview_url\x18\x04 \x01(\tH\x02\x88\x01\x01\x12\x16\n\tmentor_id\x18\x05 \x01(\tH\x03\x88\x01\x01\x12\x18\n\x0b\x63\x61tegory_id\x18\x06 \x01(\tH\x04\x88\x01\x01\x42\x08\n\x06_titleB\x0e\n\x0c_descriptionB\x0e\n\x0c_preview_urlB\x0c\n\n_mentor_idB\x0e\n\x0c_category_id\"\'\n\x19\x41\x64minUpdateCourseResponse\x12\n\n\x02id\x18\x01 \x01(\t\"&\n\x18\x41\x64minDeleteCourseRequest\x12\n\n\x02id\x18\x01 \x01(\t\",\n\x19\x41\x64minDeleteCourseResponse\x12\x0f\n\x07success\x18\x01 \x01(\x08\"C\n\x17\x41\x64minListCoursesRequest\x12\x18\n\x0b\x63\x61tegory_id\x18\x01 \x01(\tH\x00\x88\x01\x01\x42\x0e\n\x0c_category_id\"O\n\x18\x41\x64minListCoursesResponse\x12\x33\n\x05items\x18\x01 \x03(\x0b\x32$.admin_course.AdminGetCourseResponse2\x86\x04\n\x12\x41\x64minCourseService\x12\x64\n\x11\x41\x64minCreateCourse\x12&.admin_course.AdminCreateCourseRequest\x1a\'.admin_course.AdminCreateCourseResponse\x12[\n\x0e\x41\x64minGetCourse\x12#.admin_course.AdminGetCourseRequest\x1a$.admin_course.AdminGetCourseResponse\x12\x64\n\x11\x41\x64minUpdateCourse\x12&.admin_course.AdminUpdateCourseRequest\x1a\'.admin_course.AdminUpdateCourseResponse\x12\x64\n\x11\x41\x64minDeleteCourse\x12&.admin_course.AdminDeleteCourseRequest\x1a\'.admin_course.AdminDeleteCourseResponse\x12\x61\n\x10\x41\x64minListCourses\x12%.admin_course.AdminListCoursesRequest\x1a&.admin_course.AdminListCoursesResponseb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x12\x61\x64min_course.proto\x12\x0c\x61\x64min_course\"+\n\x0b\x43oursePrice\x12\x0c\n\x04type\x18\x01 \x01(\t\x12\x0e\n\x06\x61mount\x18\x02 \x01(\x05\"\xea\x01\n\x18\x41\x64minCreateCourseRequest\x12\r\n\x05title\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12\r\n\x05level\x18\x03 \x01(\t\x12\x18\n\x10\x64uration_minutes\x18\x04 \x01(\x05\x12\x10\n\x08language\x18\x05 \x01(\t\x12\x1b\n\x13requires_experience\x18\x06 \x01(\x08\x12(\n\x05price\x18\x07 \x01(\x0b\x32\x19.admin_course.CoursePrice\x12\x14\n\x0c\x63\x61tegory_ids\x18\x08 \x03(\t\x12\x12\n\nmentor_ids\x18\t \x03(\t\"\x81\x03\n\x18\x41\x64minUpdateCourseRequest\x12\n\n\x02id\x18\x01 \x01(\t\x12\x12\n\x05title\x18\x02 \x01(\tH\x00\x88\x01\x01\x12\x18\n\x0b\x64\x65scription\x18\x03 \x01(\tH\x01\x88\x01\x01\x12\x12\n\x05level\x18\x04 \x01(\tH\x02\x88\x01\x01\x12\x1d\n\x10\x64uration_minutes\x18\x05 \x01(\x05H\x03\x88\x01\x01\x12\x15\n\x08language\x18\x06 \x01(\tH\x04\x88\x01\x01\x12 \n\x13requires_experience\x18\x07 \x01(\x08H\x05\x88\x01\x01\x12-\n\x05price\x18\x08 \x01(\x0b\x32\x19.admin_course.CoursePriceH\x06\x88\x01\x01\x12\x14\n\x0c\x63\x61tegory_ids\x18\t \x03(\t\x12\x12\n\nmentor_ids\x18\n \x03(\tB\x08\n\x06_titleB\x0e\n\x0c_descriptionB\x08\n\x06_levelB\x13\n\x11_duration_minutesB\x0b\n\t_languageB\x16\n\x14_requires_experienceB\x08\n\x06_price\"#\n\x15\x41\x64minGetCourseRequest\x12\n\n\x02id\x18\x01 \x01(\t\"\'\n\x19\x41\x64minCreateCourseResponse\x12\n\n\x02id\x18\x01 \x01(\t\"\xf4\x01\n\x16\x41\x64minGetCourseResponse\x12\n\n\x02id\x18\x01 \x01(\t\x12\r\n\x05title\x18\x02 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x03 \x01(\t\x12\r\n\x05level\x18\x04 \x01(\t\x12\x18\n\x10\x64uration_minutes\x18\x05 \x01(\x05\x12\x10\n\x08language\x18\x06 \x01(\t\x12\x1b\n\x13requires_experience\x18\x07 \x01(\x08\x12(\n\x05price\x18\x08 \x01(\x0b\x32\x19.admin_course.CoursePrice\x12\x14\n\x0c\x63\x61tegory_ids\x18\t \x03(\t\x12\x12\n\nmentor_ids\x18\n \x03(\t\"\'\n\x19\x41\x64minUpdateCourseResponse\x12\n\n\x02id\x18\x01 \x01(\t\"&\n\x18\x41\x64minDeleteCourseRequest\x12\n\n\x02id\x18\x01 \x01(\t\",\n\x19\x41\x64minDeleteCourseResponse\x12\x0f\n\x07success\x18\x01 \x01(\x08\"C\n\x17\x41\x64minListCoursesRequest\x12\x18\n\x0b\x63\x61tegory_id\x18\x01 \x01(\tH\x00\x88\x01\x01\x42\x0e\n\x0c_category_id\"O\n\x18\x41\x64minListCoursesResponse\x12\x33\n\x05items\x18\x01 \x03(\x0b\x32$.admin_course.AdminGetCourseResponse2\x86\x04\n\x12\x41\x64minCourseService\x12\x64\n\x11\x41\x64minCreateCourse\x12&.admin_course.AdminCreateCourseRequest\x1a\'.admin_course.AdminCreateCourseResponse\x12[\n\x0e\x41\x64minGetCourse\x12#.admin_course.AdminGetCourseRequest\x1a$.admin_course.AdminGetCourseResponse\x12\x64\n\x11\x41\x64minUpdateCourse\x12&.admin_course.AdminUpdateCourseRequest\x1a\'.admin_course.AdminUpdateCourseResponse\x12\x64\n\x11\x41\x64minDeleteCourse\x12&.admin_course.AdminDeleteCourseRequest\x1a\'.admin_course.AdminDeleteCourseResponse\x12\x61\n\x10\x41\x64minListCourses\x12%.admin_course.AdminListCoursesRequest\x1a&.admin_course.AdminListCoursesResponseb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'admin_course_pb2', _globals)
 if not _descriptor._USE_C_DESCRIPTORS:
   DESCRIPTOR._loaded_options = None
-  _globals['_ADMINCREATECOURSEREQUEST']._serialized_start=36
-  _globals['_ADMINCREATECOURSEREQUEST']._serialized_end=159
-  _globals['_ADMINCREATECOURSERESPONSE']._serialized_start=161
-  _globals['_ADMINCREATECOURSERESPONSE']._serialized_end=200
-  _globals['_ADMINGETCOURSEREQUEST']._serialized_start=202
-  _globals['_ADMINGETCOURSEREQUEST']._serialized_end=237
-  _globals['_ADMINGETCOURSERESPONSE']._serialized_start=240
-  _globals['_ADMINGETCOURSERESPONSE']._serialized_end=373
-  _globals['_ADMINUPDATECOURSEREQUEST']._serialized_start=376
-  _globals['_ADMINUPDATECOURSEREQUEST']._serialized_end=608
-  _globals['_ADMINUPDATECOURSERESPONSE']._serialized_start=610
-  _globals['_ADMINUPDATECOURSERESPONSE']._serialized_end=649
-  _globals['_ADMINDELETECOURSEREQUEST']._serialized_start=651
-  _globals['_ADMINDELETECOURSEREQUEST']._serialized_end=689
-  _globals['_ADMINDELETECOURSERESPONSE']._serialized_start=691
-  _globals['_ADMINDELETECOURSERESPONSE']._serialized_end=735
-  _globals['_ADMINLISTCOURSESREQUEST']._serialized_start=737
-  _globals['_ADMINLISTCOURSESREQUEST']._serialized_end=804
-  _globals['_ADMINLISTCOURSESRESPONSE']._serialized_start=806
-  _globals['_ADMINLISTCOURSESRESPONSE']._serialized_end=885
-  _globals['_ADMINCOURSESERVICE']._serialized_start=888
-  _globals['_ADMINCOURSESERVICE']._serialized_end=1406
+  _globals['_COURSEPRICE']._serialized_start=36
+  _globals['_COURSEPRICE']._serialized_end=79
+  _globals['_ADMINCREATECOURSEREQUEST']._serialized_start=82
+  _globals['_ADMINCREATECOURSEREQUEST']._serialized_end=316
+  _globals['_ADMINUPDATECOURSEREQUEST']._serialized_start=319
+  _globals['_ADMINUPDATECOURSEREQUEST']._serialized_end=704
+  _globals['_ADMINGETCOURSEREQUEST']._serialized_start=706
+  _globals['_ADMINGETCOURSEREQUEST']._serialized_end=741
+  _globals['_ADMINCREATECOURSERESPONSE']._serialized_start=743
+  _globals['_ADMINCREATECOURSERESPONSE']._serialized_end=782
+  _globals['_ADMINGETCOURSERESPONSE']._serialized_start=785
+  _globals['_ADMINGETCOURSERESPONSE']._serialized_end=1029
+  _globals['_ADMINUPDATECOURSERESPONSE']._serialized_start=1031
+  _globals['_ADMINUPDATECOURSERESPONSE']._serialized_end=1070
+  _globals['_ADMINDELETECOURSEREQUEST']._serialized_start=1072
+  _globals['_ADMINDELETECOURSEREQUEST']._serialized_end=1110
+  _globals['_ADMINDELETECOURSERESPONSE']._serialized_start=1112
+  _globals['_ADMINDELETECOURSERESPONSE']._serialized_end=1156
+  _globals['_ADMINLISTCOURSESREQUEST']._serialized_start=1158
+  _globals['_ADMINLISTCOURSESREQUEST']._serialized_end=1225
+  _globals['_ADMINLISTCOURSESRESPONSE']._serialized_start=1227
+  _globals['_ADMINLISTCOURSESRESPONSE']._serialized_end=1306
+  _globals['_ADMINCOURSESERVICE']._serialized_start=1309
+  _globals['_ADMINCOURSESERVICE']._serialized_end=1827
 # @@protoc_insertion_point(module_scope)

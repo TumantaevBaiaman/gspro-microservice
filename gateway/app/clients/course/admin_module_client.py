@@ -12,7 +12,11 @@ class AdminModuleClient:
         self.stub = pb2_grpc.AdminModuleServiceStub(self.channel)
 
     def create_module(self, dto):
-        req = ParseDict(dto.model_dump(), pb2.AdminCreateModuleRequest())
+        req = ParseDict(
+            dto.model_dump(),
+            pb2.AdminCreateModuleRequest(),
+            ignore_unknown_fields=True
+        )
         try:
             return self.stub.AdminCreateModule(req)
         except grpc.RpcError as e:
@@ -20,8 +24,13 @@ class AdminModuleClient:
 
     def get_module(self, module_id):
         try:
-            res = self.stub.AdminGetModule(pb2.AdminGetModuleRequest(id=module_id))
-            return MessageToDict(res)
+            res = self.stub.AdminGetModule(
+                pb2.AdminGetModuleRequest(id=module_id)
+            )
+            return MessageToDict(
+                res,
+                preserving_proto_field_name=True,
+            )
         except grpc.RpcError as e:
             self._err(e)
 

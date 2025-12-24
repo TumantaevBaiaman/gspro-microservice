@@ -10,21 +10,13 @@ class UpdateProfileCommand:
         self,
         user_id: str,
         update_data: dict
-    ) -> GetProfileResponseDTO:
+    ) -> None:
 
         profile = await self.profile_repo.get_profile_by_user_id(user_id)
         if profile is None:
             raise ProfileNotFoundError("Profile not found")
 
-        updated_profile = await self.profile_repo.update_profile(
+        await self.profile_repo.update_profile(
             profile.id,
             update_data
-        )
-
-        return GetProfileResponseDTO(
-            full_name=updated_profile.full_name,
-            bio=updated_profile.bio,
-            industry=updated_profile.industry,
-            city=updated_profile.city,
-            experience_level=updated_profile.experience_level,
         )

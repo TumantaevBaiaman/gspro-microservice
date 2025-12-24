@@ -18,17 +18,7 @@ class UpdateCourseCommand:
         if not data:
             course = await self.repo.get(course_id)
             if not course:
-                raise CourseNotFoundError("Course not found")
+                raise CourseNotFoundError(course_id)
             return course
 
-        try:
-            updated = await self.repo.update(course_id, data)
-        except DuplicateKeyError:
-            raise CourseAlreadyExistsError(
-                "Course already exists with given unique values"
-            )
-
-        if not updated:
-            raise CourseNotFoundError("Course not found")
-
-        return await self.repo.get(course_id)
+        return await self.repo.update(course_id, data)
