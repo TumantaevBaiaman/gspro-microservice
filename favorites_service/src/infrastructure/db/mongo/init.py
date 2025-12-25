@@ -11,9 +11,12 @@ async def init_mongo():
         uuidRepresentation="standard"
     )
 
+    from src.infrastructure.db.mongo.models.favorite_course import FavoriteCourseDocument
+
     await init_beanie(
         database=client[settings.MONGO_DB_NAME],
         document_models=[
+            FavoriteCourseDocument
         ],
     )
     try:

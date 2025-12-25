@@ -5,4 +5,7 @@ from src.application.services import *
 
 def build_services() -> dict[type, object]:
     return {
+        FavoriteCourseService: FavoriteCourseService(
+            repo=FavoriteCourseRepository(),
+        ),
     }

@@ -1,0 +1,66 @@
+syntax = "proto3";
+
+package course_favorites;
+
+service FavoriteCourseService {
+
+  rpc AddToFavorites (AddToFavoritesRequest)
+      returns (AddToFavoritesResponse);
+
+  rpc RemoveFromFavorites (RemoveFromFavoritesRequest)
+      returns (RemoveFromFavoritesResponse);
+
+  rpc ListUserFavorites (ListUserFavoritesRequest)
+      returns (ListUserFavoritesResponse);
+
+  rpc IsFavorite (IsFavoriteRequest)
+      returns (IsFavoriteResponse);
+}
+
+message AddToFavoritesRequest {
+  string user_id = 1;
+  string course_id = 2;
+}
+
+message RemoveFromFavoritesRequest {
+  string user_id = 1;
+  string course_id = 2;
+}
+
+message ListUserFavoritesRequest {
+  string user_id = 1;
+
+  int32 limit = 2;
+  int32 offset = 3;
+}
+
+message IsFavoriteRequest {
+  string user_id = 1;
+  string course_id = 2;
+}
+
+message AddToFavoritesResponse {
+  FavoriteCourse favorite = 1;
+}
+
+message RemoveFromFavoritesResponse {
+  bool success = 1;
+}
+
+message ListUserFavoritesResponse {
+  repeated FavoriteCourse items = 1;
+  int32 total = 2;
+}
+
+message IsFavoriteResponse {
+  bool is_favorite = 1;
+}
+
+message FavoriteCourse {
+  string id = 1;
+
+  string user_id = 2;
+  string course_id = 3;
+
+  int64 created_at = 4;
+}

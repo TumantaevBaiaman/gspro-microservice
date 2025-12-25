@@ -1,5 +1,5 @@
-PROTO_DIR=../shared/protos/favorites_service
-GEN_DIR=./generated/favorites_service
+PROTO_DIR=../shared/protos/favorites
+GEN_DIR=./generated/favorites
 
 PROTO_FILES=$(wildcard $(PROTO_DIR)/*.proto)
 
