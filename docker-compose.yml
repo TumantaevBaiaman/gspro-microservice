@@ -20,6 +20,8 @@ services:
     depends_on:
       - user_service
       - course_service
+      - reviews_service
+      - favorites_service
 
   user_service:
     container_name: user_service
@@ -54,6 +56,38 @@ services:
     restart: unless-stopped
     volumes:
       - ./course_service:/app
+      - ./shared:/shared
+    depends_on:
+      - db
+
+  reviews_service:
+    container_name: reviews_service
+    build:
+      context: .
+      dockerfile: ./reviews_service/Dockerfile
+    env_file:
+      - ./reviews_service/.env
+    expose:
+      - "50053"
+    restart: unless-stopped
+    volumes:
+      - ./reviews_service:/app
+      - ./shared:/shared
+    depends_on:
+      - db
+
+  favorites_service:
+    container_name: favorites_service
+    build:
+      context: .
+      dockerfile: ./favorites_service/Dockerfile
+    env_file:
+      - ./favorites_service/.env
+    expose:
+      - "50054"
+    restart: unless-stopped
+    volumes:
+      - ./favorites_service:/app
       - ./shared:/shared
     depends_on:
       - db

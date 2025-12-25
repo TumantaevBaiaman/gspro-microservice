@@ -8,6 +8,7 @@ from app.api.routes import (
     category_router,
     profiles_router,
     module_router,
+    reviews
 )
 from app.core.config import settings
 
@@ -22,6 +23,7 @@ router.include_router(profiles_router.router)
 router.include_router(category_router.router)
 router.include_router(course_router.router)
 router.include_router(module_router.router)
+router.include_router(reviews.router)
 router.include_router(admin_router.router)
 
 app.include_router(router)
