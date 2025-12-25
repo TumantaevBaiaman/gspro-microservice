@@ -6,6 +6,8 @@ from .admin_module_repository import AdminModuleRepository
 from .category_repository import CategoryRepository
 from .module_repository import ModuleRepository
 from .lesson_repository import LessonRepository
+from .file_repository import FileRepository
+from .image_repository import ImageRepository
 
 __all__ = [
     "CourseRepository",
@@ -16,4 +18,6 @@ __all__ = [
     "CategoryRepository",
     "ModuleRepository",
     "LessonRepository",
+    "FileRepository",
+    "ImageRepository",
 ]

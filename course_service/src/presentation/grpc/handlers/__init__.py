@@ -6,6 +6,7 @@ from .admin_lesson_handler import AdminLessonHandler
 from .category_handler import CategoryHandler
 from .module_handler import ModuleHandler
 from .lesson_handler import LessonHandler
+from .media_handler import MediaHandler
 
 __all__ = [
     "CourseHandler",
@@ -16,4 +17,5 @@ __all__ = [
     "CategoryHandler",
     "ModuleHandler",
     "LessonHandler",
+    "MediaHandler",
 ]

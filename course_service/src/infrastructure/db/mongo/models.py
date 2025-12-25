@@ -15,10 +15,19 @@ async def init_mongo():
     from src.domain.entities.category_entity import CategoryEntity
     from src.domain.entities.module_entity import ModuleEntity
     from src.domain.entities.lesson_entity import LessonEntity
+    from src.domain.entities.file_entity import FileEntity
+    from src.domain.entities.image_entity import ImageEntity
 
     await init_beanie(
         database=client[settings.MONGO_DB_NAME],
-        document_models=[CourseEntity, CategoryEntity, ModuleEntity, LessonEntity],
+        document_models=[
+            CourseEntity,
+            CategoryEntity,
+            ModuleEntity,
+            LessonEntity,
+            FileEntity,
+            ImageEntity,
+        ],
     )
     try:
         await client.admin.command("ping")
