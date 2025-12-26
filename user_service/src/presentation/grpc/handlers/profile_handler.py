@@ -1,3 +1,4 @@
+from datetime import date
 from uuid import UUID
 
 import grpc
@@ -26,9 +27,11 @@ class ProfileHandler(pb2_grpc.UserProfileServiceServicer):
                 )
 
             return pb2.GetUserProfileResponse(
+                email=profile.email,
                 full_name=profile.full_name or "",
                 phone_number=profile.phone_number or "",
                 bio=profile.bio or "",
+                date_of_birth=profile.date_of_birth or "",
                 city=profile.city or "",
                 industry=profile.industry or "",
                 experience_level=profile.experience_level or "",
@@ -42,13 +45,13 @@ class ProfileHandler(pb2_grpc.UserProfileServiceServicer):
     async def UpdateUserProfile(self, request, context):
         async with async_session_maker() as session:
             container = Container(session)
-
             try:
                 await container.profile_service.update_profile.execute(
                     user_id=request.user_id,
                     update_data={
                         "full_name": request.full_name,
                         "bio": request.bio,
+                        "date_of_birth": date.fromisoformat(request.date_of_birth) if request.date_of_birth else None,
                         "city": request.city,
                         "industry": request.industry,
                         "experience_level": request.experience_level,

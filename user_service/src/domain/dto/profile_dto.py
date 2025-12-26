@@ -28,9 +28,11 @@ class GetProfileRequestDTO(BaseModel):
 
 
 class GetProfileResponseDTO(BaseModel):
+    email: str
     full_name: Optional[str] = None
     phone_number: Optional[str] = None
     bio: Optional[str] = None
+    date_of_birth: Optional[str] = None
     city: Optional[City] = None
     industry: Optional[Industry] = None
     experience_level: Optional[ExperienceLevel] = None

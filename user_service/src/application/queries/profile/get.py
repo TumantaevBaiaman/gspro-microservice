@@ -7,9 +7,10 @@ from src.domain.exceptions.profile import ProfileNotFoundError
 
 
 class GetProfileQuery:
-    def __init__(self, repo, image_repo):
+    def __init__(self, repo, image_repo, user_repo):
         self.repo = repo
         self.image_repo = image_repo
+        self.user_repo = user_repo
 
     async def execute(
         self,
@@ -28,7 +29,10 @@ class GetProfileQuery:
                 thumb_medium_url=avatar.thumb_medium_url,
             )
 
+        user = await self.user_repo.get_user_by_id(dto.user_id)
+
         return GetProfileResponseDTO(
+            email=user.email,
             full_name=profile.full_name,
             phone_number=profile.phone_number,
             bio=profile.bio,
@@ -36,4 +40,5 @@ class GetProfileQuery:
             city=profile.city,
             experience_level=profile.experience_level,
             avatar=avatar,
+            date_of_birth=str(profile.date_of_birth) if profile.date_of_birth else None,
         )

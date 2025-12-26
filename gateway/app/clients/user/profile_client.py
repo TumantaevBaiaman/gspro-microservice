@@ -26,6 +26,7 @@ class ProfileClient:
             user_id=user_id,
             full_name=data.full_name,
             bio=data.bio,
+            date_of_birth=str(data.date_of_birth) if data.date_of_birth else "",
             city=data.city,
             industry=data.industry,
             experience_level=data.experience_level,

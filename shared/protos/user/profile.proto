@@ -28,15 +28,18 @@ message GetUserProfileResponse {
   string industry = 5;
   string experience_level = 6;
   UserAvatar avatar = 7;
+  string email = 8;
+  string date_of_birth = 9;
 }
 
 message UpdateUserProfileRequest {
   string user_id = 1;
   optional string full_name = 2;
   optional string bio = 3;
-  optional string city = 4;
-  optional string industry = 5;
-  optional string experience_level = 6;
+  optional string date_of_birth = 4;
+  optional string city = 5;
+  optional string industry = 6;
+  optional string experience_level = 7;
 }
 
 message UpdateUserProfileResponse {

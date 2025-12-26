@@ -1,3 +1,4 @@
+from datetime import date
 from typing import Optional
 
 from pydantic import BaseModel
@@ -10,9 +11,11 @@ class AvatarSchema(BaseModel):
 
 
 class GetUserProfileResponseSchema(BaseModel):
+    email: str
     full_name: Optional[str] = None
     phone_number: Optional[str] = None
     bio: Optional[str] = None
+    date_of_birth: Optional[str] = None
     avatar: AvatarSchema | None = None
     city: Optional[str] = None
     industry: Optional[str] = None
@@ -22,6 +25,7 @@ class GetUserProfileResponseSchema(BaseModel):
 class UpdateUserProfileRequestSchema(BaseModel):
     full_name: Optional[str] = None
     bio: Optional[str] = None
+    date_of_birth: Optional[date] = None
     city: Optional[str] = None
     industry: Optional[str] = None
     experience_level: Optional[str] = None
