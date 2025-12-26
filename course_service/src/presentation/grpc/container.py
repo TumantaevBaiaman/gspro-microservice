@@ -7,6 +7,8 @@ from src.infrastructure.db.mongo.repositories import (
     CategoryRepository,
     ModuleRepository,
     LessonRepository,
+    FileRepository,
+    ImageRepository,
 )
 
 from src.application.services import (
@@ -18,6 +20,7 @@ from src.application.services import (
     CategoryService,
     ModuleService,
     LessonService,
+    MediaService,
 )
 
 
@@ -31,4 +34,8 @@ def build_services() -> dict[type, object]:
         CategoryService: CategoryService(CategoryRepository()),
         ModuleService: ModuleService(ModuleRepository()),
         LessonService: LessonService(LessonRepository()),
+        MediaService: MediaService(
+            image_repo=ImageRepository(),
+            file_repo=FileRepository(),
+        ),
     }

@@ -10,6 +10,7 @@ from src.application.services import (
     CategoryService,
     ModuleService,
     LessonService,
+    MediaService
 )
 
 from src.presentation.grpc.handlers import (
@@ -21,6 +22,7 @@ from src.presentation.grpc.handlers import (
     CategoryHandler,
     ModuleHandler,
     LessonHandler,
+    MediaHandler,
 )
 
 from generated.course.course_pb2_grpc import add_CourseServiceServicer_to_server
@@ -31,7 +33,7 @@ from generated.course.admin_lesson_pb2_grpc import add_AdminLessonServiceService
 from generated.course.category_pb2_grpc import add_CourseCategoryServiceServicer_to_server
 from generated.course.module_pb2_grpc import add_ModuleServiceServicer_to_server
 from generated.course.lesson_pb2_grpc import add_LessonServiceServicer_to_server
-
+from generated.course.media_pb2_grpc import add_CourseMediaServiceServicer_to_server
 
 @dataclass(frozen=True)
 class GrpcServiceConfig:
@@ -80,5 +82,10 @@ GRPC_SERVICES: list[GrpcServiceConfig] = [
         add_LessonServiceServicer_to_server,
         LessonService,
         LessonHandler,
+    ),
+    GrpcServiceConfig(
+        add_CourseMediaServiceServicer_to_server,
+        MediaService,
+        MediaHandler,
     ),
 ]

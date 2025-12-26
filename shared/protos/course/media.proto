@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+package media;
+
+
+service CourseMediaService {
+  rpc UploadImage (UploadImageRequest) returns (UploadImageResponse);
+  rpc UploadFile  (UploadFileRequest)  returns (UploadFileResponse);
+}
+
+message UploadImageRequest {
+  string original_url = 1;
+  string thumb_small_url = 2;
+  string thumb_medium_url = 3;
+
+  string type = 4;
+}
+
+message UploadImageResponse {
+  string id = 1;
+}
+
+message UploadFileRequest {
+  string type = 1;
+  string scope = 2;
+
+  string path = 3;
+  string filename = 4;
+  string mime_type = 5;
+  int64 size_bytes = 6;
+}
+
+message UploadFileResponse {
+  string id = 1;
+}
