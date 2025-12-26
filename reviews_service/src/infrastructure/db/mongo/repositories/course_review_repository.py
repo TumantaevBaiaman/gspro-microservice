@@ -59,24 +59,20 @@ class CourseReviewRepository(ICourseReviewRepository):
         ).exists()
 
     async def get_course_rating(
-        self,
-        *,
-        course_id: str,
-    ):
-        pipeline = [
-            {"$match": {"course_id": course_id}},
-            {
-                "$group": {
-                    "_id": None,
-                    "avg_rating": {"$avg": "$rating"},
-                    "count": {"$sum": 1},
-                }
-            },
-        ]
+            self,
+            *,
+            course_id: str,
+    ) -> tuple[float, int]:
+        cursor = CourseReviewDocument.find(
+            CourseReviewDocument.course_id == course_id
+        )
 
-        result = await CourseReviewDocument.aggregate(pipeline).to_list()
+        reviews = await cursor.to_list(length=None)
 
-        if not result:
+        if not reviews:
             return 0.0, 0
 
-        return float(result[0]["avg_rating"]), int(result[0]["count"])
+        total = sum(review.rating for review in reviews)
+        count = len(reviews)
+
+        return total / count, count

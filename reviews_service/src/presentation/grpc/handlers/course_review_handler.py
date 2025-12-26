@@ -2,6 +2,7 @@ import grpc
 
 from generated.reviews import course_reviews_pb2 as pb2
 from generated.reviews import course_reviews_pb2_grpc as pb2_grpc
+from src.application.commands.course_review.dto import CreateReviewDTO
 
 from src.application.services.course_review_service import CourseReviewService
 from src.domain.exceptions.course_review import (
@@ -17,13 +18,15 @@ class CourseReviewHandler(pb2_grpc.ReviewServiceServicer):
 
     async def CreateReview(self, request, context):
         try:
-            review = await self.service.create.execute(
+            dto = CreateReviewDTO(
                 course_id=request.course_id,
                 user_id=request.user_id,
                 rating=request.rating,
                 comment=request.comment,
                 tags=list(request.tags),
             )
+
+            review = await self.service.create.execute(dto)
 
             return pb2.CreateReviewResponse(
                 review=self._map_review(review)
@@ -48,6 +51,8 @@ class CourseReviewHandler(pb2_grpc.ReviewServiceServicer):
         average, count = await self.service.get_course_rating.execute(
             course_id=request.course_id
         )
+
+        print(f"Average rating for course {request.course_id}: {average} based on {count} reviews")
 
         return pb2.GetCourseRatingResponse(
             course_id=request.course_id,
