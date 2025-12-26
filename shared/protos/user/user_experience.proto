@@ -1,0 +1,59 @@
+syntax = "proto3";
+
+package user_experience;
+
+import "google/protobuf/timestamp.proto";
+
+service UserExperienceService {
+  rpc Create (CreateUserExperienceRequest)
+      returns (UserExperienceResponse);
+
+  rpc ListByUser (ListUserExperiencesRequest)
+      returns (ListUserExperiencesResponse);
+
+  rpc Delete (DeleteUserExperienceRequest)
+      returns (DeleteUserExperienceResponse);
+}
+
+message CreateUserExperienceRequest {
+  string user_id = 1;
+
+  string company = 2;
+  string position = 3;
+
+  string start_date = 4;
+  string end_date = 5;
+
+  string description = 6;
+}
+
+message UserExperienceResponse {
+  string id = 1;
+  string user_id = 2;
+
+  string company = 3;
+  string position = 4;
+
+  string start_date = 5;
+  string end_date = 6;
+  string description = 7;
+
+  google.protobuf.Timestamp created_at = 8;
+}
+
+message ListUserExperiencesRequest {
+  string user_id = 1;
+  int32 limit = 2;
+  int32 offset = 3;
+}
+
+message ListUserExperiencesResponse {
+  repeated UserExperienceResponse items = 1;
+  int64 total = 2;
+}
+
+message DeleteUserExperienceRequest {
+  string experience_id = 1;
+}
+
+message DeleteUserExperienceResponse {}
