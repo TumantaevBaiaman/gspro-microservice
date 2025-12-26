@@ -5,10 +5,10 @@ from google.protobuf.json_format import MessageToDict
 from app.clients.user import user_client
 from app.schemas.user.auth import *
 
-router = APIRouter(prefix="/auth", tags=["Auth"])
+auth_router = APIRouter(prefix="/auth", tags=["Auth"])
 
 
-@router.post(
+@auth_router.post(
     "/register/email",
     response_model=RegisterEmailResponseSchema,
     summary="Register with Email and Password",
@@ -22,7 +22,7 @@ async def register_email(data: RegisterEmailRequestSchema) -> RegisterEmailRespo
     )
 
 
-@router.post(
+@auth_router.post(
     "/login/email",
     response_model=LoginEmailResponseSchema,
     summary="Login with Email and Password",
@@ -36,7 +36,7 @@ async def login_email(data: LoginEmailRequestSchema) -> LoginEmailResponseSchema
     )
 
 
-@router.post(
+@auth_router.post(
     "/google",
     response_model=AuthGoogleResponseSchema,
     summary="Authenticate with Google OAuth",
@@ -50,7 +50,7 @@ async def auth_google(data: AuthGoogleRequestSchema) -> AuthGoogleResponseSchema
     )
 
 
-@router.post(
+@auth_router.post(
     "/refresh",
     response_model=RefreshTokensResponseSchema,
     summary="Refresh Access and Refresh Tokens",

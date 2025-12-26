@@ -5,10 +5,10 @@ from google.protobuf.json_format import MessageToDict
 from app.clients.user import user_profile_client
 from app.schemas.user.profile import *
 
-router = APIRouter(prefix="/profiles", tags=["Profile"])
+profile_router = APIRouter(prefix="/profiles", tags=["Profile"])
 
 
-@router.get(
+@profile_router.get(
     "",
     response_model=ListUserProfilesResponseSchema,
     summary="List User Profiles",

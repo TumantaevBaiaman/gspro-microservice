@@ -1,6 +1,6 @@
 import datetime
 
-from sqlalchemy import Column, String, ForeignKey, DateTime, Enum
+from sqlalchemy import Column, String, ForeignKey, DateTime, Enum, Date
 from sqlalchemy.dialects.postgresql import UUID
 
 from src.core.database import Base
@@ -25,6 +25,11 @@ class UserProfileModel(Base):
 
     full_name = Column(String(255), nullable=True)
     bio = Column(String, nullable=True)
+
+    date_of_birth = Column(
+        Date,
+        nullable=True
+    )
 
     city = Column(
         Enum(City, name="city_enum"),

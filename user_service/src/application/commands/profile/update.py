@@ -1,4 +1,3 @@
-from src.domain.dto.profile_dto import GetProfileResponseDTO
 from src.domain.exceptions.profile import ProfileNotFoundError
 
 

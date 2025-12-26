@@ -10,10 +10,10 @@ from app.services.media.image_upload_service import upload_image
 from app.services.media.thumbnail_service import create_thumbnails
 from app.utils.image_validation import validate_image
 
-router = APIRouter(prefix="/users", tags=["User"])
+user_router = APIRouter(prefix="/users", tags=["User"])
 
 
-@router.get(
+@user_router.get(
     "/me/profile",
     response_model=GetUserProfileResponseSchema,
     summary="Get Current User Profile",
@@ -30,24 +30,22 @@ async def get_profile(user=Depends(get_current_user)):
     )
 
 
-@router.patch(
+@user_router.patch(
     "/me/profile",
-    response_model=UpdateUserProfileRequestSchema,
+    response_model=UpdateUserProfileResponseSchema,
     summary="Update Current User Profile",
     description="Endpoint to update the profile information of the currently authenticated user."
 )
 async def update_profile(data: UpdateUserProfileRequestSchema, user=Depends(get_current_user)):
     user_id = user.get("sub")
-
-    updated_profile = await user_profile_client.update_user_profile(user_id, data)
-    updated_profile_data = MessageToDict(updated_profile, preserving_proto_field_name=True)
+    await user_profile_client.update_user_profile(user_id, data)
 
     return UpdateUserProfileResponseSchema(
-        **updated_profile_data
+        success=True,
     )
 
 
-@router.post(
+@user_router.post(
     "/me/profile/avatar",
     response_model=SetAvatarResponseSchema,
     summary="Upload User Avatar",
@@ -79,7 +77,7 @@ async def upload_avatar(file: UploadFile = File(...), user=Depends(get_current_u
     )
 
 
-@router.get(
+@user_router.get(
     "/me/categories",
     response_model=ListUserCategoriesResponseSchema,
     summary="List Current User Categories",
@@ -102,7 +100,7 @@ async def list_user_categories(
         **categories_data
     )
 
-@router.put(
+@user_router.put(
     "/me/categories",
     response_model=CreateUserCategoryResponseSchema,
     summary="Update Current User Categories",
@@ -123,7 +121,7 @@ async def update_user_categories(
         **updated_categories_data
     )
 
-@router.delete(
+@user_router.delete(
     "/me/categories/{id}",
     response_model=DeleteUserCategoryResponseSchema,
     summary="Delete Current User Category",

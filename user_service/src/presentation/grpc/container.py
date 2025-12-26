@@ -15,5 +15,5 @@ class Container:
         self.user_image_repo = UserImageRepository(session)
 
         self.user_service = UserService(self.user_repo)
-        self.profile_service = ProfileService(self.profile_repo, self.user_image_repo)
+        self.profile_service = ProfileService(self.profile_repo, self.user_image_repo, self.user_repo)
         self.user_category_service = UserCategoryService(self.user_category_repo)
