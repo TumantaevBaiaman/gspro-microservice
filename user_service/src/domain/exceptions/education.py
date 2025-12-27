@@ -1,0 +1,3 @@
+
+class EducationNotFoundError(Exception):
+    pass

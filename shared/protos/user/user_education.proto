@@ -1,0 +1,50 @@
+syntax = "proto3";
+
+package user_education;
+
+service UserEducationService {
+  rpc Create (CreateUserEducationRequest)
+      returns (UserEducationResponse);
+
+  rpc ListByUser (ListUserEducationsRequest)
+      returns (ListUserEducationsResponse);
+
+  rpc Delete (DeleteUserEducationRequest)
+      returns (DeleteUserEducationResponse);
+}
+
+message CreateUserEducationRequest {
+  string user_id = 1;
+
+  string institution = 2;
+  string degree = 3;
+  int32 start_year = 4;
+  int32 end_year = 5;
+}
+
+message UserEducationResponse {
+  string id = 1;
+  string user_id = 2;
+
+  string institution = 3;
+  string degree = 4;
+  int32 start_year = 5;
+  int32 end_year = 6;
+}
+
+message ListUserEducationsRequest {
+  string user_id = 1;
+  int32 limit = 2;
+  int32 offset = 3;
+}
+
+message ListUserEducationsResponse {
+  repeated UserEducationResponse items = 1;
+  int64 total = 2;
+}
+
+message DeleteUserEducationRequest {
+  string education_id = 1;
+}
+
+message DeleteUserEducationResponse {}
