@@ -8,4 +8,7 @@ def build_services() -> dict[type, object]:
         CourseReviewService: CourseReviewService(
             repo=CourseReviewRepository(),
         ),
+        AppFeedbackService: AppFeedbackService(
+            repo=AppFeedbackRepository(),
+        ),
     }

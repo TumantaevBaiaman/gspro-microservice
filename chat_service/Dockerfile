@@ -14,11 +14,11 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-COPY ./favorites_service/pyproject.toml ./favorites_service/poetry.lock* ./
+COPY ./chat_service/pyproject.toml ./chat_service/poetry.lock* ./
 
 RUN poetry config virtualenvs.create false && poetry install --no-interaction --no-ansi
 
-COPY ./favorites_service /app
+COPY ./chat_service /app
 COPY ./shared /shared
 
 RUN make proto
