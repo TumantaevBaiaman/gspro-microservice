@@ -8,9 +8,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 
 class Settings(BaseSettings):
-    APP_NAME: str = Field("Favorites Service", description="Application name")
+    APP_NAME: str = Field("Chat Service", description="Application name")
     GRPC_HOST: str = Field("0.0.0.0", description="Service host")
-    GRPC_PORT: int = Field(50054, description="Service port")
+    GRPC_PORT: int = Field(50055, description="Service port")
 
     MONGO_URL: str = Field(..., description="MongoDB connection URL")
     MONGO_DB_NAME: str = Field(..., description="MongoDB database name")

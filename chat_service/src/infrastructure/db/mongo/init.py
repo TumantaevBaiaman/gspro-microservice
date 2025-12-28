@@ -11,14 +11,10 @@ async def init_mongo():
         uuidRepresentation="standard"
     )
 
-    from src.infrastructure.db.mongo.models.course_review import CourseReviewDocument
-    from src.infrastructure.db.mongo.models.app_feedback import AppFeedbackDocument
 
     await init_beanie(
         database=client[settings.MONGO_DB_NAME],
         document_models=[
-            CourseReviewDocument,
-            AppFeedbackDocument,
         ],
     )
     try:

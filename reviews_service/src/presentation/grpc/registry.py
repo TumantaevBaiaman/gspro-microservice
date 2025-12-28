@@ -6,6 +6,7 @@ from src.application.services import *
 from src.presentation.grpc.handlers import *
 
 from generated.reviews.course_reviews_pb2_grpc import add_ReviewServiceServicer_to_server
+from generated.reviews.app_feedback_pb2_grpc import add_AppFeedbackServiceServicer_to_server
 
 
 @dataclass(frozen=True)
@@ -20,5 +21,10 @@ GRPC_SERVICES: list[GrpcServiceConfig] = [
         add_to_server=add_ReviewServiceServicer_to_server,
         service_cls=CourseReviewService,
         handler_cls=CourseReviewHandler,
+    ),
+    GrpcServiceConfig(
+        add_to_server=add_AppFeedbackServiceServicer_to_server,
+        service_cls=AppFeedbackService,
+        handler_cls=AppFeedbackHandler,
     ),
 ]

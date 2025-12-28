@@ -1,0 +1,42 @@
+syntax = "proto3";
+
+package feedback;
+
+
+service AppFeedbackService {
+  rpc CreateFeedback (CreateFeedbackRequest) returns (CreateFeedbackResponse);
+  rpc ListFeedback   (ListFeedbackRequest)   returns (ListFeedbackResponse);
+}
+
+
+message CreateFeedbackRequest {
+  string user_id = 1;
+  string message = 2;
+  string type = 3;
+  bool is_public = 4;
+}
+
+message ListFeedbackRequest {
+  int32 limit = 1;
+  int32 offset = 2;
+}
+
+
+message CreateFeedbackResponse {
+  AppFeedback feedback = 1;
+}
+
+message ListFeedbackResponse {
+  repeated AppFeedback items = 1;
+  int32 total = 2;
+}
+
+
+message AppFeedback {
+  string id = 1;
+  string user_id = 2;
+  string message = 3;
+  string type = 4;
+  bool is_public = 5;
+  string created_at = 6;
+}
