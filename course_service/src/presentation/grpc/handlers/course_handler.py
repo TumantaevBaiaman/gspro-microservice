@@ -33,6 +33,7 @@ class CourseHandler(pb2_grpc.CourseServiceServicer):
 
                 category_ids=list(course.category_ids),
                 mentor_ids=list(course.mentor_ids),
+                cover_image_id=course.cover_image_id or "",
             )
 
         except CourseNotFoundError as e:
@@ -66,6 +67,7 @@ class CourseHandler(pb2_grpc.CourseServiceServicer):
 
                     category_ids=list(course.category_ids),
                     mentor_ids=list(course.mentor_ids),
+                    cover_image_id=course.cover_image_id or "",
                 )
                 for course in items
             ],

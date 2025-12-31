@@ -23,9 +23,9 @@ class IMediaRepository(ABC):
     async def attach(
         self,
         *,
-        media_id: UUID,
+        media_id: str,
         owner_service: OwnerService,
-        owner_id: UUID,
+        owner_id: str,
     ) -> MediaAssetDocument | None:
         ...
 
@@ -33,7 +33,7 @@ class IMediaRepository(ABC):
     async def get_by_id(
         self,
         *,
-        media_id: UUID,
+        media_id: str,
     ) -> MediaAssetDocument | None:
         ...
 
@@ -42,7 +42,7 @@ class IMediaRepository(ABC):
         self,
         *,
         owner_service: OwnerService,
-        owner_id: UUID,
+        owner_id: str,
         kind: MediaKind | None = None,
         usage: MediaUsage | None = None,
     ) -> list[MediaAssetDocument]:

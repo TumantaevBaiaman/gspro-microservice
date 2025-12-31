@@ -15,6 +15,9 @@ class CoursePrice(BaseModel):
 class CourseEntity(BaseEntity):
     title: str
     description: Optional[str] = None
+    cover_image_id: Optional[str] = None
+
+    author_id: Optional[str] = None
 
     level: CourseLevel = CourseLevel.BEGINNER
     duration_minutes: int = 0

@@ -13,6 +13,6 @@ class CreateMediaDTO(BaseModel):
 
 
 class AttachMediaDTO(BaseModel):
-    media_id: UUID
+    media_id: str
     owner_service: OwnerService
-    owner_id: UUID
+    owner_id: str

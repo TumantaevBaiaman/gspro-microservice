@@ -1,6 +1,10 @@
 from uuid import UUID
 from typing import Iterable
 
+from beanie import PydanticObjectId
+from beanie.odm.operators.find.comparison import In
+from bson import ObjectId
+
 from src.domain.repositories.media_repository import IMediaRepository
 from src.infrastructure.db.mongo.models.media_asset_document import (
     MediaAssetDocument,
@@ -32,13 +36,12 @@ class MediaRepository(IMediaRepository):
     async def attach(
         self,
         *,
-        media_id: UUID,
+        media_id: str,
         owner_service: OwnerService,
-        owner_id: UUID,
+        owner_id: str,
     ) -> MediaAssetDocument | None:
-        doc = await MediaAssetDocument.find_one(
-            MediaAssetDocument.id == media_id,
-            MediaAssetDocument.is_active == True,
+        doc = await MediaAssetDocument.get(
+            media_id
         )
 
         if not doc:
@@ -56,9 +59,8 @@ class MediaRepository(IMediaRepository):
         *,
         media_id: UUID,
     ) -> MediaAssetDocument | None:
-        return await MediaAssetDocument.find_one(
-            MediaAssetDocument.id == media_id,
-            MediaAssetDocument.is_active == True,
+        return await MediaAssetDocument.get(
+            media_id
         )
 
     async def list_by_owner(
@@ -85,13 +87,14 @@ class MediaRepository(IMediaRepository):
         return await MediaAssetDocument.find(*filters).to_list()
 
     async def get_batch(
-        self,
-        *,
-        media_ids: Iterable[UUID],
-    ) -> list[MediaAssetDocument]:
+            self,
+            *,
+            media_ids,
+    ):
+        ids = [ObjectId(str(i)) for i in media_ids]
+
         return await MediaAssetDocument.find(
-            MediaAssetDocument.id.in_(list(media_ids)),
-            MediaAssetDocument.is_active == True,
+            {"_id": {"$in": ids}}
         ).to_list()
 
     async def soft_delete(

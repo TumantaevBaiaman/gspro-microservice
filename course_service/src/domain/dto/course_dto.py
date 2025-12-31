@@ -25,6 +25,7 @@ class GetCourseResponseDTO(BaseModel):
 
     category_ids: list[str] = []
     mentor_ids: list[str] = []
+    cover_image_id: Optional[str] = None
 
 
 class ListCoursesRequestDTO(BaseModel):
@@ -46,6 +47,7 @@ class CourseListItemDTO(BaseModel):
 
     category_ids: list[str] = []
     mentor_ids: list[str] = []
+    cover_image_id: Optional[str] = None
 
 
 class ListCoursesResponseDTO(BaseModel):
