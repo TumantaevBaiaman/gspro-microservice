@@ -15,7 +15,7 @@ class CourseHandler(pb2_grpc.CourseServiceServicer):
     async def GetCourse(self, request, context):
         try:
             course = await self.service.get.execute(request.id)
-
+            lessons_count = await self.service.get_lessons_count.execute(request.id)
             return pb2.GetCourseResponse(
                 id=str(course.id),
                 title=course.title,
@@ -36,6 +36,7 @@ class CourseHandler(pb2_grpc.CourseServiceServicer):
                 category_ids=list(course.category_ids),
                 mentor_ids=list(course.mentor_ids),
                 cover_image_id=course.cover_image_id or "",
+                lessons_count=lessons_count,
             )
 
         except CourseNotFoundError as e:

@@ -11,3 +11,7 @@ class ILessonRepository(ABC):
     @abstractmethod
     async def list_by_module_id(self, module_id: str) -> list[LessonEntity]:
         pass
+
+    @abstractmethod
+    async def count_by_module_id(self, module_id: str) -> int:
+        pass

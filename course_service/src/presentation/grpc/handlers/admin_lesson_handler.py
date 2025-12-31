@@ -33,7 +33,6 @@ class AdminLessonHandler(pb2_grpc.AdminLessonServiceServicer):
     async def AdminGetLesson(self, request, context):
         try:
             lesson = await self.service.get.execute(request.id)
-            print(lesson)
             return pb2.AdminGetLessonResponse(
                 id=str(lesson.id),
                 module_id=lesson.module_id,

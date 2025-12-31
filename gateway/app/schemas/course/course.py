@@ -30,6 +30,7 @@ class CourseGetResponseSchema(BaseModel):
     mentor_ids: list[str] = []
 
     rating: Optional[dict] = None
+    lessons_count: int = 0
 
 
 class CourseListItemSchema(BaseModel):
