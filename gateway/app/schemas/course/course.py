@@ -29,6 +29,8 @@ class CourseGetResponseSchema(BaseModel):
     category_ids: list[str] = []
     mentor_ids: list[str] = []
 
+    rating: Optional[dict] = None
+
 
 class CourseListItemSchema(BaseModel):
     id: str

@@ -1,4 +1,5 @@
 from app.clients.media.media_client import MediaClient
+from app.clients.review.course_review import ReviewClient
 
 
 def enrich_courses_with_cover(
@@ -32,23 +33,29 @@ def enrich_courses_with_cover(
 from app.clients.media.media_client import MediaClient
 
 
-def enrich_course_with_cover(
+def enrich_course(
     *,
     course: dict,
     media_client: MediaClient,
+    review_client: ReviewClient,
+    include_cover: bool = True,
+    include_rating: bool = True,
 ) -> dict:
 
-    cover_id = course.get("cover_image_id")
-    if not cover_id:
-        course["cover_image"] = None
-        return course
+    if include_cover:
+        cover_id = course.get("cover_image_id")
+        if cover_id:
+            media = media_client.get_media(media_id=cover_id)
+            course["cover_image"] = media.get("original_url") if media else None
+        else:
+            course["cover_image"] = None
 
-    media = media_client.get_media(media_id=cover_id)
-
-    course["cover_image"] = (
-        media.get("original_url", {})
-        if media else None
-    )
+    if include_rating:
+        rating = review_client.get_course_rating(course["id"])
+        course["rating"] = {
+            "average_rating": rating.get("average_rating"),
+            "count": rating.get("reviews_count"),
+        }
 
     return course
 
