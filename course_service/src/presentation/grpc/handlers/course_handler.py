@@ -21,6 +21,8 @@ class CourseHandler(pb2_grpc.CourseServiceServicer):
                 title=course.title,
                 description=course.description or "",
 
+                author_id=str(course.author_id) if course.author_id else "",
+
                 level=course.level.value,
                 duration_minutes=course.duration_minutes,
                 language=course.language.value,

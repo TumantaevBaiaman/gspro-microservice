@@ -11,6 +11,8 @@ class AdminCourseCreateDTO(BaseModel):
     description: Optional[str] = None
     cover_image_id: Optional[str] = None
 
+    author_id: Optional[str] = None
+
     level: CourseLevel
     duration_minutes: int = 0
     language: CourseLanguage = CourseLanguage.RU

@@ -37,6 +37,7 @@ message AdminCreateCourseRequest {
     repeated string category_ids = 8;
     repeated string mentor_ids = 9;
     string cover_image_id = 10;
+    string author_id = 11;
 }
 
 message AdminUpdateCourseRequest {

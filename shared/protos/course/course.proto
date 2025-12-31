@@ -32,6 +32,8 @@ message GetCourseResponse {
     repeated string category_ids = 9;
     repeated string mentor_ids = 10;
     string cover_image_id = 11;
+
+    string author_id = 12;
 }
 
 
