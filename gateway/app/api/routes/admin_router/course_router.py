@@ -1,11 +1,50 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, UploadFile, File
 from google.protobuf.json_format import MessageToDict
 
 from app.clients.course import admin_course_client
+from app.clients.media import media_client
 from app.schemas.course.admin_course import *
-
+from app.services.media.image_upload_service import upload_image
+from app.services.media.thumbnail_service import create_thumbnails
+from app.utils.image_validation import validate_image
 
 admin_course_router = APIRouter(prefix="/courses", tags=["Admin Courses"])
+
+
+@admin_course_router.post(
+    "/upload/cover-image",
+    response_model=AdminCourseCreateResponseSchema,
+    summary="Upload course cover image",
+    description="Endpoint to upload a cover image for a course."
+)
+async def create_course(file: UploadFile = File(...),):
+    image_bytes = await validate_image(file)
+
+    thumbnails = create_thumbnails(image_bytes)
+
+    _, urls = await upload_image(
+        original=image_bytes,
+        thumbnails=thumbnails,
+        path_prefix="course/cover_images",
+    )
+
+    media = media_client.create_media(
+        kind="image",
+        usage="cover",
+        original_url=urls["original"],
+        metadata={
+            "filename": file.filename,
+            "thumb_small_url": urls.get("small"),
+            "thumb_medium_url": urls.get("medium"),
+        },
+    )
+
+    return {
+        "id": media["id"],
+        "url": media["original_url"],
+        "kind": media["kind"],
+        "usage": media.get("usage"),
+    }
 
 
 @admin_course_router.post(
@@ -16,6 +55,11 @@ admin_course_router = APIRouter(prefix="/courses", tags=["Admin Courses"])
 )
 def create_course(data: AdminCourseCreateRequestSchema):
     response = admin_course_client.create_course(data)
+    media_client.attach_media(
+        owner_service="course",
+        owner_id=response.id,
+        media_id=data.cover_image_id,
+    )
     response_data = MessageToDict(response, preserving_proto_field_name=True)
     return AdminCourseCreateResponseSchema(
         **response_data

@@ -103,6 +103,7 @@ class MediaClient:
             ]
 
         except grpc.RpcError as e:
+            print(e)
             self._err(e)
 
     def list_media_by_owner(

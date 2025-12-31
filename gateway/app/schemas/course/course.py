@@ -16,6 +16,8 @@ class CourseGetResponseSchema(BaseModel):
     title: str
     description: Optional[str] = None
 
+    cover_image: Optional[str] = None
+
     level: str
     duration_minutes: int = 0
     language: str
@@ -31,6 +33,8 @@ class CourseListItemSchema(BaseModel):
     id: str
     title: str
     description: Optional[str] = None
+
+    cover_image: Optional[str] = None
 
     level: str
     duration_minutes: int = 0
