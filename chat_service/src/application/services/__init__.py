@@ -1,1 +1,3 @@
-from .favorite_course_service import FavoriteCourseService
+from .chat_message_service import ChatMessageService
+
+__all__ = ["ChatMessageService"]

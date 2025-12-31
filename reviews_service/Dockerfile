@@ -21,7 +21,7 @@ RUN poetry config virtualenvs.create false && poetry install --no-interaction --
 COPY ./reviews_service /app
 COPY ./shared /shared
 
-RUN make proto
+#RUN make proto
 
 EXPOSE 50053
 CMD ["python", "-u", "main.py"]

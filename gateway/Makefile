@@ -5,6 +5,8 @@ USER_PROTO_FILES=$(wildcard $(PROTO_DIR)/user/*.proto)
 COURSE_PROTO_FILES=$(wildcard $(PROTO_DIR)/course/*.proto)
 REVIEWS_PROTO_FILES=$(wildcard $(PROTO_DIR)/reviews/*.proto)
 FAVORITES_PROTO_FILES=$(wildcard $(PROTO_DIR)/favorites/*.proto)
+CHAT_PROTO_FILES=$(wildcard $(PROTO_DIR)/chat/*.proto)
+MEDIA_PROTO_FILES=$(wildcard $(PROTO_DIR)/media/*.proto)
 
 
 init:
@@ -12,11 +14,15 @@ init:
 	mkdir -p $(GEN_DIR)/course
 	mkdir -p $(GEN_DIR)/reviews
 	mkdir -p $(GEN_DIR)/favorites
+	mkdir -p $(GEN_DIR)/chat
+	mkdir -p $(GEN_DIR)/media
 	touch $(GEN_DIR)/__init__.py
 	touch $(GEN_DIR)/user/__init__.py
 	touch $(GEN_DIR)/course/__init__.py
 	touch $(GEN_DIR)/reviews/__init__.py
 	touch $(GEN_DIR)/favorites/__init__.py
+	touch $(GEN_DIR)/chat/__init__.py
+	touch $(GEN_DIR)/media/__init__.py
 
 
 user_proto: init
@@ -75,6 +81,34 @@ favorites_proto: init
 	fi
 
 
+chat_proto: init
+	python -m grpc_tools.protoc \
+		-I=$(PROTO_DIR) \
+		--python_out=$(GEN_DIR) \
+		--grpc_python_out=$(GEN_DIR) \
+		$(CHAT_PROTO_FILES)
 
-proto: course_proto user_proto reviews_proto favorites_proto
-	@echo "🚀 Proto files generated successfully in gateway!"
+	@if [ "$(shell uname)" = "Darwin" ]; then \
+		sed -i '' 's|from chat import \(.*_pb2\)|from generated.chat import \1|' $(GEN_DIR)/chat/*_grpc.py; \
+	else \
+		sed -i 's|from chat import \(.*_pb2\)|from generated.chat import \1|' $(GEN_DIR)/chat/*_grpc.py; \
+	fi
+
+
+media_proto: init
+	python -m grpc_tools.protoc \
+		-I=$(PROTO_DIR) \
+		--python_out=$(GEN_DIR) \
+		--grpc_python_out=$(GEN_DIR) \
+		$(MEDIA_PROTO_FILES)
+
+	@if [ "$(shell uname)" = "Darwin" ]; then \
+		sed -i '' 's|from media import \(.*_pb2\)|from generated.media import \1|' $(GEN_DIR)/media/*_grpc.py; \
+	else \
+		sed -i 's|from media import \(.*_pb2\)|from generated.media import \1|' $(GEN_DIR)/media/*_grpc.py; \
+	fi
+
+
+
+proto: course_proto user_proto reviews_proto favorites_proto chat_proto media_proto
+	@echo "Proto files generated successfully in gateway!"

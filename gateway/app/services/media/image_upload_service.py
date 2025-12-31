@@ -28,14 +28,12 @@ async def _upload_bytes(data: bytes, path: str, content_type: str):
 async def upload_image(
     original: bytes,
     thumbnails: dict[str, bytes],
-    entity: str,
-    entity_id: str,
-    image_type: str,
+    path_prefix: str,
 ) -> tuple[str, dict[str, str]]:
 
     image_id = str(uuid.uuid4())
 
-    base_path = f"{entity}/{entity_id}/{image_type}/{image_id}"
+    base_path = f"{path_prefix}/{image_id}"
 
     urls: dict[str, str] = {}
 
