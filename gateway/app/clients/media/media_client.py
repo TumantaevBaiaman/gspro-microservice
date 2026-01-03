@@ -63,6 +63,37 @@ class MediaClient:
         except grpc.RpcError as e:
             self._err(e)
 
+    def create_and_attach_media(
+            self,
+            *,
+            kind: str,
+            original_url: str,
+            owner_service: str,
+            owner_id: str,
+            usage: str | None = None,
+            metadata: dict | None = None,
+    ) -> dict:
+        try:
+            res = self.stub.CreateAndAttachMedia(
+                pb2.CreateAndAttachMediaRequest(
+                    kind=kind,
+                    usage=usage or "",
+                    original_url=original_url,
+                    metadata=metadata or {},
+                    owner_service=owner_service,
+                    owner_id=owner_id,
+                ),
+                timeout=3.0,
+            )
+
+            return MessageToDict(
+                res.media,
+                preserving_proto_field_name=True,
+            )
+
+        except grpc.RpcError as e:
+            self._err(e)
+
     def get_media(
         self,
         *,

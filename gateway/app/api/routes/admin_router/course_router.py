@@ -13,7 +13,6 @@ admin_course_router = APIRouter(prefix="/courses", tags=["Admin Courses"])
 
 @admin_course_router.post(
     "/upload/cover-image",
-    response_model=AdminCourseCreateResponseSchema,
     summary="Upload course cover image",
     description="Endpoint to upload a cover image for a course."
 )

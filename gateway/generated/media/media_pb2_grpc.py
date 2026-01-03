@@ -39,6 +39,11 @@ class MediaServiceStub(object):
                 request_serializer=media_dot_media__pb2.CreateMediaRequest.SerializeToString,
                 response_deserializer=media_dot_media__pb2.CreateMediaResponse.FromString,
                 _registered_method=True)
+        self.CreateAndAttachMedia = channel.unary_unary(
+                '/media.MediaService/CreateAndAttachMedia',
+                request_serializer=media_dot_media__pb2.CreateAndAttachMediaRequest.SerializeToString,
+                response_deserializer=media_dot_media__pb2.CreateMediaResponse.FromString,
+                _registered_method=True)
         self.AttachMedia = channel.unary_unary(
                 '/media.MediaService/AttachMedia',
                 request_serializer=media_dot_media__pb2.AttachMediaRequest.SerializeToString,
@@ -70,6 +75,12 @@ class MediaServiceServicer(object):
     """Missing associated documentation comment in .proto file."""
 
     def CreateMedia(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def CreateAndAttachMedia(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -111,6 +122,11 @@ def add_MediaServiceServicer_to_server(servicer, server):
             'CreateMedia': grpc.unary_unary_rpc_method_handler(
                     servicer.CreateMedia,
                     request_deserializer=media_dot_media__pb2.CreateMediaRequest.FromString,
+                    response_serializer=media_dot_media__pb2.CreateMediaResponse.SerializeToString,
+            ),
+            'CreateAndAttachMedia': grpc.unary_unary_rpc_method_handler(
+                    servicer.CreateAndAttachMedia,
+                    request_deserializer=media_dot_media__pb2.CreateAndAttachMediaRequest.FromString,
                     response_serializer=media_dot_media__pb2.CreateMediaResponse.SerializeToString,
             ),
             'AttachMedia': grpc.unary_unary_rpc_method_handler(
@@ -165,6 +181,33 @@ class MediaService(object):
             target,
             '/media.MediaService/CreateMedia',
             media_dot_media__pb2.CreateMediaRequest.SerializeToString,
+            media_dot_media__pb2.CreateMediaResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def CreateAndAttachMedia(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/media.MediaService/CreateAndAttachMedia',
+            media_dot_media__pb2.CreateAndAttachMediaRequest.SerializeToString,
             media_dot_media__pb2.CreateMediaResponse.FromString,
             options,
             channel_credentials,
