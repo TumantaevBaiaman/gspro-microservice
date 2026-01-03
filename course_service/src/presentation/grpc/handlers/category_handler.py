@@ -46,3 +46,29 @@ class CategoryHandler(pb2_grpc.CourseCategoryServiceServicer):
             )
 
         return response
+
+    async def GetCategoriesByIds(self, request, context):
+        try:
+            categories = await self.service.list_by_ids.execute(
+                ids=list(request.ids)
+            )
+
+            response = pb2.GetCategoriesByIdsResponse()
+
+            for category in categories:
+                response.items.append(
+                    pb2.CategoryItem(
+                        id=str(category.id),
+                        title=category.title,
+                        codename=category.codename,
+                        parent_id=category.parent_id or "",
+                    )
+                )
+
+            return response
+
+        except Exception as e:
+            await context.abort(
+                grpc.StatusCode.INTERNAL,
+                str(e)
+            )

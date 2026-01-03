@@ -1,3 +1,6 @@
+from beanie import PydanticObjectId
+from bson import ObjectId
+
 from src.domain.entities import CategoryEntity
 from src.domain.repositories.category_repository import ICategoryRepository
 
@@ -20,3 +23,16 @@ class CategoryRepository(ICategoryRepository):
         )
 
         return items, total
+
+    async def get_categories_by_ids(
+            self,
+            ids: list[str],
+    ) -> list[CategoryEntity]:
+        if not ids:
+            return []
+
+        ids = [ObjectId(str(i)) for i in ids]
+
+        return await CategoryEntity.find(
+            {"_id": {"$in": ids}}
+        ).to_list()

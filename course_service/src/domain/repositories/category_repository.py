@@ -12,3 +12,10 @@ class ICategoryRepository(ABC):
     @abstractmethod
     async def list_categories(self, limit: int,  offset: int) -> list[CategoryEntity]:
         pass
+
+    @abstractmethod
+    async def get_categories_by_ids(
+            self,
+            ids: list[str],
+    ) -> list[CategoryEntity]:
+        pass
