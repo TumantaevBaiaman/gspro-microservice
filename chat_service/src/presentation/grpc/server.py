@@ -26,7 +26,7 @@ async def start_grpc_server():
         f"{settings.GRPC_HOST}:{settings.GRPC_PORT}"
     )
 
-    logger.info("🚀 Course gRPC server started")
+    logger.info("🚀 Chat gRPC server started")
 
     await server.start()
     await server.wait_for_termination()

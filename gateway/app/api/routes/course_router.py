@@ -2,7 +2,10 @@ from http.client import HTTPException
 
 from fastapi import APIRouter, Query
 
+from app.aggregators.course.enrich_courses_with_cover import enrich_courses_with_cover, enrich_course
 from app.clients.course import course_client,  module_client
+from app.clients.media import media_client
+from app.clients.review import course_review_client
 from app.schemas.course.course import *
 from app.schemas.course.module import *
 
@@ -15,8 +18,21 @@ router = APIRouter(prefix="/courses", tags=["Course"])
     summary="Get course by ID",
     description="Retrieve detailed information about a specific course using its unique identifier.",
 )
-async def get_course(course_id: str):
+async def get_course(
+        course_id: str,
+        include_cover: bool = True,
+        include_rating: bool = True,
+):
     data = course_client.get_course(course_id)
+
+    data = enrich_course(
+        course=data,
+        media_client=media_client,
+        review_client=course_review_client,
+        include_cover=include_cover,
+        include_rating=include_rating,
+    )
+
     return CourseGetResponseSchema(**data)
 
 
@@ -31,7 +47,14 @@ async def list_courses(
     offset: int = Query(0, ge=0),
 ):
     data = course_client.list_courses(limit=limit, offset=offset)
-    return CourseListResponseSchema(**data)
+    items = enrich_courses_with_cover(
+        courses=data["items"],
+        media_client=media_client,
+    )
+    return CourseListResponseSchema(
+        total=data["total"],
+        items=[CourseListItemSchema(**item) for item in items],
+    )
 
 
 @router.get(

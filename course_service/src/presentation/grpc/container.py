@@ -26,7 +26,7 @@ from src.application.services import (
 
 def build_services() -> dict[type, object]:
     return {
-        CourseService: CourseService(CourseRepository()),
+        CourseService: CourseService(CourseRepository(), LessonService(LessonRepository())),
         AdminCategoryService: AdminCategoryService(AdminCategoryRepository()),
         AdminCourseService: AdminCourseService(AdminCourseRepository()),
         AdminModuleService: AdminModuleService(AdminModuleRepository()),

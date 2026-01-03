@@ -22,6 +22,8 @@ services:
       - course_service
       - reviews_service
       - favorites_service
+      - chat_service
+      - media_service
 
   user_service:
     container_name: user_service
@@ -57,8 +59,6 @@ services:
     volumes:
       - ./course_service:/app
       - ./shared:/shared
-    depends_on:
-      - db
 
   reviews_service:
     container_name: reviews_service
@@ -73,8 +73,6 @@ services:
     volumes:
       - ./reviews_service:/app
       - ./shared:/shared
-    depends_on:
-      - db
 
   favorites_service:
     container_name: favorites_service
@@ -89,8 +87,34 @@ services:
     volumes:
       - ./favorites_service:/app
       - ./shared:/shared
-    depends_on:
-      - db
+
+  chat_service:
+    container_name: chat_service
+    build:
+      context: .
+      dockerfile: ./chat_service/Dockerfile
+    env_file:
+      - ./chat_service/.env
+    expose:
+      - "50055"
+    restart: unless-stopped
+    volumes:
+      - ./chat_service:/app
+      - ./shared:/shared
+
+  media_service:
+    container_name: media_service
+    build:
+      context: .
+      dockerfile: ./media_service/Dockerfile
+    env_file:
+      - ./media_service/.env
+    expose:
+      - "50056"
+    restart: unless-stopped
+    volumes:
+      - ./media_service:/app
+      - ./shared:/shared
 
   db:
     image: postgres:15

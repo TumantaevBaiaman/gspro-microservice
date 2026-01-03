@@ -1,0 +1,91 @@
+syntax = "proto3";
+
+package media;
+
+service MediaService {
+  rpc CreateMedia      (CreateMediaRequest)      returns (CreateMediaResponse);
+  rpc AttachMedia      (AttachMediaRequest)      returns (AttachMediaResponse);
+
+  rpc GetMedia         (GetMediaRequest)         returns (GetMediaResponse);
+  rpc GetMediaBatch    (GetMediaBatchRequest)    returns (GetMediaBatchResponse);
+  rpc ListMediaByOwner (ListMediaByOwnerRequest) returns (ListMediaResponse);
+  rpc DeleteMedia      (DeleteMediaRequest)      returns (DeleteMediaResponse);
+}
+
+
+message Media {
+  string id = 1;
+
+  string owner_service = 2;
+  string owner_id = 3;
+
+  string kind = 4;
+  string usage = 5;
+
+  string original_url = 6;
+
+  map<string, string> metadata = 7;
+
+  string status = 8;
+
+  string created_at = 9;
+}
+
+message CreateMediaRequest {
+  string kind = 1;
+  string usage = 2;
+
+  string original_url = 3;
+  map<string, string> metadata = 4;
+}
+
+message CreateMediaResponse {
+  Media media = 1;
+}
+
+message AttachMediaRequest {
+  string media_id = 1;
+
+  string owner_service = 2;
+  string owner_id = 3;
+}
+
+message AttachMediaResponse {
+  Media media = 1;
+}
+
+message GetMediaRequest {
+  string media_id = 1;
+}
+
+message GetMediaResponse {
+  Media media = 1;
+}
+
+message GetMediaBatchRequest {
+  repeated string media_ids = 1;
+}
+
+message GetMediaBatchResponse {
+  repeated Media items = 1;
+}
+
+message ListMediaByOwnerRequest {
+  string owner_service = 1;
+  string owner_id = 2;
+
+  string kind = 3;
+  string usage = 4;
+}
+
+message ListMediaResponse {
+  repeated Media items = 1;
+}
+
+message DeleteMediaRequest {
+  string media_id = 1;
+}
+
+message DeleteMediaResponse {
+  bool success = 1;
+}

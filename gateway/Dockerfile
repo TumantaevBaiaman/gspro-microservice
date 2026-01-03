@@ -14,7 +14,7 @@ RUN poetry config virtualenvs.create false && poetry install --no-interaction --
 COPY ./gateway /app
 COPY ./shared /shared
 
-RUN make proto
+#RUN make proto
 
 EXPOSE 8000
 CMD ["poetry", "run", "uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]

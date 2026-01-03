@@ -60,9 +60,7 @@ async def upload_avatar(file: UploadFile = File(...), user=Depends(get_current_u
     image_id, urls = await upload_image(
         original=image_bytes,
         thumbnails=thumbnails,
-        entity="users",
-        entity_id=user_id,
-        image_type="avatar",
+        path_prefix="users/avatar",
     )
 
     response = await user_profile_client.set_user_avatar(

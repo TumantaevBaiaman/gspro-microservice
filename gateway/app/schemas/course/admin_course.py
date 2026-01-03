@@ -11,6 +11,9 @@ class CoursePriceSchema(BaseModel):
 class AdminCourseCreateRequestSchema(BaseModel):
     title: str
     description: Optional[str] = None
+    cover_image_id: Optional[str] = None
+
+    author_id: Optional[str] = None
 
     level: str = "beginner"
     duration_minutes: Optional[int] = 0

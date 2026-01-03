@@ -16,6 +16,9 @@ class CourseGetResponseSchema(BaseModel):
     title: str
     description: Optional[str] = None
 
+    cover_image: Optional[str] = None
+    author_id: Optional[str] = None
+
     level: str
     duration_minutes: int = 0
     language: str
@@ -26,11 +29,16 @@ class CourseGetResponseSchema(BaseModel):
     category_ids: list[str] = []
     mentor_ids: list[str] = []
 
+    rating: Optional[dict] = None
+    lessons_count: int = 0
+
 
 class CourseListItemSchema(BaseModel):
     id: str
     title: str
     description: Optional[str] = None
+
+    cover_image: Optional[str] = None
 
     level: str
     duration_minutes: int = 0
