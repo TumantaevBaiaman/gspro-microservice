@@ -6,6 +6,7 @@ from .user_router import user_router
 from .user_education_router import user_education_router
 from .user_certificate_router import user_certificate_router
 from .user_experience_router import user_experience_router
+from .user_portfolio_router import user_portfolio_router
 
 router = APIRouter()
 
@@ -15,3 +16,4 @@ router.include_router(user_router)
 router.include_router(user_education_router)
 router.include_router(user_certificate_router)
 router.include_router(user_experience_router)
+router.include_router(user_portfolio_router)
