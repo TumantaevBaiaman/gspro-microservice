@@ -8,6 +8,7 @@ class ModuleEntity(BaseEntity):
     title: str
     description: Optional[str] = None
     order_number: Optional[int] = None
+    duration_minutes: Optional[int] = None
 
     class Settings:
         name = "modules"

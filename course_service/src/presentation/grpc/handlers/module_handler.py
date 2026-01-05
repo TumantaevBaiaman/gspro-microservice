@@ -38,7 +38,8 @@ class ModuleHandler(pb2_grpc.ModuleServiceServicer):
                     title=module.title,
                     description=module.description or "",
                     order_number=module.order_number or 0,
-                    lessons_count=await self.service.get_lessons_count.execute(module.id)
+                    lessons_count=await self.service.get_lessons_count.execute(module.id),
+                    duration_minutes=module.duration_minutes or 0,
                 )
                 for module in modules
             ]
