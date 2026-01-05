@@ -30,7 +30,6 @@ class UserCertificateClient:
         try:
             return await self.stub.Create(request)
         except grpc.RpcError as e:
-            print(e)
             raise HTTPException(status_code=500, detail="Internal error")
 
     async def list_by_user(

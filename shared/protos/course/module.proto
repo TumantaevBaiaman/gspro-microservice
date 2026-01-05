@@ -32,6 +32,8 @@ message Module {
     string title = 3;
     string description = 4;
     int32 order_number = 5;
+    int64 lessons_count = 6;
+    int64 duration_minutes = 7;
 }
 
 message ListModulesResponse {

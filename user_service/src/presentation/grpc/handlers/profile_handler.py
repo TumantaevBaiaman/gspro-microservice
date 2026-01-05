@@ -124,14 +124,16 @@ class ProfileHandler(pb2_grpc.UserProfileServiceServicer):
                 image_id=str(image_id),
             )
 
-    async def GetUserByIds(self, request, context):
+    async def ListProfilesByIds(self, request, context):
         async with async_session_maker() as session:
             container = Container(session)
 
-            response_dto = await container.profile_service.get_profiles_by_ids.execute(request)
+            response_dto = await container.profile_service.get_profiles_by_ids.execute(
+                list(request.user_ids)
+            )
 
             items = [
-                pb2.ListProfilesByIdsItem(
+                pb2.GetProfilesByIdsItem(
                     user_id=item.user_id,
                     full_name=item.full_name or "",
                     bio=item.bio or "",
@@ -147,5 +149,5 @@ class ProfileHandler(pb2_grpc.UserProfileServiceServicer):
             ]
 
             return pb2.ListProfilesByIdsResponse(
-                items=items
+                users=items
             )

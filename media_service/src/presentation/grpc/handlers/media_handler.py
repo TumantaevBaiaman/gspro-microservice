@@ -3,7 +3,7 @@ import grpc
 from generated.media import media_pb2 as pb2
 from generated.media import media_pb2_grpc as pb2_grpc
 
-from src.application.commands.media.dto import CreateMediaDTO, AttachMediaDTO
+from src.application.commands.media.dto import CreateMediaDTO, AttachMediaDTO, CreateAndAttachMediaDTO
 from src.application.services.media_service import MediaService
 from src.domain.enums.media import OwnerService, MediaKind, MediaUsage
 
@@ -43,6 +43,22 @@ class MediaHandler(pb2_grpc.MediaServiceServicer):
             )
 
         return pb2.AttachMediaResponse(
+            media=self._map_media(media)
+        )
+
+    async def CreateAndAttachMedia(self, request, context):
+        dto = CreateAndAttachMediaDTO(
+            kind=MediaKind(request.kind),
+            usage=MediaUsage(request.usage) if request.usage else None,
+            original_url=request.original_url,
+            metadata=dict(request.metadata) if request.metadata else None,
+            owner_service=OwnerService(request.owner_service),
+            owner_id=request.owner_id,
+        )
+
+        media = await self.service.create_and_attach.execute(dto)
+
+        return pb2.CreateMediaResponse(
             media=self._map_media(media)
         )
 

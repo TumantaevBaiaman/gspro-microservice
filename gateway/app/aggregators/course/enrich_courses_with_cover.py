@@ -1,5 +1,9 @@
+import asyncio
+
+from app.clients.course.category_client import CategoryClient
 from app.clients.media.media_client import MediaClient
 from app.clients.review.course_review import ReviewClient
+from app.clients.user.profile_client import ProfileClient
 
 
 def enrich_courses_with_cover(
@@ -38,8 +42,10 @@ def enrich_course(
     course: dict,
     media_client: MediaClient,
     review_client: ReviewClient,
+    category_client: CategoryClient,
     include_cover: bool = True,
     include_rating: bool = True,
+    include_categories: bool = True,
 ) -> dict:
 
     if include_cover:
@@ -57,5 +63,26 @@ def enrich_course(
             "count": rating.get("reviews_count"),
         }
 
+    if include_categories:
+        category_ids = list(set(course.get("category_ids", [])))
+
+        if category_ids:
+            categories = category_client.get_categories_by_ids(category_ids)
+            course["categories"] = categories
+        else:
+            course["categories"] = []
+
     return course
+
+
+async def get_course_mentors(
+    *,
+    mentor_ids: list[str],
+    user_profile_client: ProfileClient,
+) -> list[dict]:
+
+    if not mentor_ids:
+        return []
+
+    return await user_profile_client.list_profiles_by_ids(mentor_ids)
 

@@ -44,6 +44,11 @@ class CourseCategoryServiceStub(object):
                 request_serializer=category__pb2.ListCategoriesRequest.SerializeToString,
                 response_deserializer=category__pb2.ListCategoriesResponse.FromString,
                 _registered_method=True)
+        self.GetCategoriesByIds = channel.unary_unary(
+                '/course_category.CourseCategoryService/GetCategoriesByIds',
+                request_serializer=category__pb2.GetCategoriesByIdsRequest.SerializeToString,
+                response_deserializer=category__pb2.GetCategoriesByIdsResponse.FromString,
+                _registered_method=True)
 
 
 class CourseCategoryServiceServicer(object):
@@ -61,6 +66,12 @@ class CourseCategoryServiceServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def GetCategoriesByIds(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_CourseCategoryServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -73,6 +84,11 @@ def add_CourseCategoryServiceServicer_to_server(servicer, server):
                     servicer.ListCategories,
                     request_deserializer=category__pb2.ListCategoriesRequest.FromString,
                     response_serializer=category__pb2.ListCategoriesResponse.SerializeToString,
+            ),
+            'GetCategoriesByIds': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetCategoriesByIds,
+                    request_deserializer=category__pb2.GetCategoriesByIdsRequest.FromString,
+                    response_serializer=category__pb2.GetCategoriesByIdsResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -129,6 +145,33 @@ class CourseCategoryService(object):
             '/course_category.CourseCategoryService/ListCategories',
             category__pb2.ListCategoriesRequest.SerializeToString,
             category__pb2.ListCategoriesResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def GetCategoriesByIds(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/course_category.CourseCategoryService/GetCategoriesByIds',
+            category__pb2.GetCategoriesByIdsRequest.SerializeToString,
+            category__pb2.GetCategoriesByIdsResponse.FromString,
             options,
             channel_credentials,
             insecure,

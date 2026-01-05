@@ -33,6 +33,20 @@ class CategoryClient:
         except grpc.RpcError as e:
             self._err(e)
 
+    def get_categories_by_ids(self, ids: list[str]):
+        if not ids:
+            return []
+
+        try:
+            res = self.stub.GetCategoriesByIds(
+                pb2.GetCategoriesByIdsRequest(ids=ids)
+            )
+
+            return [MessageToDict(item) for item in res.items]
+
+        except grpc.RpcError as e:
+            self._err(e)
+
     @staticmethod
     def _err(e: grpc.RpcError):
         code = e.code()
