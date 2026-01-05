@@ -32,6 +32,7 @@ message Module {
     string title = 3;
     string description = 4;
     int32 order_number = 5;
+    int64 lessons_count = 6;
 }
 
 message ListModulesResponse {

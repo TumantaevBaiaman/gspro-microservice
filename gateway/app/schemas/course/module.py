@@ -16,6 +16,7 @@ class ModuleListItemSchema(BaseModel):
     title: str
     description: Optional[str]
     order_number: int
+    lessons_count: int = 0
 
 
 class ModuleListResponseSchema(BaseModel):
