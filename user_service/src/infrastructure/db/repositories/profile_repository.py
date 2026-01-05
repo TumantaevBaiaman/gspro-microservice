@@ -66,3 +66,28 @@ class ProfileRepository(IProfileRepository):
         profile.avatar_image_id = image_id
 
         await self.session.commit()
+
+    async def list_profiles_by_ids(
+        self,
+        user_ids: list[UUID] | UUID | list[str] | str,
+    ) -> list[UserProfileModel]:
+
+        if isinstance(user_ids, (UUID, str)):
+            user_ids = [user_ids]
+
+        normalized_ids: list[UUID] = []
+        for uid in user_ids:
+            if isinstance(uid, UUID):
+                normalized_ids.append(uid)
+            else:
+                normalized_ids.append(UUID(str(uid)))
+
+        if not normalized_ids:
+            return []
+
+        stmt = select(UserProfileModel).where(
+            UserProfileModel.user_id.in_(normalized_ids)
+        )
+
+        result = await self.session.execute(stmt)
+        return result.scalars().all()

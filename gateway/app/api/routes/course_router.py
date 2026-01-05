@@ -2,10 +2,12 @@ from http.client import HTTPException
 
 from fastapi import APIRouter, Query
 
-from app.aggregators.course.enrich_courses_with_cover import enrich_courses_with_cover, enrich_course
+from app.aggregators.course.enrich_courses_with_cover import enrich_courses_with_cover, enrich_course, \
+    get_course_mentors
 from app.clients.course import course_client, module_client, category_client
 from app.clients.media import media_client
 from app.clients.review import course_review_client
+from app.clients.user import user_profile_client
 from app.schemas.course.course import *
 from app.schemas.course.module import *
 
@@ -23,6 +25,7 @@ async def get_course(
         include_cover: bool = True,
         include_rating: bool = True,
         include_categories: bool = True,
+        include_mentors: bool = True,
 ):
     data = course_client.get_course(course_id)
 
@@ -35,6 +38,14 @@ async def get_course(
         include_rating=include_rating,
         include_categories=include_categories,
     )
+
+    if include_mentors:
+        data["mentors"] = await get_course_mentors(
+            mentor_ids=data.get("mentor_ids", []),
+            user_profile_client=user_profile_client,
+        )
+    else:
+        data["mentors"] = []
 
     return CourseGetResponseSchema(**data)
 

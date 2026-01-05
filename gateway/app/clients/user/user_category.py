@@ -16,7 +16,6 @@ class UserCategoryClient:
             response = await self.stub.ListUserCategories(request)
             return response
         except grpc.RpcError as e:
-            print(e)
             raise HTTPException(status_code=500, detail="Internal error")
 
     async def create_user_category(self, user_id, data):
@@ -28,7 +27,6 @@ class UserCategoryClient:
             response = await self.stub.AddUserCategory(request)
             return response
         except grpc.RpcError as e:
-            print(e)
             if e.code() == grpc.StatusCode.ALREADY_EXISTS:
                 raise HTTPException(status_code=409, detail=e.details())
             raise HTTPException(status_code=500, detail="Internal error")

@@ -1,6 +1,9 @@
+import asyncio
+
 from app.clients.course.category_client import CategoryClient
 from app.clients.media.media_client import MediaClient
 from app.clients.review.course_review import ReviewClient
+from app.clients.user.profile_client import ProfileClient
 
 
 def enrich_courses_with_cover(
@@ -70,4 +73,16 @@ def enrich_course(
             course["categories"] = []
 
     return course
+
+
+async def get_course_mentors(
+    *,
+    mentor_ids: list[str],
+    user_profile_client: ProfileClient,
+) -> list[dict]:
+
+    if not mentor_ids:
+        return []
+
+    return await user_profile_client.list_profiles_by_ids(mentor_ids)
 

@@ -69,12 +69,22 @@ class ProfileClient:
                 raise HTTPException(status_code=404, detail=e.details())
             raise HTTPException(status_code=500, detail="Internal error")
 
-    async def list_profiles_by_ids(self, user_ids: list[str]):
+    async def list_profiles_by_ids(self, user_ids: list[str]) -> list[dict]:
         request = profile_pb2.ListProfilesByIdsRequest(user_ids=user_ids)
+
         try:
             response = await self.stub.ListProfilesByIds(request)
-            return response
-        except grpc.RpcError as e:
+
+            return [
+                {
+                    "full_name": item.full_name,
+                    "experience_level": item.experience_level,
+                    "avatar": item.avatar.thumb_medium_url if item.avatar else None,
+                }
+                for item in response.users
+            ]
+
+        except grpc.RpcError:
             raise HTTPException(status_code=500, detail="Internal error")
 
 
