@@ -17,7 +17,7 @@ class CourseGetResponseSchema(BaseModel):
     description: Optional[str] = None
 
     cover_image: Optional[str] = None
-    author_id: Optional[str] = None
+    author: Optional[dict] = None
 
     level: str
     duration_minutes: int = 0

@@ -78,7 +78,6 @@ class ProfileClient:
             return [
                 {
                     "full_name": item.full_name,
-                    "experience_level": item.experience_level,
                     "avatar": item.avatar.thumb_medium_url if item.avatar else None,
                 }
                 for item in response.users
