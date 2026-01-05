@@ -16,3 +16,14 @@ class AttachMediaDTO(BaseModel):
     media_id: str
     owner_service: OwnerService
     owner_id: str
+
+
+class CreateAndAttachMediaDTO(BaseModel):
+    kind: MediaKind
+    usage: MediaUsage | None = None
+
+    original_url: str
+    metadata: dict | None = None
+
+    owner_service: OwnerService
+    owner_id: str

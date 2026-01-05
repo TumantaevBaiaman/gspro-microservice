@@ -4,6 +4,7 @@ package media;
 
 service MediaService {
   rpc CreateMedia      (CreateMediaRequest)      returns (CreateMediaResponse);
+  rpc CreateAndAttachMedia     (CreateAndAttachMediaRequest)     returns (CreateMediaResponse);
   rpc AttachMedia      (AttachMediaRequest)      returns (AttachMediaResponse);
 
   rpc GetMedia         (GetMediaRequest)         returns (GetMediaResponse);
@@ -88,4 +89,15 @@ message DeleteMediaRequest {
 
 message DeleteMediaResponse {
   bool success = 1;
+}
+
+message CreateAndAttachMediaRequest {
+  string kind = 1;
+  string usage = 2;
+
+  string original_url = 3;
+  map<string, string> metadata = 4;
+
+  string owner_service = 5;
+  string owner_id = 6;
 }

@@ -19,6 +19,7 @@ class MediaUsage(str, Enum):
     avatar = "avatar"
     lesson = "lesson"
     message = "message"
+    portfolio = "portfolio"
 
 
 class MediaStatus(str, Enum):

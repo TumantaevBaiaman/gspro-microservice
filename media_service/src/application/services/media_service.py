@@ -1,6 +1,7 @@
 from src.application.commands.media.create import CreateMediaCommand
 from src.application.commands.media.attach import AttachMediaCommand
 from src.application.commands.media.delete import SoftDeleteMediaCommand
+from src.application.commands.media.create_and_attach import CreateAndAttachMediaCommand
 
 from src.application.queries.media.get import GetMediaQuery
 from src.application.queries.media.list_by_owner import ListMediaByOwnerQuery
@@ -13,6 +14,7 @@ class MediaService:
     def __init__(self, repo: IMediaRepository):
         self.create = CreateMediaCommand(repo)
         self.attach = AttachMediaCommand(repo)
+        self.create_and_attach = CreateAndAttachMediaCommand(repo)
         self.delete = SoftDeleteMediaCommand(repo)
 
         self.get = GetMediaQuery(repo)

@@ -6,6 +6,8 @@ package course_category;
 service CourseCategoryService {
     rpc GetCategory(GetCategoryRequest) returns (GetCategoryResponse);
     rpc ListCategories(ListCategoriesRequest) returns (ListCategoriesResponse);
+      rpc GetCategoriesByIds(GetCategoriesByIdsRequest)
+      returns (GetCategoriesByIdsResponse);
 }
 
 message GetCategoryRequest {
@@ -34,4 +36,12 @@ message CategoryItem {
 message ListCategoriesResponse {
     repeated CategoryItem items = 1;
     int32 total = 2;
+}
+
+message GetCategoriesByIdsRequest {
+  repeated string ids = 1;
+}
+
+message GetCategoriesByIdsResponse {
+  repeated CategoryItem items = 1;
 }

@@ -26,7 +26,7 @@ class CourseGetResponseSchema(BaseModel):
 
     price: CoursePriceSchema
 
-    category_ids: list[str] = []
+    categories: list[dict] = []
     mentor_ids: list[str] = []
 
     rating: Optional[dict] = None

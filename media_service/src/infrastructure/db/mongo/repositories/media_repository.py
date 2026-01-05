@@ -1,8 +1,5 @@
 from uuid import UUID
-from typing import Iterable
 
-from beanie import PydanticObjectId
-from beanie.odm.operators.find.comparison import In
 from bson import ObjectId
 
 from src.domain.repositories.media_repository import IMediaRepository
@@ -52,6 +49,28 @@ class MediaRepository(IMediaRepository):
         doc.status = MediaStatus.attached
 
         await doc.save()
+        return doc
+
+    async def create_and_attach(
+            self,
+            *,
+            kind: MediaKind,
+            usage: MediaUsage | None,
+            original_url: str,
+            metadata: dict | None,
+            owner_service: OwnerService,
+            owner_id: str,
+    ) -> MediaAssetDocument:
+        doc = MediaAssetDocument(
+            kind=kind,
+            usage=usage,
+            original_url=original_url,
+            metadata=metadata,
+            owner_service=owner_service,
+            owner_id=owner_id,
+            status=MediaStatus.attached,
+        )
+        await doc.insert()
         return doc
 
     async def get_by_id(

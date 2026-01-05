@@ -30,6 +30,19 @@ class IMediaRepository(ABC):
         ...
 
     @abstractmethod
+    async def create_and_attach(
+            self,
+            *,
+            kind: MediaKind,
+            usage: MediaUsage | None,
+            original_url: str,
+            metadata: dict | None,
+            owner_service: OwnerService,
+            owner_id: str,
+    ) -> MediaAssetDocument:
+        ...
+
+    @abstractmethod
     async def get_by_id(
         self,
         *,

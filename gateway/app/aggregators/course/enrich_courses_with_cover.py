@@ -1,3 +1,4 @@
+from app.clients.course.category_client import CategoryClient
 from app.clients.media.media_client import MediaClient
 from app.clients.review.course_review import ReviewClient
 
@@ -38,8 +39,10 @@ def enrich_course(
     course: dict,
     media_client: MediaClient,
     review_client: ReviewClient,
+    category_client: CategoryClient,
     include_cover: bool = True,
     include_rating: bool = True,
+    include_categories: bool = True,
 ) -> dict:
 
     if include_cover:
@@ -56,6 +59,15 @@ def enrich_course(
             "average_rating": rating.get("average_rating"),
             "count": rating.get("reviews_count"),
         }
+
+    if include_categories:
+        category_ids = list(set(course.get("category_ids", [])))
+
+        if category_ids:
+            categories = category_client.get_categories_by_ids(category_ids)
+            course["categories"] = categories
+        else:
+            course["categories"] = []
 
     return course
 

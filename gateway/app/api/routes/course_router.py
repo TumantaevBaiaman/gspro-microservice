@@ -3,7 +3,7 @@ from http.client import HTTPException
 from fastapi import APIRouter, Query
 
 from app.aggregators.course.enrich_courses_with_cover import enrich_courses_with_cover, enrich_course
-from app.clients.course import course_client,  module_client
+from app.clients.course import course_client, module_client, category_client
 from app.clients.media import media_client
 from app.clients.review import course_review_client
 from app.schemas.course.course import *
@@ -22,6 +22,7 @@ async def get_course(
         course_id: str,
         include_cover: bool = True,
         include_rating: bool = True,
+        include_categories: bool = True,
 ):
     data = course_client.get_course(course_id)
 
@@ -29,8 +30,10 @@ async def get_course(
         course=data,
         media_client=media_client,
         review_client=course_review_client,
+        category_client=category_client,
         include_cover=include_cover,
         include_rating=include_rating,
+        include_categories=include_categories,
     )
 
     return CourseGetResponseSchema(**data)
