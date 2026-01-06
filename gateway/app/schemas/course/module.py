@@ -18,6 +18,7 @@ class ModuleListItemSchema(BaseModel):
     order_number: int
     lessons_count: int = 0
     duration_minutes: Optional[int] = 0
+    has_free_lessons: bool = False
 
 
 class ModuleListResponseSchema(BaseModel):
