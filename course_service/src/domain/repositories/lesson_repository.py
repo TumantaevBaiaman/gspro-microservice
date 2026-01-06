@@ -15,3 +15,7 @@ class ILessonRepository(ABC):
     @abstractmethod
     async def count_by_module_id(self, module_id: str) -> int:
         pass
+
+    @abstractmethod
+    async def has_free_lessons(self, module_id: str) -> bool:
+        pass

@@ -32,7 +32,7 @@ def build_services() -> dict[type, object]:
         AdminModuleService: AdminModuleService(AdminModuleRepository()),
         AdminLessonService: AdminLessonService(AdminLessonRepository()),
         CategoryService: CategoryService(CategoryRepository()),
-        ModuleService: ModuleService(ModuleRepository(), LessonService(LessonRepository())),
+        ModuleService: ModuleService(ModuleRepository(), LessonService(LessonRepository()), LessonRepository()),
         LessonService: LessonService(LessonRepository()),
         MediaService: MediaService(
             image_repo=ImageRepository(),
