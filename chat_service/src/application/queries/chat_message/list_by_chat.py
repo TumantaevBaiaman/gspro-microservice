@@ -1,21 +1,15 @@
-from src.domain.repositories.chat_message_repository import (
-    IChatMessageRepository,
-)
+from src.application.queries.chat_message.dto import ListMessagesByChatDTO
+from src.domain.repositories import IChatMessageRepository
 
 
-class ListChatMessagesQuery:
+class ListMessagesByChatQuery:
+
     def __init__(self, repo: IChatMessageRepository):
         self.repo = repo
 
-    async def execute(
-        self,
-        *,
-        chat_id: str,
-        limit: int,
-        offset: int,
-    ):
-        return await self.repo.list_messages(
-            chat_id=chat_id,
-            limit=limit,
-            offset=offset,
+    async def execute(self, dto: ListMessagesByChatDTO):
+        return await self.repo.list_by_chat(
+            chat_id=dto.chat_id,
+            limit=dto.limit,
+            offset=dto.offset,
         )

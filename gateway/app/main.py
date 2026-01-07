@@ -8,8 +8,8 @@ from app.api.routes import (
     reviews,
     favorite,
     user,
-    chat,
     media,
+    chat
 )
 from app.core.config import settings
 
