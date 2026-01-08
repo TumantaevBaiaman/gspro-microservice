@@ -48,7 +48,6 @@ class ConnectionManager:
         user_ids: Iterable[str],
         payload: dict,
     ) -> None:
-        print(user_ids)
         for uid in user_ids:
             await self.send_to_user(uid, payload)
 

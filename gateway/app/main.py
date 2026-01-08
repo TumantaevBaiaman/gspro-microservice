@@ -9,7 +9,8 @@ from app.api.routes import (
     favorite,
     user,
     media,
-    chat
+    chat,
+    subscription,
 )
 from app.core.config import settings
 
@@ -26,6 +27,7 @@ router.include_router(reviews.router)
 router.include_router(favorite.router)
 router.include_router(chat.router)
 router.include_router(media.router)
+router.include_router(subscription.router)
 router.include_router(admin_router.router)
 
 app.include_router(router)

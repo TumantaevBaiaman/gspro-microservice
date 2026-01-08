@@ -1,0 +1,51 @@
+syntax = "proto3";
+
+package purchase_request;
+
+service PurchaseRequestService {
+  rpc Create (CreatePurchaseRequestRequest) returns (CreatePurchaseRequestResponse);
+  rpc List (ListPurchaseRequestsRequest) returns (ListPurchaseRequestsResponse);
+  rpc UpdateStatus (UpdatePurchaseRequestStatusRequest)
+      returns (UpdatePurchaseRequestStatusResponse);
+}
+
+message CreatePurchaseRequestRequest {
+  string user_id = 1;        // optional, can be empty
+  string email = 2;
+  string phone_number = 3;
+  string target_type = 4;   // "course"
+  string target_id = 5;
+}
+
+message CreatePurchaseRequestResponse {
+  string request_id = 1;
+}
+
+message ListPurchaseRequestsRequest {
+  int32 limit = 1;
+  int32 offset = 2;
+}
+
+message PurchaseRequest {
+  string id = 1;
+  string user_id = 2;
+  string email = 3;
+  string phone_number = 4;
+  string target_type = 5;   // "course"
+  string target_id = 6;
+  string status = 7;        // "pending" | "paid" | "rejected" | "canceled"
+}
+
+message ListPurchaseRequestsResponse {
+  repeated PurchaseRequest items = 1;
+  int64 total = 2;
+}
+
+message UpdatePurchaseRequestStatusRequest {
+  string request_id = 1;
+  string status = 2;        // "pending" | "paid" | "rejected" | "canceled"
+}
+
+message UpdatePurchaseRequestStatusResponse {
+  bool success = 1;
+}
