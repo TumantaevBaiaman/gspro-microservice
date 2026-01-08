@@ -22,4 +22,5 @@ message SendMessageResponse {
   string chat_id = 1;
   string message_id = 2;
   string created_at = 3;
+  repeated string participant_ids = 4;
 }

@@ -35,7 +35,6 @@ class ChatMessageClient:
                 ),
                 timeout=3.0,
             )
-
             return MessageToDict(
                 res,
                 preserving_proto_field_name=True,

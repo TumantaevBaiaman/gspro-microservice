@@ -30,11 +30,9 @@ class ChatMessageService:
     def __init__(
         self,
         message_repo: IChatMessageRepository,
-        participant_repo: IChatParticipantRepository,
     ):
         self.send = SendMessageCommand(
             message_repo=message_repo,
-            participant_repo=participant_repo,
         )
         self.edit = EditMessageCommand(message_repo)
         self.delete = DeleteMessageCommand(message_repo)

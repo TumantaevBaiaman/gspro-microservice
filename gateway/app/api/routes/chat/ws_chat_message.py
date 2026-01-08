@@ -1,60 +1,47 @@
-from fastapi import APIRouter, WebSocket, WebSocketDisconnect, Depends
+from fastapi import APIRouter, WebSocket, WebSocketDisconnect, Depends, HTTPException
 
-from app.clients.chat.chat_message_client import chat_message_client
-from app.api.dependencies.auth import get_current_user
+from app.api.ws_auth import authenticate_ws
+from app.ws.connection_manager import manager
+from app.ws.handlers.chat_message_handler import handle_send_message
+from app.ws.handlers.typing_handler import handle_typing
 
 ws_chat_router = APIRouter()
 
+@ws_chat_router.websocket("/ws/chat")
+async def ws_chat(ws: WebSocket):
+    user_id = await authenticate_ws(ws)
+    if not user_id:
+        await ws.close(code=1008)
+        return
 
-@ws_chat_router.websocket("/ws/chat/messages")
-async def chat_message_ws(
-    websocket: WebSocket,
-):
-    print("WS HANDLER HIT")
-    await websocket.accept()
+    await ws.accept()
+    await manager.connect(user_id, ws)
 
     try:
         while True:
-            data = await websocket.receive_json()
+            data = await ws.receive_json()
 
-            """
-            Ожидаемый payload от клиента:
+            action = data.get("action")
+            if not action:
+                await ws.send_json({
+                    "event": "error",
+                    "code": "NO_ACTION",
+                })
+                continue
 
-            {
-              "chat_id": "optional",
-              "chat_type": "course_private | course_group | direct",
-              "course_id": "optional",
-              "student_id": "optional",
-              "peer_id": "optional",
-              "text": "hello"
-            }
-            """
+            if action == "send_message":
+                await handle_send_message(user_id, data)
 
-            res = chat_message_client.send_message(
-                chat_id=data.get("chat_id"),
-                chat_type=data["chat_type"],
-                course_id=data.get("course_id"),
-                student_id=data.get("student_id"),
-                peer_id=data.get("peer_id"),
-                sender_id=user.id,
-                text=data["text"],
-            )
+            elif action == "typing":
+                await handle_typing(user_id, data)
 
-            await websocket.send_json(
-                {
-                    "event": "message_sent",
-                    "data": res,
-                }
-            )
+            else:
+                await ws.send_json({
+                    "event": "error",
+                    "code": "UNKNOWN_ACTION",
+                })
 
     except WebSocketDisconnect:
-        pass
-
-@ws_chat_router.websocket("/test")
-async def websocket_endpoint(websocket: WebSocket):
-    await websocket.accept()
-    while True:
-        data = await websocket.receive_text()
-        await websocket.send_text(f"Message text was: {data}")
+        await manager.disconnect(user_id)
 
 

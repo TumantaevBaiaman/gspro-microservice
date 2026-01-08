@@ -10,7 +10,9 @@ def build_services() -> dict[type, object]:
         ),
         ChatMessageService: ChatMessageService(
             message_repo=ChatMessageRepository(),
-            participant_repo=ChatParticipantRepository(),
         ),
+        ChatParticipantService: ChatParticipantService(
+            repo=ChatParticipantRepository(),
+        )
     }
 
