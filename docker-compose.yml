@@ -24,6 +24,7 @@ services:
       - favorites_service
       - chat_service
       - media_service
+      - subscription_service
 
   user_service:
     container_name: user_service
@@ -114,6 +115,20 @@ services:
     restart: unless-stopped
     volumes:
       - ./media_service:/app
+      - ./shared:/shared
+
+  subscription_service:
+    container_name: subscription_service
+    build:
+      context: .
+      dockerfile: ./subscription_service/Dockerfile
+    env_file:
+      - ./subscription_service/.env
+    expose:
+      - "50057"
+    restart: unless-stopped
+    volumes:
+      - ./subscription_service:/app
       - ./shared:/shared
 
   db:

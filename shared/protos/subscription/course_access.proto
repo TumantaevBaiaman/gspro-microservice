@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+package course_access;
+
+service CourseAccessService {
+  rpc GrantAccess (GrantCourseAccessRequest) returns (GrantCourseAccessResponse);
+  rpc RevokeAccess (RevokeCourseAccessRequest) returns (RevokeCourseAccessResponse);
+  rpc HasAccess (HasCourseAccessRequest) returns (HasCourseAccessResponse);
+}
+
+message GrantCourseAccessRequest {
+  string user_id = 1;
+  string course_id = 2;
+}
+
+message GrantCourseAccessResponse {
+  bool success = 1;
+}
+
+message RevokeCourseAccessRequest {
+  string user_id = 1;
+  string course_id = 2;
+}
+
+message RevokeCourseAccessResponse {
+  bool success = 1;
+}
+
+message HasCourseAccessRequest {
+  string user_id = 1;
+  string course_id = 2;
+}
+
+message HasCourseAccessResponse {
+  bool has_access = 1;
+}

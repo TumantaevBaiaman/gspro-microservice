@@ -7,6 +7,7 @@ REVIEWS_PROTO_FILES=$(wildcard $(PROTO_DIR)/reviews/*.proto)
 FAVORITES_PROTO_FILES=$(wildcard $(PROTO_DIR)/favorites/*.proto)
 CHAT_PROTO_FILES=$(wildcard $(PROTO_DIR)/chat/*.proto)
 MEDIA_PROTO_FILES=$(wildcard $(PROTO_DIR)/media/*.proto)
+SUBSCRIPTION_PROTO_FILES=$(wildcard $(PROTO_DIR)/subscription/*.proto)
 
 
 init:
@@ -16,6 +17,7 @@ init:
 	mkdir -p $(GEN_DIR)/favorites
 	mkdir -p $(GEN_DIR)/chat
 	mkdir -p $(GEN_DIR)/media
+	mkdir -p $(GEN_DIR)/subscription
 	touch $(GEN_DIR)/__init__.py
 	touch $(GEN_DIR)/user/__init__.py
 	touch $(GEN_DIR)/course/__init__.py
@@ -23,6 +25,7 @@ init:
 	touch $(GEN_DIR)/favorites/__init__.py
 	touch $(GEN_DIR)/chat/__init__.py
 	touch $(GEN_DIR)/media/__init__.py
+	touch $(GEN_DIR)/subscription/__init__.py
 
 
 user_proto: init
@@ -109,6 +112,20 @@ media_proto: init
 	fi
 
 
+subscription_proto: init
+	python -m grpc_tools.protoc \
+		-I=$(PROTO_DIR) \
+		--python_out=$(GEN_DIR) \
+		--grpc_python_out=$(GEN_DIR) \
+		$(SUBSCRIPTION_PROTO_FILES)
 
-proto: course_proto user_proto reviews_proto favorites_proto chat_proto media_proto
+	@if [ "$(shell uname)" = "Darwin" ]; then \
+		sed -i '' 's|from subscription import \(.*_pb2\)|from generated.subscription import \1|' $(GEN_DIR)/subscription/*_grpc.py; \
+	else \
+		sed -i 's|from subscription import \(.*_pb2\)|from generated.subscription import \1|' $(GEN_DIR)/subscription/*_grpc.py; \
+	fi
+
+
+
+proto: course_proto user_proto reviews_proto favorites_proto chat_proto media_proto subscription_proto
 	@echo "Proto files generated successfully in gateway!"

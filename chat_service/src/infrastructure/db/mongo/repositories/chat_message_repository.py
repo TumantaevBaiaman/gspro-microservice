@@ -1,167 +1,107 @@
 from datetime import datetime
-from typing import List, Optional, Tuple
+from beanie import PydanticObjectId
 
-from pymongo.errors import DuplicateKeyError
-
-from src.domain.enums.chat_scope_enum import ChatScopeEnum
-from src.infrastructure.db.mongo.models.chat_document import (
-    ChatDocument,
-    ChatParticipant,
+from src.domain.repositories.chat_message_repository import (
+    IChatMessageRepository,
 )
-from src.infrastructure.db.mongo.models.chat_message_document import (
-    ChatMessageDocument,
-    ChatMessagePayload,
-    ChatMessageContext,
-)
-from src.domain.repositories import IChatMessageRepository
+from src.infrastructure.db.mongo.models import ChatMessageDocument
 
 
 class ChatMessageRepository(IChatMessageRepository):
-    async def send_message(
+
+    async def create(
         self,
         *,
-        scope: ChatScopeEnum,
+        chat_id: str,
         sender_id: str,
-        participants: List[ChatParticipant],
-        payload: ChatMessagePayload,
-        course_id: Optional[str] = None,
-        context: Optional[ChatMessageContext] = None,
-    ) -> Tuple[ChatDocument, ChatMessageDocument]:
-
-        participant_ids = self._normalize_participants(participants)
-
-        chat = await self._find_or_create_chat(
-            scope=scope,
-            course_id=course_id,
-            participants=participants,
-            participant_ids=participant_ids,
-        )
-
-        message = await self._create_message(
-            chat_id=str(chat.id),
+        payload,
+        context,
+    ) -> ChatMessageDocument:
+        message = ChatMessageDocument(
+            chat_id=chat_id,
             sender_id=sender_id,
             payload=payload,
             context=context,
         )
+        await message.insert()
+        return message
 
-        await self._touch_chat(chat)
+    async def get_by_id(
+        self,
+        message_id: str,
+    ) -> ChatMessageDocument | None:
+        return await ChatMessageDocument.get(
+            PydanticObjectId(message_id)
+        )
 
-        return chat, message
-
-    async def list_messages(
+    async def list_by_chat(
         self,
         *,
         chat_id: str,
-        limit: int,
-        offset: int,
-    ) -> Tuple[List[ChatMessageDocument], int]:
-        query = ChatMessageDocument.find(
-            ChatMessageDocument.chat_id == chat_id
-        )
-
-        total = await query.count()
-
-        items = await (
-            query
-            .sort("meta.created_at")
+        limit: int = 50,
+        offset: int = 0,
+    ) -> list[ChatMessageDocument]:
+        return await (
+            ChatMessageDocument.find(
+                ChatMessageDocument.chat_id == chat_id,
+                ChatMessageDocument.meta.deleted_at == None,
+            )
+            .sort("-created_at")
             .skip(offset)
             .limit(limit)
             .to_list()
         )
 
-        return items, total
-
-    async def _find_or_create_chat(
-        self,
-        *,
-        scope: ChatScopeEnum,
-        course_id: Optional[str],
-        participants: List[ChatParticipant],
-        participant_ids: List[str],
-    ) -> ChatDocument:
-
-        chat = await self._find_chat(
-            scope=scope,
-            course_id=course_id,
-            participant_ids=participant_ids,
-        )
-
-        if chat:
-            return chat
-
-        try:
-            chat = ChatDocument(
-                scope=scope,
-                course_id=course_id,
-                participants=participants,
-            )
-            await chat.insert()
-            return chat
-
-        except DuplicateKeyError:
-            chat = await self._find_chat(
-                scope=scope,
-                course_id=course_id,
-                participant_ids=participant_ids,
-            )
-            if not chat:
-                raise RuntimeError("Chat creation race condition")
-            return chat
-
-    async def _find_chat(
-        self,
-        *,
-        scope: ChatScopeEnum,
-        course_id: Optional[str],
-        participant_ids: List[str],
-    ) -> Optional[ChatDocument]:
-
-        if scope == ChatScopeEnum.COURSE_GROUP:
-            return await ChatDocument.find_one(
-                ChatDocument.scope == scope,
-                ChatDocument.course_id == course_id,
-            )
-
-        if scope == ChatScopeEnum.COURSE_PRIVATE:
-            return await ChatDocument.find_one(
-                ChatDocument.scope == scope,
-                ChatDocument.course_id == course_id,
-                ChatDocument.participant_ids == participant_ids,
-            )
-
-        if scope == ChatScopeEnum.DIRECT:
-            return await ChatDocument.find_one(
-                ChatDocument.scope == scope,
-                ChatDocument.participant_ids == participant_ids,
-            )
-
-        raise ValueError(f"Unsupported chat scope: {scope}")
-
-    async def _create_message(
+    async def list_by_reference(
         self,
         *,
         chat_id: str,
-        sender_id: str,
-        payload: ChatMessagePayload,
-        context: Optional[ChatMessageContext],
-    ) -> ChatMessageDocument:
-
-        message = ChatMessageDocument(
-            chat_id=chat_id,
-            sender_id=sender_id,
-            payload=payload,
-            context=context or ChatMessageContext(),
+        reference_type: str,
+        reference_id: str,
+        limit: int = 50,
+        offset: int = 0,
+    ) -> list[ChatMessageDocument]:
+        return await (
+            ChatMessageDocument.find(
+                ChatMessageDocument.chat_id == chat_id,
+                ChatMessageDocument.context.reference.type == reference_type,
+                ChatMessageDocument.context.reference.id == reference_id,
+                ChatMessageDocument.meta.deleted_at == None,
+            )
+            .sort("-created_at")
+            .skip(offset)
+            .limit(limit)
+            .to_list()
         )
 
-        await message.insert()
-        return message
+    async def update_text(
+        self,
+        *,
+        message_id: str,
+        new_text: str,
+    ) -> None:
+        await ChatMessageDocument.find_one(
+            ChatMessageDocument.id == PydanticObjectId(message_id)
+        ).update_one(
+            {
+                "$set": {
+                    "payload.text": new_text,
+                    "meta.edited_at": datetime.utcnow(),
+                }
+            }
+        )
 
-    async def _touch_chat(self, chat: ChatDocument) -> None:
-        chat.last_message_at = datetime.utcnow()
-        await chat.replace()
-
-    @staticmethod
-    def _normalize_participants(
-        participants: List[ChatParticipant],
-    ) -> List[str]:
-        return sorted(p.user_id for p in participants)
+    async def soft_delete(
+        self,
+        *,
+        message_id: str,
+    ) -> None:
+        await ChatMessageDocument.find_one(
+            ChatMessageDocument.id == PydanticObjectId(message_id)
+        ).update_one(
+            {
+                "$set": {
+                    "meta.deleted_at": datetime.utcnow(),
+                }
+            }
+        )

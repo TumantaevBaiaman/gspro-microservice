@@ -1,5 +1,6 @@
 from grpc import aio
 
+from src.application.services import ChatService, ChatMessageService, ChatParticipantService
 from src.presentation.grpc.registry import GRPC_SERVICES
 from src.presentation.grpc.container import build_services
 from src.presentation.grpc.interceptors.logging_interceptor import LoggingInterceptor
@@ -18,8 +19,11 @@ async def start_grpc_server():
     services = build_services()
 
     for cfg in GRPC_SERVICES:
-        service = services[cfg.service_cls]
-        handler = cfg.handler_cls(service)
+        handler = cfg.handler_cls(
+            chat_service=services[ChatService],
+            chat_message_service=services[ChatMessageService],
+            chat_participant_service=services[ChatParticipantService],
+        )
         cfg.add_to_server(handler, server)
 
     server.add_insecure_port(

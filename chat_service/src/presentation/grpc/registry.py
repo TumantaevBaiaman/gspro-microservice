@@ -11,14 +11,12 @@ from generated.chat.chat_message_pb2_grpc import add_ChatMessageServiceServicer_
 @dataclass(frozen=True)
 class GrpcServiceConfig:
     add_to_server: Callable
-    service_cls: Type
-    handler_cls: Type
+    handler_cls: type
 
 
-GRPC_SERVICES: list[GrpcServiceConfig] = [
+GRPC_SERVICES = [
     GrpcServiceConfig(
         add_to_server=add_ChatMessageServiceServicer_to_server,
-        service_cls=ChatMessageService,
         handler_cls=ChatMessageHandler,
     ),
 ]

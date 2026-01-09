@@ -25,41 +25,17 @@ _sym_db = _symbol_database.Default()
 from google.protobuf import timestamp_pb2 as google_dot_protobuf_dot_timestamp__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x12\x63hat_message.proto\x12\x0c\x63hat_message\x1a\x1fgoogle/protobuf/timestamp.proto\"0\n\x0f\x43hatParticipant\x12\x0f\n\x07user_id\x18\x01 \x01(\t\x12\x0c\n\x04role\x18\x02 \x01(\t\"!\n\x0e\x43hatAttachment\x12\x0f\n\x07\x66ile_id\x18\x01 \x01(\t\"\x82\x01\n\x12\x43hatMessagePayload\x12+\n\x04type\x18\x01 \x01(\x0e\x32\x1d.chat_message.ChatMessageType\x12\x0c\n\x04text\x18\x02 \x01(\t\x12\x31\n\x0b\x61ttachments\x18\x03 \x03(\x0b\x32\x1c.chat_message.ChatAttachment\"P\n\x10MessageReference\x12\x30\n\x04type\x18\x01 \x01(\x0e\x32\".chat_message.MessageReferenceType\x12\n\n\x02id\x18\x02 \x01(\t\"d\n\x12\x43hatMessageContext\x12\x31\n\treference\x18\x01 \x01(\x0b\x32\x1e.chat_message.MessageReference\x12\x1b\n\x13reply_to_message_id\x18\x02 \x01(\t\"\x9b\x01\n\x04\x43hat\x12\n\n\x02id\x18\x01 \x01(\t\x12&\n\x05scope\x18\x02 \x01(\x0e\x32\x17.chat_message.ChatScope\x12\x11\n\tcourse_id\x18\x03 \x01(\t\x12\x17\n\x0fparticipant_ids\x18\x04 \x03(\t\x12\x33\n\x0flast_message_at\x18\x05 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"\xd3\x01\n\x0b\x43hatMessage\x12\n\n\x02id\x18\x01 \x01(\t\x12\x0f\n\x07\x63hat_id\x18\x02 \x01(\t\x12\x11\n\tsender_id\x18\x03 \x01(\t\x12\x31\n\x07payload\x18\x04 \x01(\x0b\x32 .chat_message.ChatMessagePayload\x12\x31\n\x07\x63ontext\x18\x05 \x01(\x0b\x32 .chat_message.ChatMessageContext\x12.\n\ncreated_at\x18\x06 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"\xfd\x01\n\x12SendMessageRequest\x12&\n\x05scope\x18\x01 \x01(\x0e\x32\x17.chat_message.ChatScope\x12\x11\n\tsender_id\x18\x02 \x01(\t\x12\x33\n\x0cparticipants\x18\x03 \x03(\x0b\x32\x1d.chat_message.ChatParticipant\x12\x11\n\tcourse_id\x18\x04 \x01(\t\x12\x31\n\x07payload\x18\x05 \x01(\x0b\x32 .chat_message.ChatMessagePayload\x12\x31\n\x07\x63ontext\x18\x06 \x01(\x0b\x32 .chat_message.ChatMessageContext\"c\n\x13SendMessageResponse\x12 \n\x04\x63hat\x18\x01 \x01(\x0b\x32\x12.chat_message.Chat\x12*\n\x07message\x18\x02 \x01(\x0b\x32\x19.chat_message.ChatMessage\"E\n\x13ListMessagesRequest\x12\x0f\n\x07\x63hat_id\x18\x01 \x01(\t\x12\r\n\x05limit\x18\x02 \x01(\x05\x12\x0e\n\x06offset\x18\x03 \x01(\x05\"O\n\x14ListMessagesResponse\x12(\n\x05items\x18\x01 \x03(\x0b\x32\x19.chat_message.ChatMessage\x12\r\n\x05total\x18\x02 \x01(\x03*Y\n\tChatScope\x12\x1a\n\x16\x43HAT_SCOPE_UNSPECIFIED\x10\x00\x12\x10\n\x0c\x43OURSE_GROUP\x10\x01\x12\x12\n\x0e\x43OURSE_PRIVATE\x10\x02\x12\n\n\x06\x44IRECT\x10\x03*Y\n\x0f\x43hatMessageType\x12\x1c\n\x18MESSAGE_TYPE_UNSPECIFIED\x10\x00\x12\x08\n\x04TEXT\x10\x01\x12\t\n\x05IMAGE\x10\x02\x12\t\n\x05VOICE\x10\x03\x12\x08\n\x04\x46ILE\x10\x04*m\n\x14MessageReferenceType\x12\x19\n\x15REFERENCE_UNSPECIFIED\x10\x00\x12\n\n\x06LESSON\x10\x01\x12\n\n\x06MODULE\x10\x02\x12\n\n\x06\x43OURSE\x10\x03\x12\n\n\x06THREAD\x10\x04\x12\n\n\x06SYSTEM\x10\x05\x32\xbf\x01\n\x12\x43hatMessageService\x12R\n\x0bSendMessage\x12 .chat_message.SendMessageRequest\x1a!.chat_message.SendMessageResponse\x12U\n\x0cListMessages\x12!.chat_message.ListMessagesRequest\x1a\".chat_message.ListMessagesResponseb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x12\x63hat_message.proto\x12\x0c\x63hat_message\x1a\x1fgoogle/protobuf/timestamp.proto\"\x91\x01\n\x12SendMessageRequest\x12\x0f\n\x07\x63hat_id\x18\x01 \x01(\t\x12\x11\n\tchat_type\x18\x02 \x01(\t\x12\x11\n\tcourse_id\x18\x03 \x01(\t\x12\x12\n\nstudent_id\x18\x04 \x01(\t\x12\x0f\n\x07peer_id\x18\x05 \x01(\t\x12\x11\n\tsender_id\x18\x06 \x01(\t\x12\x0c\n\x04text\x18\x07 \x01(\t\"g\n\x13SendMessageResponse\x12\x0f\n\x07\x63hat_id\x18\x01 \x01(\t\x12\x12\n\nmessage_id\x18\x02 \x01(\t\x12\x12\n\ncreated_at\x18\x03 \x01(\t\x12\x17\n\x0fparticipant_ids\x18\x04 \x03(\t2h\n\x12\x43hatMessageService\x12R\n\x0bSendMessage\x12 .chat_message.SendMessageRequest\x1a!.chat_message.SendMessageResponseb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'chat_message_pb2', _globals)
 if not _descriptor._USE_C_DESCRIPTORS:
   DESCRIPTOR._loaded_options = None
-  _globals['_CHATSCOPE']._serialized_start=1352
-  _globals['_CHATSCOPE']._serialized_end=1441
-  _globals['_CHATMESSAGETYPE']._serialized_start=1443
-  _globals['_CHATMESSAGETYPE']._serialized_end=1532
-  _globals['_MESSAGEREFERENCETYPE']._serialized_start=1534
-  _globals['_MESSAGEREFERENCETYPE']._serialized_end=1643
-  _globals['_CHATPARTICIPANT']._serialized_start=69
-  _globals['_CHATPARTICIPANT']._serialized_end=117
-  _globals['_CHATATTACHMENT']._serialized_start=119
-  _globals['_CHATATTACHMENT']._serialized_end=152
-  _globals['_CHATMESSAGEPAYLOAD']._serialized_start=155
-  _globals['_CHATMESSAGEPAYLOAD']._serialized_end=285
-  _globals['_MESSAGEREFERENCE']._serialized_start=287
-  _globals['_MESSAGEREFERENCE']._serialized_end=367
-  _globals['_CHATMESSAGECONTEXT']._serialized_start=369
-  _globals['_CHATMESSAGECONTEXT']._serialized_end=469
-  _globals['_CHAT']._serialized_start=472
-  _globals['_CHAT']._serialized_end=627
-  _globals['_CHATMESSAGE']._serialized_start=630
-  _globals['_CHATMESSAGE']._serialized_end=841
-  _globals['_SENDMESSAGEREQUEST']._serialized_start=844
-  _globals['_SENDMESSAGEREQUEST']._serialized_end=1097
-  _globals['_SENDMESSAGERESPONSE']._serialized_start=1099
-  _globals['_SENDMESSAGERESPONSE']._serialized_end=1198
-  _globals['_LISTMESSAGESREQUEST']._serialized_start=1200
-  _globals['_LISTMESSAGESREQUEST']._serialized_end=1269
-  _globals['_LISTMESSAGESRESPONSE']._serialized_start=1271
-  _globals['_LISTMESSAGESRESPONSE']._serialized_end=1350
-  _globals['_CHATMESSAGESERVICE']._serialized_start=1646
-  _globals['_CHATMESSAGESERVICE']._serialized_end=1837
+  _globals['_SENDMESSAGEREQUEST']._serialized_start=70
+  _globals['_SENDMESSAGEREQUEST']._serialized_end=215
+  _globals['_SENDMESSAGERESPONSE']._serialized_start=217
+  _globals['_SENDMESSAGERESPONSE']._serialized_end=320
+  _globals['_CHATMESSAGESERVICE']._serialized_start=322
+  _globals['_CHATMESSAGESERVICE']._serialized_end=426
 # @@protoc_insertion_point(module_scope)

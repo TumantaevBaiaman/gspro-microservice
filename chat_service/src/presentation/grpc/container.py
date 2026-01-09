@@ -5,7 +5,14 @@ from src.application.services import *
 
 def build_services() -> dict[type, object]:
     return {
-        ChatMessageService: ChatMessageService(
-            repo=ChatMessageRepository(),
+        ChatService: ChatService(
+            repo=ChatRepository(),
         ),
+        ChatMessageService: ChatMessageService(
+            message_repo=ChatMessageRepository(),
+        ),
+        ChatParticipantService: ChatParticipantService(
+            repo=ChatParticipantRepository(),
+        )
     }
+

@@ -1,11 +1,12 @@
 from datetime import datetime
 from typing import Optional, List
 
-from beanie import before_event, Insert
+from beanie import before_event, Insert, after_event
 from pydantic import Field, BaseModel
 
 from src.domain.enums.chat_message_reference_type_enum import MessageReferenceTypeEnum
 from src.domain.enums.chat_message_type_enum import ChatMessageTypeEnum
+from . import ChatDocument
 from .base import BaseDocument
 
 
@@ -35,9 +36,7 @@ class ChatMessageContext(BaseModel):
 
 
 class ChatMessageMeta(BaseModel):
-    created_at: datetime = Field(default_factory=datetime.utcnow)
     edited_at: Optional[datetime] = None
-    deleted_at: Optional[datetime] = None
 
 
 class ChatMessageDocument(BaseDocument):
@@ -50,25 +49,20 @@ class ChatMessageDocument(BaseDocument):
 
     @before_event(Insert)
     def validate(self):
-        if self.payload.type == ChatMessageTypeEnum.TEXT:
-            if not self.payload.text:
-                raise ValueError(
-                    "TEXT message must contain text"
-                )
+        if not self.payload.text and not self.payload.attachments:
+            raise ValueError("message must contain text or attachments")
 
-        if self.payload.type != ChatMessageTypeEnum.TEXT:
-            if not self.payload.attachments:
-                raise ValueError(
-                    "Non-text message must contain attachments"
-                )
+    @after_event(Insert)
+    async def update_chat_last_message(self):
+        await ChatDocument.find_one(
+            ChatDocument.id == self.chat_id
+        ).update_one(
+            {
+                "$max": {
+                    "last_message_at": self.created_at
+                }
+            }
+        )
 
     class Settings:
         name = "chat_messages"
-        indexes = [
-            "chat_id",
-            "sender_id",
-            "context.reference.type",
-            "context.reference.id",
-            "context.reply_to_message_id",
-            "meta.created_at",
-        ]

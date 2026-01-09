@@ -1,7 +1,7 @@
 from fastapi import APIRouter
 
-from .chat import chat_router
+from .ws_chat_message import ws_chat_router
 
 router = APIRouter()
 
-router.include_router(chat_router)
+router.include_router(ws_chat_router)

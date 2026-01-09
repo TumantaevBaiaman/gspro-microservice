@@ -13,12 +13,14 @@ async def init_mongo():
 
     from src.infrastructure.db.mongo.models.chat_document import ChatDocument
     from src.infrastructure.db.mongo.models.chat_message_document import ChatMessageDocument
+    from src.infrastructure.db.mongo.models.chat_participants_document import ChatParticipantDocument
 
     await init_beanie(
         database=client[settings.MONGO_DB_NAME],
         document_models=[
             ChatDocument,
             ChatMessageDocument,
+            ChatParticipantDocument
         ],
     )
     try:

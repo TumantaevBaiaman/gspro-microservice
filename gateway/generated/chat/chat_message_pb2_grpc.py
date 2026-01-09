@@ -39,23 +39,12 @@ class ChatMessageServiceStub(object):
                 request_serializer=chat_dot_chat__message__pb2.SendMessageRequest.SerializeToString,
                 response_deserializer=chat_dot_chat__message__pb2.SendMessageResponse.FromString,
                 _registered_method=True)
-        self.ListMessages = channel.unary_unary(
-                '/chat_message.ChatMessageService/ListMessages',
-                request_serializer=chat_dot_chat__message__pb2.ListMessagesRequest.SerializeToString,
-                response_deserializer=chat_dot_chat__message__pb2.ListMessagesResponse.FromString,
-                _registered_method=True)
 
 
 class ChatMessageServiceServicer(object):
     """Missing associated documentation comment in .proto file."""
 
     def SendMessage(self, request, context):
-        """Missing associated documentation comment in .proto file."""
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
-
-    def ListMessages(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -68,11 +57,6 @@ def add_ChatMessageServiceServicer_to_server(servicer, server):
                     servicer.SendMessage,
                     request_deserializer=chat_dot_chat__message__pb2.SendMessageRequest.FromString,
                     response_serializer=chat_dot_chat__message__pb2.SendMessageResponse.SerializeToString,
-            ),
-            'ListMessages': grpc.unary_unary_rpc_method_handler(
-                    servicer.ListMessages,
-                    request_deserializer=chat_dot_chat__message__pb2.ListMessagesRequest.FromString,
-                    response_serializer=chat_dot_chat__message__pb2.ListMessagesResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -102,33 +86,6 @@ class ChatMessageService(object):
             '/chat_message.ChatMessageService/SendMessage',
             chat_dot_chat__message__pb2.SendMessageRequest.SerializeToString,
             chat_dot_chat__message__pb2.SendMessageResponse.FromString,
-            options,
-            channel_credentials,
-            insecure,
-            call_credentials,
-            compression,
-            wait_for_ready,
-            timeout,
-            metadata,
-            _registered_method=True)
-
-    @staticmethod
-    def ListMessages(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
-        return grpc.experimental.unary_unary(
-            request,
-            target,
-            '/chat_message.ChatMessageService/ListMessages',
-            chat_dot_chat__message__pb2.ListMessagesRequest.SerializeToString,
-            chat_dot_chat__message__pb2.ListMessagesResponse.FromString,
             options,
             channel_credentials,
             insecure,
