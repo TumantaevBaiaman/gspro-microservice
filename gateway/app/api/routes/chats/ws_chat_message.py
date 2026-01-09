@@ -1,13 +1,13 @@
 from fastapi import APIRouter, WebSocket, WebSocketDisconnect, Depends, HTTPException
 
-from app.api.ws_auth import authenticate_ws
+from app.api.ws.ws_auth import authenticate_ws
 from app.ws.connection_manager import manager
 from app.ws.handlers.chat_message_handler import handle_send_message
 from app.ws.handlers.typing_handler import handle_typing
 
 ws_chat_router = APIRouter()
 
-@ws_chat_router.websocket("/ws/chat")
+@ws_chat_router.websocket("/ws/chats")
 async def ws_chat(ws: WebSocket):
     user_id = await authenticate_ws(ws)
     if not user_id:

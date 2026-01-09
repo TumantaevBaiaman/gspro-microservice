@@ -11,14 +11,14 @@ from app.clients.user import user_profile_client
 from app.schemas.course.course import *
 from app.schemas.course.module import *
 
-router = APIRouter(prefix="/courses", tags=["Course"])
+course_router = APIRouter(prefix="/courses", tags=["Course"])
 
 
-@router.get(
+@course_router.get(
     "/{course_id}",
     response_model=CourseGetResponseSchema,
-    summary="Get course by ID",
-    description="Retrieve detailed information about a specific course using its unique identifier.",
+    summary="Get courses by ID",
+    description="Retrieve detailed information about a specific courses using its unique identifier.",
 )
 async def get_course(
         course_id: str,
@@ -58,7 +58,7 @@ async def get_course(
     return CourseGetResponseSchema(**data)
 
 
-@router.get(
+@course_router.get(
     "",
     response_model=CourseListResponseSchema,
     summary="List courses",
@@ -79,22 +79,22 @@ async def list_courses(
     )
 
 
-@router.get(
+@course_router.get(
     "/{course_id}/modules",
     response_model=ModuleListResponseSchema,
-    summary="List modules by course ID",
-    description="Retrieve a list of modules associated with a specific course using the course's unique identifier.",
+    summary="List modules by courses ID",
+    description="Retrieve a list of modules associated with a specific courses using the courses's unique identifier.",
 )
 async def list_modules_by_course(course_id: str):
     data = module_client.list_modules_by_course(course_id)
     return ModuleListResponseSchema(items=[ModuleListItemSchema(**item) for item in data])
 
 
-@router.get(
+@course_router.get(
     "/{course_id}/modules/{module_id}",
     response_model=ModuleGetResponseSchema,
-    summary="Get module by ID within a course",
-    description="Retrieve detailed information about a specific module within a course using the module's unique identifier.",
+    summary="Get module by ID within a courses",
+    description="Retrieve detailed information about a specific module within a courses using the module's unique identifier.",
 )
 def get_course_module(course_id: str, module_id: str):
     module = module_client.get_module(module_id)

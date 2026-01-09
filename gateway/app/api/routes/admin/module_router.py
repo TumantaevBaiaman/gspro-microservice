@@ -12,7 +12,7 @@ admin_module_router = APIRouter(prefix="/modules", tags=["Admin Modules"])
     "/create",
     response_model=AdminModuleCreateResponseSchema,
     summary="Create a new module",
-    description="Endpoint to create a new module in a course."
+    description="Endpoint to create a new module in a courses."
 )
 def create_module(data: AdminModuleCreateRequestSchema):
     response = admin_module_client.create_module(data)
@@ -59,7 +59,7 @@ def delete_module(module_id: str):
     "",
     response_model=AdminModuleListResponseSchema,
     summary="List modules",
-    description="Endpoint to retrieve a list of modules (optionally filtered by course)."
+    description="Endpoint to retrieve a list of modules (optionally filtered by courses)."
 )
 def list_modules(course_id: str | None = None):
     response = admin_module_client.list_modules(course_id=course_id)

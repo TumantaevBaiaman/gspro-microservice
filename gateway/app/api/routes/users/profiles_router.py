@@ -12,7 +12,7 @@ profile_router = APIRouter(prefix="/profiles", tags=["Profile"])
     "",
     response_model=ListUserProfilesResponseSchema,
     summary="List User Profiles",
-    description="Endpoint to list user profiles with pagination support."
+    description="Endpoint to list users profiles with pagination support."
 )
 async def list_profiles(
     limit: int = Query(10, ge=1, le=100),

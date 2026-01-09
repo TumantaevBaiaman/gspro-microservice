@@ -22,8 +22,8 @@ class AuthGoogleCommand:
         await self.repo.create_user_profile_google(user.id)
         await self.repo.session.commit()
 
-        access = create_access_token(str(user.id))
-        refresh = create_refresh_token(str(user.id))
+        access = create_access_token(str(user.id), user.role)
+        refresh = create_refresh_token(str(user.id), user.role)
 
         return AuthGoogleResponseDTO(
             user_id=str(user.id),

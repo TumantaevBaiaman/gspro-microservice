@@ -15,7 +15,7 @@ user_favorite_router = APIRouter(
     "/course",
     response_model=ListUserFavoritesResponseSchema,
     summary="List My Favorite Courses",
-    description="Retrieve a list of the currently authenticated user's favorite courses with pagination support."
+    description="Retrieve a list of the currently authenticated users's favorites courses with pagination support."
 )
 def list_my_favorites(
     limit: int = 10,

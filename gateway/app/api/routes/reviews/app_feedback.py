@@ -15,7 +15,7 @@ app_feedback_router = APIRouter(prefix="/feedback", tags=["Feedback"])
     "",
     response_model=AppFeedbackSchema,
     summary="Create App Feedback",
-    description="Create a new feedback entry from a user."
+    description="Create a new feedback entry from a users."
 )
 def create_feedback(
     body: CreateAppFeedbackSchema,

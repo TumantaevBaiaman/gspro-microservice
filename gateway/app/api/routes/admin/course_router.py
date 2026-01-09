@@ -13,8 +13,8 @@ admin_course_router = APIRouter(prefix="/courses", tags=["Admin Courses"])
 
 @admin_course_router.post(
     "/upload/cover-image",
-    summary="Upload course cover image",
-    description="Endpoint to upload a cover image for a course."
+    summary="Upload courses cover image",
+    description="Endpoint to upload a cover image for a courses."
 )
 async def create_course(file: UploadFile = File(...),):
     image_bytes = await validate_image(file)
@@ -24,7 +24,7 @@ async def create_course(file: UploadFile = File(...),):
     _, urls = await upload_image(
         original=image_bytes,
         thumbnails=thumbnails,
-        path_prefix="course/cover_images",
+        path_prefix="courses/cover_images",
     )
 
     media = media_client.create_media(
@@ -49,13 +49,13 @@ async def create_course(file: UploadFile = File(...),):
 @admin_course_router.post(
     "/create",
     response_model=AdminCourseCreateResponseSchema,
-    summary="Create a new course",
-    description="Endpoint to create a new course in the course management system."
+    summary="Create a new courses",
+    description="Endpoint to create a new courses in the courses management system."
 )
 def create_course(data: AdminCourseCreateRequestSchema):
     response = admin_course_client.create_course(data)
     media_client.attach_media(
-        owner_service="course",
+        owner_service="courses",
         owner_id=response.id,
         media_id=data.cover_image_id,
     )
@@ -68,8 +68,8 @@ def create_course(data: AdminCourseCreateRequestSchema):
 @admin_course_router.get(
     "/{course_id}",
     response_model=AdminCourseGetResponseSchema,
-    summary="Get course by ID",
-    description="Endpoint to retrieve a course by its ID."
+    summary="Get courses by ID",
+    description="Endpoint to retrieve a courses by its ID."
 )
 def get_course(course_id: str):
     response = admin_course_client.get_course(course_id)
@@ -81,8 +81,8 @@ def get_course(course_id: str):
 @admin_course_router.patch(
     "/{course_id}/update",
     response_model=AdminCourseUpdateResponseSchema,
-    summary="Update course by ID",
-    description="Endpoint to update a course by its ID."
+    summary="Update courses by ID",
+    description="Endpoint to update a courses by its ID."
 )
 def update_course(course_id: str, data: AdminCourseUpdateRequestSchema):
     response = admin_course_client.update_course(course_id, data)
@@ -95,8 +95,8 @@ def update_course(course_id: str, data: AdminCourseUpdateRequestSchema):
 @admin_course_router.delete(
     "/{course_id}/delete",
     response_model=AdminCourseDeleteResponseSchema,
-    summary="Delete course by ID",
-    description="Endpoint to delete a course by its ID."
+    summary="Delete courses by ID",
+    description="Endpoint to delete a courses by its ID."
 )
 def delete_course(course_id: str):
     response = admin_course_client.delete_course(course_id)

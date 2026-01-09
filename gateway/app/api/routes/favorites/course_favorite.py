@@ -5,7 +5,7 @@ from app.clients.favorite import course_favorite_client
 from app.schemas.favorite.course_favorite import IsFavoriteResponseSchema
 
 course_favorite_router = APIRouter(
-    prefix="/courses/{course_id}/favorite",
+    prefix="/courses/{course_id}/favorites",
     tags=["Course Favorites"],
 )
 

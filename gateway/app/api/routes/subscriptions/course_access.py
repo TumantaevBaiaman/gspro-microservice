@@ -12,7 +12,7 @@ from app.schemas.subscription.course_access import (
 )
 
 course_access_router = APIRouter(
-    prefix="/course-access",
+    prefix="/courses-access",
     tags=["Course Access"],
 )
 

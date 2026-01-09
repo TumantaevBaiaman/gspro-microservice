@@ -9,6 +9,7 @@ class User:
     id: UUID
     email: str
     is_active: bool
+    role: str
 
     @staticmethod
     def create(email: str) -> "User":
@@ -18,5 +19,6 @@ class User:
         return User(
             id=uuid4(),
             email=email,
+            role="user",
             is_active=True,
         )

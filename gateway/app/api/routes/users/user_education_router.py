@@ -20,7 +20,7 @@ user_education_router = APIRouter(
     "",
     response_model=UserEducationItemSchema,
     summary="Create education",
-    description="Create a new education entry for the current user."
+    description="Create a new education entry for the current users."
 )
 async def create_education(
     data: CreateUserEducationSchema,
@@ -44,7 +44,7 @@ async def create_education(
     "",
     response_model=ListUserEducationsResponseSchema,
     summary="List educations",
-    description="Retrieve a list of education entries for the current user with pagination support."
+    description="Retrieve a list of education entries for the current users with pagination support."
 )
 async def list_educations(
     user=Depends(get_current_user),
@@ -66,7 +66,7 @@ async def list_educations(
 @user_education_router.delete(
     "/{education_id}",
     summary="Delete education",
-    description="Delete an education entry by its ID for the current user."
+    description="Delete an education entry by its ID for the current users."
 )
 async def delete_education(
     education_id: str,

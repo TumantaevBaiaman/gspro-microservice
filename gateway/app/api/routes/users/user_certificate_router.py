@@ -20,7 +20,7 @@ user_certificate_router = APIRouter(
     "",
     response_model=UserCertificateItemSchema,
     summary="Create certificate",
-    description="Create a new certificate for the current user",
+    description="Create a new certificate for the current users",
 )
 async def create_certificate(
     data: CreateUserCertificateSchema,
@@ -44,7 +44,7 @@ async def create_certificate(
     "",
     response_model=ListUserCertificatesResponseSchema,
     summary="List certificates",
-    description="List all certificates for the current user",
+    description="List all certificates for the current users",
 )
 async def list_certificates(
     user=Depends(get_current_user),

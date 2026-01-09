@@ -22,8 +22,8 @@ course_review_router = APIRouter(
 @course_review_router.post(
     "",
     response_model=ReviewSchema,
-    summary="Create a review for a course",
-    description="Create a review for a course by providing rating, comment, and tags."
+    summary="Create a review for a courses",
+    description="Create a review for a courses by providing rating, comment, and tags."
 )
 def create_review(
     course_id: str,
@@ -43,8 +43,8 @@ def create_review(
 @course_review_router.get(
     "",
     response_model=ListReviewsResponseSchema,
-    summary="List reviews for a course",
-    description="Retrieve a list of reviews for a specific course with pagination support."
+    summary="List reviews for a courses",
+    description="Retrieve a list of reviews for a specific courses with pagination support."
 )
 def list_reviews(
     course_id: str,
@@ -60,8 +60,8 @@ def list_reviews(
 @course_review_router.get(
     "/rating",
     response_model=CourseRatingSchema,
-    summary="Get course rating",
-    description="Retrieve the average rating and total number of reviews for a specific course."
+    summary="Get courses rating",
+    description="Retrieve the average rating and total number of reviews for a specific courses."
 )
 def get_course_rating(course_id: str):
     return course_review_client.get_course_rating(course_id)
@@ -70,8 +70,8 @@ def get_course_rating(course_id: str):
 @course_review_router.post(
     "/requirement",
     response_model=CourseReviewRequirementSchema,
-    summary="Set course review requirement",
-    description="Set the required number of reviews for a specific course.",
+    summary="Set courses review requirement",
+    description="Set the required number of reviews for a specific courses.",
 )
 def set_course_review_requirement(
     course_id: str,
@@ -86,8 +86,8 @@ def set_course_review_requirement(
 @course_review_router.get(
     "/requirement",
     response_model=CourseReviewRequirementSchema,
-    summary="Get course review requirement",
-    description="Retrieve the required number of reviews for a specific course.",
+    summary="Get courses review requirement",
+    description="Retrieve the required number of reviews for a specific courses.",
 )
 def get_course_review_requirement(course_id: str):
     return course_review_client.get_course_review_requirement(course_id)

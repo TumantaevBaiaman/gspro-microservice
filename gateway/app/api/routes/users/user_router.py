@@ -17,7 +17,7 @@ user_router = APIRouter(prefix="/users", tags=["User"])
     "/me/profile",
     response_model=GetUserProfileResponseSchema,
     summary="Get Current User Profile",
-    description="Endpoint to retrieve the profile information of the currently authenticated user."
+    description="Endpoint to retrieve the profile information of the currently authenticated users."
 )
 async def get_profile(user=Depends(get_current_user)):
     user_id = user.get("sub")
@@ -34,7 +34,7 @@ async def get_profile(user=Depends(get_current_user)):
     "/me/profile",
     response_model=UpdateUserProfileResponseSchema,
     summary="Update Current User Profile",
-    description="Endpoint to update the profile information of the currently authenticated user."
+    description="Endpoint to update the profile information of the currently authenticated users."
 )
 async def update_profile(data: UpdateUserProfileRequestSchema, user=Depends(get_current_user)):
     user_id = user.get("sub")
@@ -49,7 +49,7 @@ async def update_profile(data: UpdateUserProfileRequestSchema, user=Depends(get_
     "/me/profile/avatar",
     response_model=SetAvatarResponseSchema,
     summary="Upload User Avatar",
-    description="Endpoint to upload and set user avatar image."
+    description="Endpoint to upload and set users avatar image."
 )
 async def upload_avatar(file: UploadFile = File(...), user=Depends(get_current_user)):
     user_id = user.get("sub")
@@ -79,7 +79,7 @@ async def upload_avatar(file: UploadFile = File(...), user=Depends(get_current_u
     "/me/categories",
     response_model=ListUserCategoriesResponseSchema,
     summary="List Current User Categories",
-    description="Endpoint to retrieve the list of categories associated with the currently authenticated user."
+    description="Endpoint to retrieve the list of categories associated with the currently authenticated users."
 )
 async def list_user_categories(
     limit: int = Query(10, ge=1, le=100),
@@ -102,7 +102,7 @@ async def list_user_categories(
     "/me/categories",
     response_model=CreateUserCategoryResponseSchema,
     summary="Update Current User Categories",
-    description="Endpoint to update the categories associated with the currently authenticated user."
+    description="Endpoint to update the categories associated with the currently authenticated users."
 )
 async def update_user_categories(
     data: CreateUserCategoryRequestSchema,
@@ -123,7 +123,7 @@ async def update_user_categories(
     "/me/categories/{id}",
     response_model=DeleteUserCategoryResponseSchema,
     summary="Delete Current User Category",
-    description="Endpoint to delete a category associated with the currently authenticated user."
+    description="Endpoint to delete a category associated with the currently authenticated users."
 )
 async def delete_user_category(
     id: str,

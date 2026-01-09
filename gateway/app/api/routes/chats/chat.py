@@ -7,14 +7,14 @@ from app.schemas.chat.chat_message import (
 )
 from app.clients.chat import chat_message_client
 
-chat_router = APIRouter(prefix="/chat", tags=["Chat"])
+chat_router = APIRouter(prefix="/chats", tags=["Chat"])
 
 
 @chat_router.post(
     "/messages",
     response_model=SendMessageResponseSchema,
-    summary="Send a chat message",
-    description="Send a message in a chat, creating the chat if it does not exist.",
+    summary="Send a chats message",
+    description="Send a message in a chats, creating the chats if it does not exist.",
 )
 def send_message(data: SendMessageSchema):
     return chat_message_client.send_message(
@@ -30,8 +30,8 @@ def send_message(data: SendMessageSchema):
 @chat_router.get(
     "/{chat_id}/messages",
     response_model=ListMessagesResponseSchema,
-    summary="List chat messages",
-    description="Retrieve a list of messages for a specific chat with pagination.",
+    summary="List chats messages",
+    description="Retrieve a list of messages for a specific chats with pagination.",
 )
 def list_messages(
     chat_id: str,

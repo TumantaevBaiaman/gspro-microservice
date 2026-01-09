@@ -20,7 +20,7 @@ user_experience_router = APIRouter(
     "",
     response_model=UserExperienceItemSchema,
     summary="Create experience",
-    description="Create a new experience entry for the current user."
+    description="Create a new experience entry for the current users."
 )
 async def create_experience(
     data: CreateUserExperienceSchema,
@@ -45,7 +45,7 @@ async def create_experience(
     "",
     response_model=ListUserExperiencesResponseSchema,
     summary="List experiences",
-    description="Retrieve a list of experience entries for the current user with pagination support."
+    description="Retrieve a list of experience entries for the current users with pagination support."
 )
 async def list_experiences(
     user=Depends(get_current_user),

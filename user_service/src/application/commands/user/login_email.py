@@ -33,6 +33,6 @@ class LoginEmailCommand:
 
         return LoginEmailResponseDTO(
             user_id=str(user.id),
-            access_token=create_access_token(str(user.id)),
-            refresh_token=create_refresh_token(str(user.id)),
+            access_token=create_access_token(str(user.id), user.role),
+            refresh_token=create_refresh_token(str(user.id), user.role),
         )

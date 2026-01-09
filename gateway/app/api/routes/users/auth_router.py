@@ -12,7 +12,7 @@ auth_router = APIRouter(prefix="/auth", tags=["Auth"])
     "/register/email",
     response_model=RegisterEmailResponseSchema,
     summary="Register with Email and Password",
-    description="Endpoint to register a new user using email and password, returning access and refresh tokens."
+    description="Endpoint to register a new users using email and password, returning access and refresh tokens."
 )
 async def register_email(data: RegisterEmailRequestSchema) -> RegisterEmailResponseSchema:
     response = await user_client.register_email(data)
@@ -26,7 +26,7 @@ async def register_email(data: RegisterEmailRequestSchema) -> RegisterEmailRespo
     "/login/email",
     response_model=LoginEmailResponseSchema,
     summary="Login with Email and Password",
-    description="Endpoint to login a user using email and password, returning access and refresh tokens."
+    description="Endpoint to login a users using email and password, returning access and refresh tokens."
 )
 async def login_email(data: LoginEmailRequestSchema) -> LoginEmailResponseSchema:
     response = await user_client.login_email(data=data)
@@ -40,7 +40,7 @@ async def login_email(data: LoginEmailRequestSchema) -> LoginEmailResponseSchema
     "/google",
     response_model=AuthGoogleResponseSchema,
     summary="Authenticate with Google OAuth",
-    description="Endpoint to authenticate a user using Google OAuth token, returning access and refresh tokens."
+    description="Endpoint to authenticate a users using Google OAuth token, returning access and refresh tokens."
 )
 async def auth_google(data: AuthGoogleRequestSchema) -> AuthGoogleResponseSchema:
     response = await user_client.auth_google(data=data)

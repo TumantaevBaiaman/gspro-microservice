@@ -34,6 +34,6 @@ class RefreshTokensCommand:
             raise UserNotFoundError("User not found")
 
         return RefreshTokensResponseDTO(
-            access_token=create_access_token(str(user_id)),
-            refresh_token=create_refresh_token(str(user_id)),
+            access_token=create_access_token(str(user_id), user.role),
+            refresh_token=create_refresh_token(str(user_id), user.role),
         )

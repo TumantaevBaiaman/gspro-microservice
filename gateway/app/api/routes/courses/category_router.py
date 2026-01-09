@@ -3,9 +3,9 @@ from fastapi import APIRouter, Query
 from app.clients.course import category_client
 from app.schemas.course.category import *
 
-router = APIRouter(prefix="/categories", tags=["Category"])
+category_router = APIRouter(prefix="/categories", tags=["Category"])
 
-@router.get(
+@category_router.get(
     "/{category_id}",
     response_model=CategoryGetResponseSchema,
     summary="Get category by ID",
@@ -16,7 +16,7 @@ async def get_category(category_id: str):
     return CategoryGetResponseSchema(**category_data)
 
 
-@router.get(
+@category_router.get(
     "",
     response_model=CategoryListResponseSchema,
     summary="List categories",

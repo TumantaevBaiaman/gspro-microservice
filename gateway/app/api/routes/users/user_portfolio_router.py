@@ -12,12 +12,12 @@ user_portfolio_router = APIRouter(prefix="/users/me/portfolio", tags=["User Port
 @user_portfolio_router.get(
     "/",
     summary="Get Current User Portfolio",
-    description="Endpoint to retrieve the portfolio information of the currently authenticated user."
+    description="Endpoint to retrieve the portfolio information of the currently authenticated users."
 )
 async def get_user_portfolio(user=Depends(get_current_user)):
     user_id = user.get("sub")
     portfolio_items = media_client.list_media_by_owner(
-        owner_service="user",
+        owner_service="users",
         owner_id=user_id,
         usage="portfolio",
         kind="image",
@@ -28,7 +28,7 @@ async def get_user_portfolio(user=Depends(get_current_user)):
 @user_portfolio_router.post(
     "/upload",
     summary="Upload User Portfolio Item",
-    description="Endpoint to upload a new item to the user's portfolio."
+    description="Endpoint to upload a new item to the users's portfolio."
 )
 async def upload_portfolio_item(file: UploadFile = File(...), user=Depends(get_current_user)):
     user_id = user.get("sub")
@@ -43,7 +43,7 @@ async def upload_portfolio_item(file: UploadFile = File(...), user=Depends(get_c
     )
 
     media = media_client.create_and_attach_media(
-        owner_service="user",
+        owner_service="users",
         owner_id=user_id,
         kind="image",
         usage="portfolio",

@@ -12,7 +12,7 @@ admin_category_router = APIRouter(prefix="/categories", tags=["Admin Categories"
     "/create",
     response_model=AdminCategoryCreateResponseSchema,
     summary="Create a new category",
-    description="Endpoint to create a new category in the course management system."
+    description="Endpoint to create a new category in the courses management system."
 )
 def create_category(data: AdminCategoryCreateRequestSchema):
     response = admin_category_client.create_category(data)
