@@ -12,13 +12,13 @@ class User:
     role: str
 
     @staticmethod
-    def create(email: str) -> "User":
+    def create(email: str, role: str = "user") -> "User":
         if not email:
             raise ValueError("Email is required")
 
         return User(
             id=uuid4(),
             email=email,
-            role="user",
+            role=role,
             is_active=True,
         )

@@ -1,0 +1,71 @@
+syntax = "proto3";
+
+package chat;
+
+import "google/protobuf/timestamp.proto";
+
+service ChatService {
+
+  // Получить чат по id
+  rpc GetChat (GetChatRequest)
+      returns (GetChatResponse);
+
+  // Получить чат или создать, если его нет
+  rpc GetOrCreateChat (GetOrCreateChatRequest)
+      returns (GetOrCreateChatResponse);
+}
+
+/* =========================
+   REQUESTS
+   ========================= */
+
+message GetChatRequest {
+  string chat_id = 1;
+}
+
+message GetOrCreateChatRequest {
+  // DIRECT | COURSE_PRIVATE | COURSE_GROUP
+  string chat_type = 1;
+
+  // DIRECT
+  string sender_id = 2;
+  string peer_id = 3;
+
+  // COURSE
+  string course_id = 4;
+  string student_id = 5;
+}
+
+/* =========================
+   RESPONSES
+   ========================= */
+
+message GetOrCreateChatResponse {
+  string chat_id = 1;
+  bool created = 2;
+
+  // DIRECT | COURSE_PRIVATE | COURSE_GROUP
+  string chat_type = 3;
+}
+
+message GetChatResponse {
+  Chat chat = 1;
+}
+
+/* =========================
+   MODELS
+   ========================= */
+
+message Chat {
+  string id = 1;
+
+  // DIRECT | COURSE_PRIVATE | COURSE_GROUP
+  string chat_type = 2;
+
+  repeated string participant_ids = 3;
+
+  string course_id = 4;
+
+  google.protobuf.Timestamp created_at = 5;
+  google.protobuf.Timestamp last_message_at = 6;
+}

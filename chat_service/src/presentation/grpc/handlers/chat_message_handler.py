@@ -5,6 +5,7 @@ from generated.chat import chat_message_pb2_grpc as pb2_grpc
 from src.application.commands.chat.dto import GetOrCreateChatDTO
 from src.application.commands.chat_message.dto import SendMessageDTO
 from src.application.commands.chat_participant.dto import AddChatParticipantDTO
+from src.application.queries.chat_message.dto import ListMessagesByChatDTO
 from src.application.queries.chat_participant.dto import ListChatParticipantsDTO
 
 from src.application.services.chat_service import ChatService
@@ -17,7 +18,7 @@ from src.domain.enums.chat_message_type_enum import ChatMessageTypeEnum
 
 from src.infrastructure.db.mongo.models.chat_message_document import (
     ChatMessagePayload,
-    ChatMessageContext,
+    ChatMessageContext, ChatAttachment,
 )
 
 
@@ -40,9 +41,40 @@ class ChatMessageHandler(pb2_grpc.ChatMessageServiceServicer):
             chat = await self._get_or_create_chat(request, context)
             chat_id = str(chat.id)
 
+        message_type: ChatMessageTypeEnum = ChatMessageTypeEnum.TEXT
+        try:
+            message_type = ChatMessageTypeEnum(request.type)
+        except ValueError:
+            await context.abort(
+                grpc.StatusCode.INVALID_ARGUMENT,
+                "Invalid message type",
+            )
+
+        if message_type == ChatMessageTypeEnum.TEXT and not request.text:
+            await context.abort(
+                grpc.StatusCode.INVALID_ARGUMENT,
+                "Text message must contain text",
+            )
+
+        if message_type != ChatMessageTypeEnum.TEXT and not request.attachments:
+            await context.abort(
+                grpc.StatusCode.INVALID_ARGUMENT,
+                "Media message must contain attachments",
+            )
+
         payload = ChatMessagePayload(
-            type=ChatMessageTypeEnum.TEXT,
-            text=request.text,
+            type=message_type,
+            text=request.text or None,
+            attachments=[
+                ChatAttachment(
+                    file_id=a.file_id,
+                    url=a.url,
+                    mime_type=a.mime_type or None,
+                    size=a.size or None,
+                    duration=a.duration or None,
+                )
+                for a in request.attachments
+            ]
         )
 
         message_context = ChatMessageContext(
@@ -182,4 +214,46 @@ class ChatMessageHandler(pb2_grpc.ChatMessageServiceServicer):
         await context.abort(
             grpc.StatusCode.INVALID_ARGUMENT,
             "Unsupported chat type",
+        )
+
+    async def ListMessages(self, request, context):
+        if not request.chat_id:
+            await context.abort(
+                grpc.StatusCode.INVALID_ARGUMENT,
+                "chat_id is required",
+            )
+
+        limit = request.limit or 10
+        offset = request.offset or 0
+
+        messages = await self.chat_message_service.list_by_chat.execute(
+            ListMessagesByChatDTO(
+                chat_id=request.chat_id,
+                limit=limit,
+                offset=offset,
+            )
+        )
+
+        return pb2.ListMessagesResponse(
+            messages=[
+                pb2.ChatMessage(
+                    id=str(m.id),
+                    chat_id=m.chat_id,
+                    sender_id=m.sender_id,
+                    type=m.payload.type.value,
+                    text=m.payload.text or "",
+                    attachments=[
+                        pb2.ChatAttachment(
+                            file_id=a.file_id,
+                            url=a.url,
+                            mime_type=a.mime_type or "",
+                            size=a.size or 0,
+                            duration=a.duration or 0,
+                        )
+                        for a in m.payload.attachments
+                    ],
+                    created_at=m.created_at.isoformat(),
+                )
+                for m in reversed(messages)
+            ]
         )

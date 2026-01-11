@@ -23,9 +23,8 @@ class LoginEmailCommand:
         acc = await self.repo.get_auth_account_by_email(dto.email)
         if not acc:
             raise InvalidCredentialsError("Invalid email or password")
-
         if not verify_password(dto.password, acc.password_hash):
-            raise InvalidCredentialsError("Invalid email or password")
+            raise InvalidCredentialsError("Invalid email or password 2")
 
         user = await self.repo.get_user_by_id(acc.user_id)
         if not user:

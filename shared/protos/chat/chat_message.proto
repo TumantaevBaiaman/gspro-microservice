@@ -6,16 +6,32 @@ import "google/protobuf/timestamp.proto";
 
 service ChatMessageService {
   rpc SendMessage (SendMessageRequest) returns (SendMessageResponse);
+  rpc ListMessages (ListMessagesRequest) returns (ListMessagesResponse);
+}
+
+message ChatAttachment {
+  string file_id = 1;
+  string url = 2;
+  string mime_type = 3;
+  int64 size = 4;
+  int32 duration = 5;
 }
 
 message SendMessageRequest {
   string chat_id = 1;
   string chat_type = 2;
+
   string course_id = 3;
   string student_id = 4;
   string peer_id = 5;
+
   string sender_id = 6;
-  string text = 7;
+
+  string type = 7;
+
+  string text = 8;
+
+  repeated ChatAttachment attachments = 9;
 }
 
 message SendMessageResponse {
@@ -23,4 +39,27 @@ message SendMessageResponse {
   string message_id = 2;
   string created_at = 3;
   repeated string participant_ids = 4;
+}
+
+message ListMessagesRequest {
+  string chat_id = 1;
+  int32 limit = 2;
+  int32 offset = 3;
+}
+
+message ListMessagesResponse {
+  repeated ChatMessage messages = 1;
+}
+
+message ChatMessage {
+  string id = 1;
+  string chat_id = 2;
+  string sender_id = 3;
+
+  string type = 4;
+  string text = 5;
+
+  repeated ChatAttachment attachments = 6;
+
+  string created_at = 7;
 }

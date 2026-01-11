@@ -20,6 +20,7 @@ class UserRepository(IUserRepository):
         model = UserModel(
             id=user.id,
             email=user.email,
+            role=user.role,
             is_active=user.is_active,
         )
         self.session.add(model)
