@@ -25,17 +25,25 @@ _sym_db = _symbol_database.Default()
 from google.protobuf import timestamp_pb2 as google_dot_protobuf_dot_timestamp__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x17\x63hat/chat_message.proto\x12\x0c\x63hat_message\x1a\x1fgoogle/protobuf/timestamp.proto\"\x91\x01\n\x12SendMessageRequest\x12\x0f\n\x07\x63hat_id\x18\x01 \x01(\t\x12\x11\n\tchat_type\x18\x02 \x01(\t\x12\x11\n\tcourse_id\x18\x03 \x01(\t\x12\x12\n\nstudent_id\x18\x04 \x01(\t\x12\x0f\n\x07peer_id\x18\x05 \x01(\t\x12\x11\n\tsender_id\x18\x06 \x01(\t\x12\x0c\n\x04text\x18\x07 \x01(\t\"g\n\x13SendMessageResponse\x12\x0f\n\x07\x63hat_id\x18\x01 \x01(\t\x12\x12\n\nmessage_id\x18\x02 \x01(\t\x12\x12\n\ncreated_at\x18\x03 \x01(\t\x12\x17\n\x0fparticipant_ids\x18\x04 \x03(\t2h\n\x12\x43hatMessageService\x12R\n\x0bSendMessage\x12 .chat_message.SendMessageRequest\x1a!.chat_message.SendMessageResponseb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x17\x63hat/chat_message.proto\x12\x0c\x63hat_message\x1a\x1fgoogle/protobuf/timestamp.proto\"a\n\x0e\x43hatAttachment\x12\x0f\n\x07\x66ile_id\x18\x01 \x01(\t\x12\x0b\n\x03url\x18\x02 \x01(\t\x12\x11\n\tmime_type\x18\x03 \x01(\t\x12\x0c\n\x04size\x18\x04 \x01(\x03\x12\x10\n\x08\x64uration\x18\x05 \x01(\x05\"\xd2\x01\n\x12SendMessageRequest\x12\x0f\n\x07\x63hat_id\x18\x01 \x01(\t\x12\x11\n\tchat_type\x18\x02 \x01(\t\x12\x11\n\tcourse_id\x18\x03 \x01(\t\x12\x12\n\nstudent_id\x18\x04 \x01(\t\x12\x0f\n\x07peer_id\x18\x05 \x01(\t\x12\x11\n\tsender_id\x18\x06 \x01(\t\x12\x0c\n\x04type\x18\x07 \x01(\t\x12\x0c\n\x04text\x18\x08 \x01(\t\x12\x31\n\x0b\x61ttachments\x18\t \x03(\x0b\x32\x1c.chat_message.ChatAttachment\"g\n\x13SendMessageResponse\x12\x0f\n\x07\x63hat_id\x18\x01 \x01(\t\x12\x12\n\nmessage_id\x18\x02 \x01(\t\x12\x12\n\ncreated_at\x18\x03 \x01(\t\x12\x17\n\x0fparticipant_ids\x18\x04 \x03(\t\"E\n\x13ListMessagesRequest\x12\x0f\n\x07\x63hat_id\x18\x01 \x01(\t\x12\r\n\x05limit\x18\x02 \x01(\x05\x12\x0e\n\x06offset\x18\x03 \x01(\x05\"C\n\x14ListMessagesResponse\x12+\n\x08messages\x18\x01 \x03(\x0b\x32\x19.chat_message.ChatMessage\"\xa0\x01\n\x0b\x43hatMessage\x12\n\n\x02id\x18\x01 \x01(\t\x12\x0f\n\x07\x63hat_id\x18\x02 \x01(\t\x12\x11\n\tsender_id\x18\x03 \x01(\t\x12\x0c\n\x04type\x18\x04 \x01(\t\x12\x0c\n\x04text\x18\x05 \x01(\t\x12\x31\n\x0b\x61ttachments\x18\x06 \x03(\x0b\x32\x1c.chat_message.ChatAttachment\x12\x12\n\ncreated_at\x18\x07 \x01(\t2\xbf\x01\n\x12\x43hatMessageService\x12R\n\x0bSendMessage\x12 .chat_message.SendMessageRequest\x1a!.chat_message.SendMessageResponse\x12U\n\x0cListMessages\x12!.chat_message.ListMessagesRequest\x1a\".chat_message.ListMessagesResponseb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'chat.chat_message_pb2', _globals)
 if not _descriptor._USE_C_DESCRIPTORS:
   DESCRIPTOR._loaded_options = None
-  _globals['_SENDMESSAGEREQUEST']._serialized_start=75
-  _globals['_SENDMESSAGEREQUEST']._serialized_end=220
-  _globals['_SENDMESSAGERESPONSE']._serialized_start=222
-  _globals['_SENDMESSAGERESPONSE']._serialized_end=325
-  _globals['_CHATMESSAGESERVICE']._serialized_start=327
-  _globals['_CHATMESSAGESERVICE']._serialized_end=431
+  _globals['_CHATATTACHMENT']._serialized_start=74
+  _globals['_CHATATTACHMENT']._serialized_end=171
+  _globals['_SENDMESSAGEREQUEST']._serialized_start=174
+  _globals['_SENDMESSAGEREQUEST']._serialized_end=384
+  _globals['_SENDMESSAGERESPONSE']._serialized_start=386
+  _globals['_SENDMESSAGERESPONSE']._serialized_end=489
+  _globals['_LISTMESSAGESREQUEST']._serialized_start=491
+  _globals['_LISTMESSAGESREQUEST']._serialized_end=560
+  _globals['_LISTMESSAGESRESPONSE']._serialized_start=562
+  _globals['_LISTMESSAGESRESPONSE']._serialized_end=629
+  _globals['_CHATMESSAGE']._serialized_start=632
+  _globals['_CHATMESSAGE']._serialized_end=792
+  _globals['_CHATMESSAGESERVICE']._serialized_start=795
+  _globals['_CHATMESSAGESERVICE']._serialized_end=986
 # @@protoc_insertion_point(module_scope)

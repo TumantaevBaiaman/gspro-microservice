@@ -1,45 +1,60 @@
+from app.clients.media import media_client
 from app.ws.connection_manager import manager
 from app.clients.chat.chat_message_client import chat_message_client
 from grpc import RpcError, StatusCode
 
 
 async def handle_send_message(sender_id: str, data: dict):
+    payload = data.get("payload") or {}
+    attachments = payload.get("attachments", [])
 
     try:
         res = chat_message_client.send_message(
             sender_id=sender_id,
-            chat_id=data.get("chat_id", None),
-            text=data.get("text", None),
+            chat_id=data.get("chat_id"),
             chat_type=data.get("chat_type"),
-            course_id=data.get("course_id", None),
+            course_id=data.get("course_id"),
             student_id=data.get("student_id"),
             peer_id=data.get("peer_id"),
+
+            message_type=payload.get("type"),
+            text=payload.get("text"),
+            attachments=attachments,
         )
 
     except RpcError as e:
-        if e.code() == StatusCode.PERMISSION_DENIED:
-            await manager.send_to_user(sender_id, {
-                "event": "error",
-                "code": "NOT_CHAT_PARTICIPANT",
-            })
-            return
-
+        code = (
+            "NOT_CHAT_PARTICIPANT"
+            if e.code() == StatusCode.PERMISSION_DENIED
+            else "SEND_MESSAGE_FAILED"
+        )
         await manager.send_to_user(sender_id, {
             "event": "error",
-            "code": "SEND_MESSAGE_FAILED",
+            "code": code,
         })
         return
 
     participants = res.get("participant_ids", [])
 
-    payload = {
+    if attachments:
+        for attachment in attachments:
+            media_client.attach_media(
+                owner_service="chat",
+                owner_id=res["chat_id"],
+                media_id=attachment["file_id"],
+            )
+
+    ws_message = {
         "event": "new_message",
         "chat_id": res["chat_id"],
         "chat_type": data.get("chat_type"),
         "message": {
             "id": res["message_id"],
-            "text": data.get("text", ""),
             "sender_id": sender_id,
+            "type": payload.get("type"),
+            "text": payload.get("text"),
+            "attachments": payload.get("attachments", []),
         }
     }
-    await manager.send_to_users(participants, payload)
+
+    await manager.send_to_users(participants, ws_message)

@@ -1,45 +1,48 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, Path, Query
 
-from app.schemas.chat.chat_message import (
-    SendMessageSchema,
-    SendMessageResponseSchema,
-    ListMessagesResponseSchema,
-)
-from app.clients.chat import chat_message_client
+from app.api.dependencies.auth import get_current_user
+from app.clients.chat import chat_client, chat_message_client
+from app.schemas.chat.chat import GetOrCreateChatResponse, GetOrCreateChatRequest, ChatMessageListResponse
 
-chat_router = APIRouter(prefix="/chats", tags=["Chat"])
+chat_router = APIRouter(prefix="/chat", tags=["Chat"])
 
 
 @chat_router.post(
-    "/messages",
-    response_model=SendMessageResponseSchema,
-    summary="Send a chats message",
-    description="Send a message in a chats, creating the chats if it does not exist.",
+    "/get-or-create",
+    response_model=GetOrCreateChatResponse,
+    summary="Get or create chat",
 )
-def send_message(data: SendMessageSchema):
-    return chat_message_client.send_message(
-        scope=data.scope,
-        sender_id=data.sender_id,
-        participants=[p.model_dump() for p in data.participants],
-        payload=data.payload.model_dump(),
-        course_id=data.course_id,
-        context=data.context.model_dump() if data.context else None,
+def get_or_create_chat(
+        body: GetOrCreateChatRequest,
+        user=Depends(get_current_user),
+):
+    user_id = user["sub"]
+    return chat_client.get_or_create(
+        chat_type=body.chat_type,
+        sender_id=user_id,
+        peer_id=body.peer_id,
+        course_id=body.course_id,
+        student_id=body.student_id,
     )
 
 
 @chat_router.get(
     "/{chat_id}/messages",
-    response_model=ListMessagesResponseSchema,
-    summary="List chats messages",
-    description="Retrieve a list of messages for a specific chats with pagination.",
+    response_model=ChatMessageListResponse,
+    summary="Get chat message history",
 )
-def list_messages(
-    chat_id: str,
-    limit: int = 20,
-    offset: int = 0,
+def get_chat_messages(
+    chat_id: str = Path(..., description="Chat ID"),
+    offset: int = Query(0, ge=0),
+    limit: int = Query(10, ge=1, le=50),
+    user=Depends(get_current_user),
 ):
-    return chat_message_client.list_messages(
+
+    data = chat_message_client.list_messages(
         chat_id=chat_id,
         limit=limit,
         offset=offset,
     )
+
+    return data
+

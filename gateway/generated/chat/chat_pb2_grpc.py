@@ -3,7 +3,7 @@
 import grpc
 import warnings
 
-from generated.chat import chat_message_pb2 as chat_dot_chat__message__pb2
+from generated.chat import chat_pb2 as chat_dot_chat__pb2
 
 GRPC_GENERATED_VERSION = '1.76.0'
 GRPC_VERSION = grpc.__version__
@@ -18,14 +18,14 @@ except ImportError:
 if _version_not_supported:
     raise RuntimeError(
         f'The grpc package installed is at version {GRPC_VERSION},'
-        + ' but the generated code in chat/chat_message_pb2_grpc.py depends on'
+        + ' but the generated code in chat/chat_pb2_grpc.py depends on'
         + f' grpcio>={GRPC_GENERATED_VERSION}.'
         + f' Please upgrade your grpc module to grpcio>={GRPC_GENERATED_VERSION}'
         + f' or downgrade your generated code using grpcio-tools<={GRPC_VERSION}.'
     )
 
 
-class ChatMessageServiceStub(object):
+class ChatServiceStub(object):
     """Missing associated documentation comment in .proto file."""
 
     def __init__(self, channel):
@@ -34,59 +34,61 @@ class ChatMessageServiceStub(object):
         Args:
             channel: A grpc.Channel.
         """
-        self.SendMessage = channel.unary_unary(
-                '/chat_message.ChatMessageService/SendMessage',
-                request_serializer=chat_dot_chat__message__pb2.SendMessageRequest.SerializeToString,
-                response_deserializer=chat_dot_chat__message__pb2.SendMessageResponse.FromString,
+        self.GetChat = channel.unary_unary(
+                '/chat.ChatService/GetChat',
+                request_serializer=chat_dot_chat__pb2.GetChatRequest.SerializeToString,
+                response_deserializer=chat_dot_chat__pb2.GetChatResponse.FromString,
                 _registered_method=True)
-        self.ListMessages = channel.unary_unary(
-                '/chat_message.ChatMessageService/ListMessages',
-                request_serializer=chat_dot_chat__message__pb2.ListMessagesRequest.SerializeToString,
-                response_deserializer=chat_dot_chat__message__pb2.ListMessagesResponse.FromString,
+        self.GetOrCreateChat = channel.unary_unary(
+                '/chat.ChatService/GetOrCreateChat',
+                request_serializer=chat_dot_chat__pb2.GetOrCreateChatRequest.SerializeToString,
+                response_deserializer=chat_dot_chat__pb2.GetOrCreateChatResponse.FromString,
                 _registered_method=True)
 
 
-class ChatMessageServiceServicer(object):
+class ChatServiceServicer(object):
     """Missing associated documentation comment in .proto file."""
 
-    def SendMessage(self, request, context):
-        """Missing associated documentation comment in .proto file."""
+    def GetChat(self, request, context):
+        """Получить чат по id
+        """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def ListMessages(self, request, context):
-        """Missing associated documentation comment in .proto file."""
+    def GetOrCreateChat(self, request, context):
+        """Получить чат или создать, если его нет
+        """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
 
-def add_ChatMessageServiceServicer_to_server(servicer, server):
+def add_ChatServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
-            'SendMessage': grpc.unary_unary_rpc_method_handler(
-                    servicer.SendMessage,
-                    request_deserializer=chat_dot_chat__message__pb2.SendMessageRequest.FromString,
-                    response_serializer=chat_dot_chat__message__pb2.SendMessageResponse.SerializeToString,
+            'GetChat': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetChat,
+                    request_deserializer=chat_dot_chat__pb2.GetChatRequest.FromString,
+                    response_serializer=chat_dot_chat__pb2.GetChatResponse.SerializeToString,
             ),
-            'ListMessages': grpc.unary_unary_rpc_method_handler(
-                    servicer.ListMessages,
-                    request_deserializer=chat_dot_chat__message__pb2.ListMessagesRequest.FromString,
-                    response_serializer=chat_dot_chat__message__pb2.ListMessagesResponse.SerializeToString,
+            'GetOrCreateChat': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetOrCreateChat,
+                    request_deserializer=chat_dot_chat__pb2.GetOrCreateChatRequest.FromString,
+                    response_serializer=chat_dot_chat__pb2.GetOrCreateChatResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
-            'chat_message.ChatMessageService', rpc_method_handlers)
+            'chat.ChatService', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
-    server.add_registered_method_handlers('chat_message.ChatMessageService', rpc_method_handlers)
+    server.add_registered_method_handlers('chat.ChatService', rpc_method_handlers)
 
 
  # This class is part of an EXPERIMENTAL API.
-class ChatMessageService(object):
+class ChatService(object):
     """Missing associated documentation comment in .proto file."""
 
     @staticmethod
-    def SendMessage(request,
+    def GetChat(request,
             target,
             options=(),
             channel_credentials=None,
@@ -99,9 +101,9 @@ class ChatMessageService(object):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/chat_message.ChatMessageService/SendMessage',
-            chat_dot_chat__message__pb2.SendMessageRequest.SerializeToString,
-            chat_dot_chat__message__pb2.SendMessageResponse.FromString,
+            '/chat.ChatService/GetChat',
+            chat_dot_chat__pb2.GetChatRequest.SerializeToString,
+            chat_dot_chat__pb2.GetChatResponse.FromString,
             options,
             channel_credentials,
             insecure,
@@ -113,7 +115,7 @@ class ChatMessageService(object):
             _registered_method=True)
 
     @staticmethod
-    def ListMessages(request,
+    def GetOrCreateChat(request,
             target,
             options=(),
             channel_credentials=None,
@@ -126,9 +128,9 @@ class ChatMessageService(object):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/chat_message.ChatMessageService/ListMessages',
-            chat_dot_chat__message__pb2.ListMessagesRequest.SerializeToString,
-            chat_dot_chat__message__pb2.ListMessagesResponse.FromString,
+            '/chat.ChatService/GetOrCreateChat',
+            chat_dot_chat__pb2.GetOrCreateChatRequest.SerializeToString,
+            chat_dot_chat__pb2.GetOrCreateChatResponse.FromString,
             options,
             channel_credentials,
             insecure,

@@ -27,18 +27,16 @@ async def _upload_bytes(data: bytes, path: str, content_type: str):
 
 async def upload_voice(
     data: bytes,
-    entity: str,
-    entity_id: str,
-    content_type: str = "audio/ogg",
+    content_type: str,
+    path_prefix: str,
 ) -> tuple[str, str]:
 
     voice_id = str(uuid.uuid4())
-
     ext = content_type.split("/")[-1]
-    path = f"{entity}/{entity_id}/voice/{voice_id}.{ext}"
+
+    path = f"{path_prefix}/{voice_id}.{ext}"
 
     await _upload_bytes(data, path, content_type)
 
     url = f"{settings.media.STORAGE_CDN_BASE_URL}/{path}"
-
     return voice_id, url
