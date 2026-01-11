@@ -2,6 +2,7 @@ from fastapi import APIRouter, Depends, Path, Query
 
 from app.api.dependencies.auth import get_current_user
 from app.clients.chat import chat_client, chat_message_client
+from app.clients.media import media_client
 from app.schemas.chat.chat import GetOrCreateChatResponse, GetOrCreateChatRequest, ChatMessageListResponse
 
 chat_router = APIRouter(prefix="/chat", tags=["Chat"])
@@ -46,3 +47,38 @@ def get_chat_messages(
 
     return data
 
+
+@chat_router.get(
+    "/{chat_id}/files",
+    summary="Get Current User Portfolio",
+    description="Endpoint to retrieve the portfolio information of the currently authenticated users."
+)
+async def get_user_portfolio(
+        chat_id: str = Path(..., description="Chat ID"),
+        user=Depends(get_current_user)
+):
+    file_items = media_client.list_media_by_owner(
+        owner_service="chat",
+        owner_id=chat_id,
+        usage="message",
+        kind="file",
+    )
+    return [file_item for file_item in file_items]
+
+
+@chat_router.get(
+    "/{chat_id}/images",
+    summary="Get Current User Portfolio",
+    description="Endpoint to retrieve the portfolio information of the currently authenticated users."
+)
+async def get_user_portfolio(
+        chat_id: str = Path(..., description="Chat ID"),
+        user=Depends(get_current_user)
+):
+    file_items = media_client.list_media_by_owner(
+        owner_service="chat",
+        owner_id=chat_id,
+        usage="message",
+        kind="image",
+    )
+    return [file_item for file_item in file_items]
