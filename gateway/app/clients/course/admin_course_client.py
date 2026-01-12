@@ -42,7 +42,6 @@ class AdminCourseClient:
         try:
             return self.stub.AdminUpdateCourse(req)
         except grpc.RpcError as e:
-            print(e)
             self._err(e)
 
     def delete_course(self, course_id: str):

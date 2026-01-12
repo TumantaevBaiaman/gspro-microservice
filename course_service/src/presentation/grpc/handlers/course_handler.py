@@ -52,10 +52,12 @@ class CourseHandler(pb2_grpc.CourseServiceServicer):
     async def ListCourses(self, request, context):
         limit = request.limit or 10
         offset = request.offset or 0
+        mode = request.mode or "all"
 
         items, total = await self.service.list.execute(
             limit=limit,
-            offset=offset
+            offset=offset,
+            mode=mode
         )
 
         return pb2.ListCoursesResponse(

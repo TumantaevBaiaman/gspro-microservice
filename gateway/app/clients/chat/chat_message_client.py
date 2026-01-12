@@ -88,7 +88,6 @@ class ChatMessageClient:
             )
 
         except grpc.RpcError as e:
-            print(e)
             self._err(e)
 
     @staticmethod

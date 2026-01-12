@@ -38,7 +38,6 @@ class ChatClient:
             )
 
         except grpc.RpcError as e:
-            print(e)
             self._err(e)
 
     def get(self, chat_id: str) -> dict:
