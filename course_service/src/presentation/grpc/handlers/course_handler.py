@@ -65,10 +65,8 @@ class CourseHandler(pb2_grpc.CourseServiceServicer):
                     title=course.title,
                     description=course.description or "",
 
-                    level=course.level.value,
                     duration_minutes=course.duration_minutes,
                     language=course.language.value,
-                    requires_experience=course.requires_experience,
 
                     price=pb2.CoursePrice(
                         type=course.price.type.value,
@@ -76,8 +74,8 @@ class CourseHandler(pb2_grpc.CourseServiceServicer):
                     ),
 
                     category_ids=list(course.category_ids),
-                    mentor_ids=list(course.mentor_ids),
                     cover_image_id=course.cover_image_id or "",
+                    is_promoted=course.is_promoted or False,
                 )
                 for course in items
             ],

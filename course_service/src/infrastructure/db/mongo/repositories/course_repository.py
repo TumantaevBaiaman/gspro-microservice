@@ -1,3 +1,5 @@
+from pymongo import DESCENDING
+
 from src.domain.entities.course_entity import CourseEntity
 from src.domain.repositories.course_repository import ICourseRepository
 
@@ -14,6 +16,10 @@ class CourseRepository(ICourseRepository):
 
         items = await (
             query
+            .sort([
+                ("is_promoted", DESCENDING),
+                ("created_at", DESCENDING),
+            ])
             .skip(offset)
             .limit(limit)
             .to_list()

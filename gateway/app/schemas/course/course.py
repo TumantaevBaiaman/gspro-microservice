@@ -42,15 +42,14 @@ class CourseListItemSchema(BaseModel):
 
     cover_image: Optional[str] = None
 
-    level: str
     duration_minutes: int = 0
     language: str
-    requires_experience: bool = False
 
     price: CoursePriceSchema
 
     category_ids: list[str] = []
-    mentor_ids: list[str] = []
+
+    is_promoted: bool = False
 
 
 class CourseListResponseSchema(BaseModel):

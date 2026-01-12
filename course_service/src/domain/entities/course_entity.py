@@ -38,6 +38,7 @@ class CourseEntity(BaseEntity):
             amount=0
         )
     )
+    is_promoted: bool = False
 
     category_ids: Optional[List[str]] = Field(default_factory=list)
     mentor_ids: Optional[List[str]] = Field(default_factory=list)

@@ -40,3 +40,5 @@ class AdminCourseUpdateDTO(BaseModel):
 
     category_ids: Optional[List[str]] = None
     mentor_ids: Optional[List[str]] = None
+
+    is_promoted: Optional[bool] = None

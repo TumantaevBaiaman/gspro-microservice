@@ -55,16 +55,15 @@ message Course {
     string title = 2;
     string description = 3;
 
-    string level = 4;
-    int32 duration_minutes = 5;
-    string language = 6;
-    bool requires_experience = 7;
+    int32 duration_minutes = 4;
+    string language = 5;
 
-    CoursePrice price = 8;
+    CoursePrice price = 6;
 
-    repeated string category_ids = 9;
-    repeated string mentor_ids = 10;
-    string cover_image_id = 11;
+    repeated string category_ids = 7;
+    string cover_image_id = 8;
+
+    bool is_promoted = 9;
 }
 
 message ListCoursesResponse {

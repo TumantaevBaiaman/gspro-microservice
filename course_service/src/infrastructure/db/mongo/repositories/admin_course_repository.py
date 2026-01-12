@@ -1,3 +1,4 @@
+from beanie import PydanticObjectId
 from beanie.operators import Set
 from pymongo.errors import DuplicateKeyError
 
@@ -28,9 +29,11 @@ class AdminCourseRepository(IAdminCourseRepository):
         return await CourseEntity.find_all().to_list()
 
     async def update(self, course_id: str, data: dict) -> CourseEntity:
-        result = await CourseEntity.find_one(
-            CourseEntity.id == course_id
-        ).update(Set(data))
+        query = CourseEntity.find_one(
+            CourseEntity.id == PydanticObjectId(course_id)
+        )
+
+        result = await query.update(Set(data))
 
         if result.matched_count == 0:
             raise CourseNotFoundError(course_id)
