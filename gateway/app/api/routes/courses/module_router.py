@@ -2,6 +2,7 @@ from http.client import HTTPException
 
 from fastapi import APIRouter, Depends
 
+from app.clients.media import media_client
 from app.core.media.base import MediaProvider
 from app.core.media.provider import get_media_provider
 from app.clients.course import lesson_client
@@ -32,6 +33,15 @@ def get_lesson(module_id: str, lesson_id: str):
 
     if lesson["module_id"] != module_id:
         raise HTTPException(404, "Lesson not found")
+
+    files = media_client.list_media_by_owner(
+        owner_service="course",
+        owner_id=lesson_id,
+        kind="file",
+        usage="lesson"
+    )
+
+    lesson["files"] = files
 
     return lesson
 

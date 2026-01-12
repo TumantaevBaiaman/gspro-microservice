@@ -16,6 +16,8 @@ class AdminLessonCreateRequestSchema(BaseModel):
     order_number: Optional[int] = None
     is_active: bool = True
 
+    file_ids: List[str] = []
+
 
 class AdminLessonCreateResponseSchema(BaseModel):
     id: str

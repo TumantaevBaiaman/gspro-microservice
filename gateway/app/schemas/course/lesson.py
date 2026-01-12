@@ -31,6 +31,8 @@ class LessonSchema(BaseModel):
 
     access_type: str
 
+    files: list = []
+
 
 class LessonStreamResponse(BaseModel):
     embed_url: str

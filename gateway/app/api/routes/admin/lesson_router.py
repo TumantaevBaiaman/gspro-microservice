@@ -1,9 +1,11 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, UploadFile, File
 from google.protobuf.json_format import MessageToDict
 
 from app.clients.course import admin_lesson_client
+from app.clients.media import media_client
 from app.schemas.course.admin_lesson import *
-
+from app.services.media.file_upload_service import upload_file
+from app.utils.file_validation import validate_file
 
 admin_lesson_router = APIRouter(prefix="/lessons", tags=["Admin Lessons"])
 
@@ -16,7 +18,14 @@ admin_lesson_router = APIRouter(prefix="/lessons", tags=["Admin Lessons"])
 )
 def create_lesson(data: AdminLessonCreateRequestSchema):
     response = admin_lesson_client.create_lesson(data)
+    file_ids = data.file_ids
     response_data = MessageToDict(response, preserving_proto_field_name=True)
+    for file_id in file_ids:
+        media_client.attach_media(
+            media_id=file_id,
+            owner_service="course",
+            owner_id=response_data["id"],
+        )
     return AdminLessonCreateResponseSchema(**response_data)
 
 
@@ -65,3 +74,41 @@ def list_lessons(module_id: str | None = None):
     response = admin_lesson_client.list_lessons(module_id=module_id)
     response_data = MessageToDict(response, preserving_proto_field_name=True)
     return AdminLessonListResponseSchema(**response_data)
+
+
+@admin_lesson_router.post(
+    "/upload/file",
+    summary="Upload lesson file",
+    description="Endpoint to upload a lesson file (pdf, doc, docx)."
+)
+async def upload_file_endpoint(
+    file: UploadFile = File(...),
+):
+    file_bytes = await validate_file(file)
+
+    file_id, url = await upload_file(
+        data=file_bytes,
+        filename=file.filename,
+        content_type=file.content_type,
+        path_prefix="course/lesson/uploads/files",
+    )
+
+    media = media_client.create_media(
+        kind="file",
+        usage="lesson",
+        original_url=url,
+        metadata={
+            "filename": file.filename,
+            "mime_type": file.content_type,
+            "size": str(len(file_bytes)),
+        },
+    )
+
+    return {
+        "id": media["id"],
+        "file_id": file_id,
+        "url": url,
+        "kind": media["kind"],
+        "filename": file.filename,
+        "size": len(file_bytes),
+    }
