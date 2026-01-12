@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, Query
+from fastapi import APIRouter, Depends, Query, Path
 from google.protobuf.json_format import MessageToDict
 
 from app.api.dependencies.auth import get_current_user
@@ -11,13 +11,13 @@ from app.schemas.user.user_experience import (
 
 
 user_experience_router = APIRouter(
-    prefix="/users/me/experiences",
+    prefix="/users",
     tags=["User Experience"],
 )
 
 
 @user_experience_router.post(
-    "",
+    "/me/experiences",
     response_model=UserExperienceItemSchema,
     summary="Create experience",
     description="Create a new experience entry for the current users."
@@ -42,12 +42,12 @@ async def create_experience(
 
 
 @user_experience_router.get(
-    "",
+    "/me/experiences",
     response_model=ListUserExperiencesResponseSchema,
     summary="List experiences",
     description="Retrieve a list of experience entries for the current users with pagination support."
 )
-async def list_experiences(
+async def list_me_experiences(
     user=Depends(get_current_user),
     limit: int = Query(10, ge=1, le=100),
     offset: int = Query(0, ge=0),
@@ -65,7 +65,7 @@ async def list_experiences(
 
 
 @user_experience_router.delete(
-    "/{experience_id}",
+    "/me/experiences/{experience_id}",
     summary="Delete experience",
     description="Delete an experience by its ID",
 )
@@ -75,3 +75,25 @@ async def delete_experience(
 ):
     await user_experience_client.delete(experience_id)
     return {"success": True}
+
+
+@user_experience_router.get(
+    "/{uer_id}/experiences",
+    response_model=ListUserExperiencesResponseSchema,
+    summary="List experiences",
+    description="Retrieve a list of experience entries for the current users with pagination support."
+)
+async def list_experiences(
+    user_id: str = Path(..., description="The user ID"),
+    limit: int = Query(10, ge=1, le=100),
+    offset: int = Query(0, ge=0),
+):
+    response = await user_experience_client.list_by_user(
+        user_id=user_id,
+        limit=limit,
+        offset=offset,
+    )
+
+    return ListUserExperiencesResponseSchema(
+        **MessageToDict(response, preserving_proto_field_name=True)
+    )

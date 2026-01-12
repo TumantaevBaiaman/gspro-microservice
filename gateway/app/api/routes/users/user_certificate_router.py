@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, Query
+from fastapi import APIRouter, Depends, Query, Path
 from google.protobuf.json_format import MessageToDict
 
 from app.clients.user.user_certificate_client import user_certificate_client
@@ -11,13 +11,13 @@ from app.schemas.user.user_certificate import (
 from app.api.dependencies.auth import get_current_user
 
 user_certificate_router = APIRouter(
-    prefix="/users/me/certificates",
+    prefix="/users",
     tags=["User Certificate"],
 )
 
 
 @user_certificate_router.post(
-    "",
+    "/me/certificates",
     response_model=UserCertificateItemSchema,
     summary="Create certificate",
     description="Create a new certificate for the current users",
@@ -41,12 +41,12 @@ async def create_certificate(
 
 
 @user_certificate_router.get(
-    "",
+    "/me/certificates",
     response_model=ListUserCertificatesResponseSchema,
     summary="List certificates",
     description="List all certificates for the current users",
 )
-async def list_certificates(
+async def list_me_certificates(
     user=Depends(get_current_user),
     limit: int = Query(10, ge=1, le=100),
     offset: int = Query(0, ge=0),
@@ -64,7 +64,7 @@ async def list_certificates(
 
 
 @user_certificate_router.delete(
-    "/{certificate_id}",
+    "/me/certificates/{certificate_id}",
     summary="Delete certificate",
     description="Delete a certificate by its ID",
 )
@@ -74,3 +74,25 @@ async def delete_certificate(
 ):
     await user_certificate_client.delete(certificate_id)
     return {"success": True}
+
+
+@user_certificate_router.get(
+    "/{user_id}/certificates",
+    response_model=ListUserCertificatesResponseSchema,
+    summary="List certificates",
+    description="List all certificates for the current users",
+)
+async def list_certificates(
+    user_id: str = Path(..., description="User ID"),
+    limit: int = Query(10, ge=1, le=100),
+    offset: int = Query(0, ge=0),
+):
+    response = await user_certificate_client.list_by_user(
+        user_id=user_id,
+        limit=limit,
+        offset=offset,
+    )
+
+    return ListUserCertificatesResponseSchema(
+        **MessageToDict(response, preserving_proto_field_name=True)
+    )

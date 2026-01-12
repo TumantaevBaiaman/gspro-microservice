@@ -63,3 +63,27 @@ async def refresh(data: RefreshTokensRequestSchema) -> RefreshTokensResponseSche
        **response_data
     )
 
+
+@auth_router.post(
+    "/password-reset/request",
+    summary="Request password reset code",
+    description="Send password reset code to user's email."
+)
+async def request_password_reset(
+    data: RequestPasswordResetRequestSchema,
+):
+    await user_client.request_password_reset(data)
+    return {"status": "ok"}
+
+
+@auth_router.post(
+    "/password-reset/confirm",
+    summary="Confirm password reset",
+    description="Confirm password reset using code and set new password."
+)
+async def confirm_password_reset(
+    data: ConfirmPasswordResetRequestSchema,
+):
+    await user_client.confirm_password_reset(data)
+    return {"status": "ok"}
+

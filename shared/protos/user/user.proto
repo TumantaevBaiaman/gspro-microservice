@@ -7,6 +7,10 @@ service UserService {
     rpc LoginEmail(LoginEmailRequest) returns (LoginEmailResponse);
     rpc RefreshToken(RefreshTokenRequest) returns (RefreshTokenResponse);
     rpc AuthGoogle(AuthGoogleRequest) returns (AuthGoogleResponse);
+    rpc RequestPasswordReset (RequestPasswordResetRequest)
+      returns (RequestPasswordResetResponse);
+    rpc ConfirmPasswordReset (ConfirmPasswordResetRequest)
+      returns (ConfirmPasswordResetResponse);
 }
 
 message RegisterEmailRequest {
@@ -51,3 +55,20 @@ message AuthGoogleResponse {
     string refresh_token = 3;
 }
 
+message RequestPasswordResetRequest {
+  string email = 1;
+}
+
+message RequestPasswordResetResponse {
+  string status = 1;
+}
+
+message ConfirmPasswordResetRequest {
+  string email = 1;
+  string code = 2;
+  string new_password = 3;
+}
+
+message ConfirmPasswordResetResponse {
+  string status = 1;
+}
