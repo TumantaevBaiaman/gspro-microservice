@@ -32,6 +32,8 @@ class CourseGetResponseSchema(BaseModel):
     rating: Optional[dict] = None
     lessons_count: int = 0
 
+    sections: list[dict] = []
+
 
 class CourseListItemSchema(BaseModel):
     id: str

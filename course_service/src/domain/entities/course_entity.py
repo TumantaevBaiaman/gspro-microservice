@@ -12,9 +12,17 @@ class CoursePrice(BaseModel):
     amount: Optional[int] = None
 
 
+class CourseSection(BaseModel):
+    title: str
+    items: List[str]
+
+
 class CourseEntity(BaseEntity):
     title: str
     description: Optional[str] = None
+
+    sections: List[CourseSection] = Field(default_factory=list)
+
     cover_image_id: Optional[str] = None
 
     author_id: Optional[str] = None

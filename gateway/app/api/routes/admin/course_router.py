@@ -55,7 +55,7 @@ async def create_course(file: UploadFile = File(...),):
 def create_course(data: AdminCourseCreateRequestSchema):
     response = admin_course_client.create_course(data)
     media_client.attach_media(
-        owner_service="courses",
+        owner_service="course",
         owner_id=response.id,
         media_id=data.cover_image_id,
     )

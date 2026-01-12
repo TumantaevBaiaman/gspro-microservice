@@ -37,6 +37,13 @@ class CourseHandler(pb2_grpc.CourseServiceServicer):
                 mentor_ids=list(course.mentor_ids),
                 cover_image_id=course.cover_image_id or "",
                 lessons_count=lessons_count,
+                sections=[
+                    pb2.CourseSection(
+                        title=section.title,
+                        items=section.items,
+                    )
+                    for section in course.sections
+                ]
             )
 
         except CourseNotFoundError as e:

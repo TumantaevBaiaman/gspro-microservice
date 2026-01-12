@@ -17,6 +17,11 @@ message CoursePrice {
     int32 amount = 2;
 }
 
+message CourseSection {
+    string title = 1;
+    repeated string items = 2;
+}
+
 message GetCourseResponse {
     string id = 1;
     string title = 2;
@@ -35,6 +40,8 @@ message GetCourseResponse {
 
     string author_id = 12;
     int64 lessons_count = 13;
+
+    repeated CourseSection sections = 14;
 }
 
 

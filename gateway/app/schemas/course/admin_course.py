@@ -1,11 +1,16 @@
 from typing import Optional, List
 
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 
 class CoursePriceSchema(BaseModel):
     type: str
     amount: int = 0
+
+
+class CourseSectionSchema(BaseModel):
+    title: str
+    items: List[str]
 
 
 class AdminCourseCreateRequestSchema(BaseModel):
@@ -24,6 +29,8 @@ class AdminCourseCreateRequestSchema(BaseModel):
 
     category_ids: List[str] = []
     mentor_ids: List[str] = []
+
+    sections: List[CourseSectionSchema] = Field(default_factory=list)
 
 
 class AdminCourseCreateResponseSchema(BaseModel):

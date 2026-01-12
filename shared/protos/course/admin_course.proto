@@ -19,6 +19,11 @@ message CoursePrice {
     int32 amount = 2;
 }
 
+message CourseSection {
+    string title = 1;
+    repeated string items = 2;
+}
+
 //
 // REQUESTS
 //
@@ -38,6 +43,8 @@ message AdminCreateCourseRequest {
     repeated string mentor_ids = 9;
     string cover_image_id = 10;
     string author_id = 11;
+
+    repeated CourseSection sections = 12;
 }
 
 message AdminUpdateCourseRequest {
