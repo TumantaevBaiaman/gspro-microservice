@@ -1,37 +1,10 @@
-from fastapi import FastAPI, APIRouter
-
-from app.api.routes import (
-    course_router,
-    admin_router,
-    category_router,
-    module_router,
-    reviews,
-    favorite,
-    user,
-    media,
-    chat,
-    subscription,
-)
+from fastapi import FastAPI
+from app.api.routes import get_api_router
 from app.core.config import settings
 
-app = FastAPI(
-    title=settings.app.APP_NAME,
-)
+def create_app() -> FastAPI:
+    app = FastAPI(title=settings.app.APP_NAME)
+    app.include_router(get_api_router(), prefix="/api")
+    return app
 
-router = (APIRouter(prefix="/api"))
-router.include_router(user.router)
-router.include_router(category_router.router)
-router.include_router(course_router.router)
-router.include_router(module_router.router)
-router.include_router(reviews.router)
-router.include_router(favorite.router)
-router.include_router(chat.router)
-router.include_router(media.router)
-router.include_router(subscription.router)
-router.include_router(admin_router.router)
-
-app.include_router(router)
-
-if __name__ == "__main__":
-    import uvicorn
-    uvicorn.run("app.main:app", host="0.0.0.0", port=settings.app.APP_PORT, reload=True)
+app = create_app()

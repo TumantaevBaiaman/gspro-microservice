@@ -5,9 +5,10 @@ class ListCoursesQuery:
     def __init__(self, repo: ICourseRepository):
         self.repo = repo
 
-    async def execute(self, limit: int, offset: int):
-        items, total = await self.repo.list_courses(
+    async def execute(self, limit: int, offset: int, mode: str):
+        items, total = await self.repo.list(
             limit=limit,
-            offset=offset
+            offset=offset,
+            mode=mode
         )
         return items, total

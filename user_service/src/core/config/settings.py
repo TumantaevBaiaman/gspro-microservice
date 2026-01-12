@@ -19,6 +19,9 @@ class Settings(BaseSettings):
     ACCESS_TOKEN_EXPIRE_MINUTES: int = Field(60 * 24, description="Access token expiration time in minutes")
     REFRESH_TOKEN_EXPIRE_DAYS: int = Field(30, description="Refresh token expiration time in days")
 
+    BREVO_API_KEY: str = Field(..., description="Brevo API key")
+    BREVO_EMAIL: str = Field(..., description="Brevo email address")
+
     @property
     def SYNC_DATABASE_URL(self) -> str:
         return (

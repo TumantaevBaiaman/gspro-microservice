@@ -6,6 +6,7 @@ from src.application.services import *
 from src.presentation.grpc.handlers import *
 
 from generated.chat.chat_message_pb2_grpc import add_ChatMessageServiceServicer_to_server
+from generated.chat.chat_pb2_grpc import add_ChatServiceServicer_to_server
 
 
 @dataclass(frozen=True)
@@ -19,4 +20,8 @@ GRPC_SERVICES = [
         add_to_server=add_ChatMessageServiceServicer_to_server,
         handler_cls=ChatMessageHandler,
     ),
+    GrpcServiceConfig(
+        add_to_server=add_ChatServiceServicer_to_server,
+        handler_cls=ChatHandler,
+    )
 ]

@@ -54,6 +54,16 @@ class UserServiceStub(object):
                 request_serializer=user__pb2.AuthGoogleRequest.SerializeToString,
                 response_deserializer=user__pb2.AuthGoogleResponse.FromString,
                 _registered_method=True)
+        self.RequestPasswordReset = channel.unary_unary(
+                '/user.UserService/RequestPasswordReset',
+                request_serializer=user__pb2.RequestPasswordResetRequest.SerializeToString,
+                response_deserializer=user__pb2.RequestPasswordResetResponse.FromString,
+                _registered_method=True)
+        self.ConfirmPasswordReset = channel.unary_unary(
+                '/user.UserService/ConfirmPasswordReset',
+                request_serializer=user__pb2.ConfirmPasswordResetRequest.SerializeToString,
+                response_deserializer=user__pb2.ConfirmPasswordResetResponse.FromString,
+                _registered_method=True)
 
 
 class UserServiceServicer(object):
@@ -83,6 +93,18 @@ class UserServiceServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def RequestPasswordReset(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def ConfirmPasswordReset(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_UserServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -105,6 +127,16 @@ def add_UserServiceServicer_to_server(servicer, server):
                     servicer.AuthGoogle,
                     request_deserializer=user__pb2.AuthGoogleRequest.FromString,
                     response_serializer=user__pb2.AuthGoogleResponse.SerializeToString,
+            ),
+            'RequestPasswordReset': grpc.unary_unary_rpc_method_handler(
+                    servicer.RequestPasswordReset,
+                    request_deserializer=user__pb2.RequestPasswordResetRequest.FromString,
+                    response_serializer=user__pb2.RequestPasswordResetResponse.SerializeToString,
+            ),
+            'ConfirmPasswordReset': grpc.unary_unary_rpc_method_handler(
+                    servicer.ConfirmPasswordReset,
+                    request_deserializer=user__pb2.ConfirmPasswordResetRequest.FromString,
+                    response_serializer=user__pb2.ConfirmPasswordResetResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -215,6 +247,60 @@ class UserService(object):
             '/user.UserService/AuthGoogle',
             user__pb2.AuthGoogleRequest.SerializeToString,
             user__pb2.AuthGoogleResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def RequestPasswordReset(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/user.UserService/RequestPasswordReset',
+            user__pb2.RequestPasswordResetRequest.SerializeToString,
+            user__pb2.RequestPasswordResetResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def ConfirmPasswordReset(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/user.UserService/ConfirmPasswordReset',
+            user__pb2.ConfirmPasswordResetRequest.SerializeToString,
+            user__pb2.ConfirmPasswordResetResponse.FromString,
             options,
             channel_credentials,
             insecure,

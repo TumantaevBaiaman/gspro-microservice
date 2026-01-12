@@ -6,5 +6,5 @@ from .user_images_model import UserImageModel
 from .user_education_model import UserEducationModel
 from .user_certificate_model import UserCertificateModel
 from .user_experience_model import UserExperienceModel
-
+from .password_reset_code_model import PasswordResetCodeModel
 

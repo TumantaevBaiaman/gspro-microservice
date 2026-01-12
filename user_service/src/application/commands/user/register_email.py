@@ -37,8 +37,8 @@ class RegisterEmailCommand:
             dto.phone_number
         )
 
-        access = create_access_token(str(user.id))
-        refresh = create_refresh_token(str(user.id))
+        access = create_access_token(str(user.id), user.role)
+        refresh = create_refresh_token(str(user.id), user.role)
 
         return RegisterEmailResponseDTO(
             user_id=str(user.id),

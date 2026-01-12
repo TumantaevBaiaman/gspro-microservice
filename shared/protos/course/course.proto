@@ -17,6 +17,11 @@ message CoursePrice {
     int32 amount = 2;
 }
 
+message CourseSection {
+    string title = 1;
+    repeated string items = 2;
+}
+
 message GetCourseResponse {
     string id = 1;
     string title = 2;
@@ -35,12 +40,15 @@ message GetCourseResponse {
 
     string author_id = 12;
     int64 lessons_count = 13;
+
+    repeated CourseSection sections = 14;
 }
 
 
 message ListCoursesRequest {
     int32 limit  = 1;
     int32 offset = 2;
+    string mode = 3;
 }
 
 message Course {
@@ -48,16 +56,15 @@ message Course {
     string title = 2;
     string description = 3;
 
-    string level = 4;
-    int32 duration_minutes = 5;
-    string language = 6;
-    bool requires_experience = 7;
+    int32 duration_minutes = 4;
+    string language = 5;
 
-    CoursePrice price = 8;
+    CoursePrice price = 6;
 
-    repeated string category_ids = 9;
-    repeated string mentor_ids = 10;
-    string cover_image_id = 11;
+    repeated string category_ids = 7;
+    string cover_image_id = 8;
+
+    bool is_promoted = 9;
 }
 
 message ListCoursesResponse {

@@ -37,6 +37,13 @@ class CourseHandler(pb2_grpc.CourseServiceServicer):
                 mentor_ids=list(course.mentor_ids),
                 cover_image_id=course.cover_image_id or "",
                 lessons_count=lessons_count,
+                sections=[
+                    pb2.CourseSection(
+                        title=section.title,
+                        items=section.items,
+                    )
+                    for section in course.sections
+                ]
             )
 
         except CourseNotFoundError as e:
@@ -45,10 +52,12 @@ class CourseHandler(pb2_grpc.CourseServiceServicer):
     async def ListCourses(self, request, context):
         limit = request.limit or 10
         offset = request.offset or 0
+        mode = request.mode or "all"
 
         items, total = await self.service.list.execute(
             limit=limit,
-            offset=offset
+            offset=offset,
+            mode=mode
         )
 
         return pb2.ListCoursesResponse(
@@ -58,10 +67,8 @@ class CourseHandler(pb2_grpc.CourseServiceServicer):
                     title=course.title,
                     description=course.description or "",
 
-                    level=course.level.value,
                     duration_minutes=course.duration_minutes,
                     language=course.language.value,
-                    requires_experience=course.requires_experience,
 
                     price=pb2.CoursePrice(
                         type=course.price.type.value,
@@ -69,8 +76,8 @@ class CourseHandler(pb2_grpc.CourseServiceServicer):
                     ),
 
                     category_ids=list(course.category_ids),
-                    mentor_ids=list(course.mentor_ids),
                     cover_image_id=course.cover_image_id or "",
+                    is_promoted=course.is_promoted or False,
                 )
                 for course in items
             ],

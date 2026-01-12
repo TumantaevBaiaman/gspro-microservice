@@ -3,12 +3,15 @@ from pydantic import BaseModel, Field
 
 from src.domain.enums.course.level import CourseLevel
 from src.domain.enums.course.language import CourseLanguage
-from src.domain.entities.course_entity import CoursePrice
+from src.domain.entities.course_entity import CoursePrice, CourseSection
 
 
 class AdminCourseCreateDTO(BaseModel):
     title: str
     description: Optional[str] = None
+
+    sections: List[CourseSection] = Field(default_factory=list)
+
     cover_image_id: Optional[str] = None
 
     author_id: Optional[str] = None
@@ -37,3 +40,5 @@ class AdminCourseUpdateDTO(BaseModel):
 
     category_ids: Optional[List[str]] = None
     mentor_ids: Optional[List[str]] = None
+
+    is_promoted: Optional[bool] = None

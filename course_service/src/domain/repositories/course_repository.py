@@ -13,6 +13,7 @@ class ICourseRepository(ABC):
     async def list(
             self,
             limit: int,
-            offset: int
+            offset: int,
+            mode: str
     ) -> tuple[list[CourseEntity], int]:
         pass

@@ -41,3 +41,13 @@ class AuthGoogleResponseSchema(BaseModel):
     user_id: str
     access_token: str
     refresh_token: str
+
+
+class RequestPasswordResetRequestSchema(BaseModel):
+    email: EmailStr
+
+
+class ConfirmPasswordResetRequestSchema(BaseModel):
+    email: EmailStr
+    code: str
+    new_password: str

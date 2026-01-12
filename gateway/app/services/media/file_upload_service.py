@@ -27,19 +27,17 @@ async def _upload_bytes(data: bytes, path: str, content_type: str):
 
 async def upload_file(
     data: bytes,
-    entity: str,
-    entity_id: str,
     filename: str,
     content_type: str,
+    path_prefix: str,
 ) -> tuple[str, str]:
 
     file_id = str(uuid.uuid4())
+    ext = filename.split(".")[-1].lower()
 
-    ext = filename.split(".")[-1]
-    path = f"{entity}/{entity_id}/files/{file_id}.{ext}"
+    path = f"{path_prefix}/{file_id}.{ext}"
 
     await _upload_bytes(data, path, content_type)
 
     url = f"{settings.media.STORAGE_CDN_BASE_URL}/{path}"
-
     return file_id, url

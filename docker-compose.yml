@@ -25,6 +25,7 @@ services:
       - chat_service
       - media_service
       - subscription_service
+      - progress_service
 
   user_service:
     container_name: user_service
@@ -129,6 +130,20 @@ services:
     restart: unless-stopped
     volumes:
       - ./subscription_service:/app
+      - ./shared:/shared
+
+  progress_service:
+    container_name: progress_service
+    build:
+      context: .
+      dockerfile: ./progress_service/Dockerfile
+    env_file:
+      - ./progress_service/.env
+    expose:
+      - "50058"
+    restart: unless-stopped
+    volumes:
+      - ./progress_service:/app
       - ./shared:/shared
 
   db:

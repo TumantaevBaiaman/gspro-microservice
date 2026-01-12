@@ -12,3 +12,7 @@ class UserNotFoundError(Exception):
 
 class InvalidRefreshTokenError(Exception):
     pass
+
+
+class InvalidResetCodeError(Exception):
+    pass

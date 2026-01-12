@@ -2,16 +2,19 @@ from datetime import datetime
 from typing import Optional, List
 
 from beanie import before_event, Insert, after_event
+from bson import ObjectId
 from pydantic import Field, BaseModel
 
 from src.domain.enums.chat_message_reference_type_enum import MessageReferenceTypeEnum
 from src.domain.enums.chat_message_type_enum import ChatMessageTypeEnum
-from . import ChatDocument
+from .chat_document import ChatDocument
 from .base import BaseDocument
 
 
 class ChatAttachment(BaseModel):
     file_id: str
+    url: str
+
     filename: Optional[str] = None
     mime_type: Optional[str] = None
     size: Optional[int] = None
@@ -54,13 +57,24 @@ class ChatMessageDocument(BaseDocument):
 
     @after_event(Insert)
     async def update_chat_last_message(self):
+        payload = self.payload
+        preview = {
+            "type": payload.type,
+            "text": payload.text,
+            "attachments_count": len(payload.attachments),
+        }
+
         await ChatDocument.find_one(
-            ChatDocument.id == self.chat_id
+            ChatDocument.id == ObjectId(self.chat_id)
         ).update_one(
             {
+                "$set": {
+                    "last_message": preview,
+                    "last_message_sender_id": self.sender_id,
+                },
                 "$max": {
-                    "last_message_at": self.created_at
-                }
+                    "last_message_at": self.created_at,
+                },
             }
         )
 

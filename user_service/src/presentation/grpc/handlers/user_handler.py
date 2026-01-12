@@ -7,7 +7,7 @@ from src.infrastructure.db.session import async_session_maker
 from src.presentation.grpc.container import Container
 from src.domain.exceptions.user import (
     UserAlreadyExistsError,
-    InvalidCredentialsError,
+    InvalidCredentialsError, InvalidResetCodeError,
 )
 
 
@@ -70,4 +70,52 @@ class UserHandler(pb2_grpc.UserServiceServicer):
             return pb2.RefreshTokenResponse(
                 access_token=res.access_token,
                 refresh_token=res.refresh_token,
+            )
+
+    async def RequestPasswordReset(self, request, context):
+        async with async_session_maker() as session:
+            container = Container(session)
+
+            try:
+                await container.user_service.request_password_reset.execute(
+                    email=request.email
+                )
+                await container.uow.commit()
+            except Exception as e:
+                await container.uow.rollback()
+                await context.abort(
+                    grpc.StatusCode.INTERNAL,
+                    str(e)
+                )
+
+            return pb2.RequestPasswordResetResponse(
+                status="ok"
+            )
+
+    async def ConfirmPasswordReset(self, request, context):
+        async with async_session_maker() as session:
+            container = Container(session)
+
+            try:
+                await container.user_service.confirm_password_reset.execute(
+                    email=request.email,
+                    code=request.code,
+                    new_password=request.new_password,
+                )
+                await container.uow.commit()
+            except InvalidResetCodeError as e:
+                await container.uow.rollback()
+                await context.abort(
+                    grpc.StatusCode.INVALID_ARGUMENT,
+                    str(e)
+                )
+            except Exception as e:
+                await container.uow.rollback()
+                await context.abort(
+                    grpc.StatusCode.INTERNAL,
+                    str(e)
+                )
+
+            return pb2.ConfirmPasswordResetResponse(
+                status="ok"
             )
