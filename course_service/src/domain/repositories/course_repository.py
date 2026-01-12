@@ -14,6 +14,7 @@ class ICourseRepository(ABC):
             self,
             limit: int,
             offset: int,
-            mode: str
+            mode: str,
+            author_id: str = None,
     ) -> tuple[list[CourseEntity], int]:
         pass

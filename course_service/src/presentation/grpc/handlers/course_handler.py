@@ -53,11 +53,13 @@ class CourseHandler(pb2_grpc.CourseServiceServicer):
         limit = request.limit or 10
         offset = request.offset or 0
         mode = request.mode or "all"
+        author_id = request.author_id or None
 
         items, total = await self.service.list.execute(
             limit=limit,
             offset=offset,
-            mode=mode
+            mode=mode,
+            author_id=author_id,
         )
 
         return pb2.ListCoursesResponse(

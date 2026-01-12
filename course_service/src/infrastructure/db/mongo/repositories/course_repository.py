@@ -10,7 +10,7 @@ class CourseRepository(ICourseRepository):
     async def get_course_by_id(self, course_id: str) -> CourseEntity:
         return await CourseEntity.get(course_id)
 
-    async def list(self, limit: int, offset: int, mode: str):
+    async def list(self, limit: int, offset: int, mode: str, author_id: str =None):
         query = CourseEntity.find()
 
         if mode == "free":
@@ -21,6 +21,11 @@ class CourseRepository(ICourseRepository):
         if mode == "recommended":
             query = query.find(
                 CourseEntity.is_promoted == True
+            )
+
+        if author_id is not None:
+            query = query.find(
+                CourseEntity.author_id == author_id
             )
 
         if mode == "popular":

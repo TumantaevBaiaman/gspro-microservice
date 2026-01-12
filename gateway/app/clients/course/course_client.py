@@ -24,13 +24,14 @@ class CourseClient:
         except grpc.RpcError as e:
             self._err(e)
 
-    def list_courses(self, limit: int = 10, offset: int = 0, mode: str = "all") -> dict:
+    def list_courses(self, limit: int = 10, offset: int = 0, mode: str = "all", author_id: str | None = None,) -> dict:
         try:
             res = self.stub.ListCourses(
                 pb2.ListCoursesRequest(
                     limit=limit,
                     offset=offset,
-                    mode=mode
+                    mode=mode,
+                    author_id=author_id
                 ),
                 timeout=3.0
             )
