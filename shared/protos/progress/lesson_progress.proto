@@ -1,0 +1,68 @@
+syntax = "proto3";
+
+package lesson_progress;
+
+service ProgressService {
+  rpc UpdateLessonProgress (UpdateLessonProgressRequest)
+      returns (UpdateLessonProgressResponse);
+
+  rpc GetLessonProgress (GetLessonProgressRequest)
+      returns (GetLessonProgressResponse);
+
+  rpc GetCompletedLessonsCount (GetCompletedLessonsCountRequest)
+      returns (GetCompletedLessonsCountResponse);
+}
+
+message UpdateLessonProgressRequest {
+  string user_id = 1;
+  string course_id = 2;
+  string module_id = 3;
+  string lesson_id = 4;
+
+  string lesson_type = 5; // "video" | "text"
+
+  int32 current_time = 6;        // video
+  int32 duration_seconds = 7;    // video
+  int32 last_scroll_percent = 8; // text
+}
+
+message UpdateLessonProgressResponse {
+  LessonProgress progress = 1;
+}
+
+message GetLessonProgressRequest {
+  string user_id = 1;
+  string lesson_id = 2;
+}
+
+message GetLessonProgressResponse {
+  string lesson_id = 1;
+  int32 last_position_seconds = 2;
+  int32 last_scroll_percent = 3;
+  bool is_completed = 4;
+}
+
+message GetCompletedLessonsCountRequest {
+  string user_id = 1;
+  string course_id = 2;
+}
+
+message GetCompletedLessonsCountResponse {
+  int32 completed_lessons = 1;
+}
+
+message LessonProgress {
+  string user_id = 1;
+  string course_id = 2;
+  string module_id = 3;
+  string lesson_id = 4;
+
+  string lesson_type = 5;
+
+  int32 watched_seconds = 6;
+  int32 duration_seconds = 7;
+  int32 last_position_seconds = 8;
+  int32 last_scroll_percent = 9;
+
+  bool is_completed = 10;
+}

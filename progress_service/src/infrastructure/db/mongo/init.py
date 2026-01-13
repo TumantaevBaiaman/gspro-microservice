@@ -10,10 +10,14 @@ async def init_mongo():
         settings.MONGO_URL,
         uuidRepresentation="standard"
     )
+    from src.infrastructure.db.mongo.models.user_daily_learning_document import UserDailyLearningDocument
+    from src.infrastructure.db.mongo.models.user_lesson_progress_document import UserLessonProgressDocument
 
     await init_beanie(
         database=client[settings.MONGO_DB_NAME],
         document_models=[
+            UserDailyLearningDocument,
+            UserLessonProgressDocument,
         ],
     )
     try:

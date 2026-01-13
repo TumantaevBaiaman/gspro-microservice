@@ -17,134 +17,110 @@ services:
     restart: unless-stopped
     volumes:
       - ./shared:/shared
-    depends_on:
-      - user_service
-      - course_service
-      - reviews_service
-      - favorites_service
-      - chat_service
-      - media_service
-      - subscription_service
-      - progress_service
+#    depends_on:
+#      - user_service
+#      - course_service
+#      - reviews_service
+#      - favorites_service
+#      - chat_service
+#      - media_service
+#      - subscription_service
+#      - progress_service
 
-  user_service:
-    container_name: user_service
-    build:
-      context: .
-      dockerfile: ./user_service/Dockerfile
-    env_file:
-      - ./user_service/.env
-    environment:
-      JWT_SECRET_KEY: ${JWT_SECRET_KEY}
-      JWT_ALGORITHM: ${JWT_ALGORITHM}
-      DB_PASSWORD: ${POSTGRES_PASSWORD}
-      DB_USER: ${POSTGRES_USER}
-    expose:
-      - "50051"
-    restart: unless-stopped
-    volumes:
-      - ./user_service:/app
-      - ./shared:/shared
-    depends_on:
-      - db
+#  user_service:
+#    container_name: user_service
+#    build:
+#      context: .
+#      dockerfile: ./user_service/Dockerfile
+#    env_file:
+#      - ./user_service/.env
+#    environment:
+#      JWT_SECRET_KEY: ${JWT_SECRET_KEY}
+#      JWT_ALGORITHM: ${JWT_ALGORITHM}
+#      DB_PASSWORD: ${POSTGRES_PASSWORD}
+#      DB_USER: ${POSTGRES_USER}
+#    expose:
+#      - "50051"
+#    restart: unless-stopped
+#    depends_on:
+#      - db
 
-  course_service:
-    container_name: course_service
-    build:
-      context: .
-      dockerfile: ./course_service/Dockerfile
-    env_file:
-      - ./course_service/.env
-    expose:
-      - "50052"
-    restart: unless-stopped
-    volumes:
-      - ./course_service:/app
-      - ./shared:/shared
-
-  reviews_service:
-    container_name: reviews_service
-    build:
-      context: .
-      dockerfile: ./reviews_service/Dockerfile
-    env_file:
-      - ./reviews_service/.env
-    expose:
-      - "50053"
-    restart: unless-stopped
-    volumes:
-      - ./reviews_service:/app
-      - ./shared:/shared
-
-  favorites_service:
-    container_name: favorites_service
-    build:
-      context: .
-      dockerfile: ./favorites_service/Dockerfile
-    env_file:
-      - ./favorites_service/.env
-    expose:
-      - "50054"
-    restart: unless-stopped
-    volumes:
-      - ./favorites_service:/app
-      - ./shared:/shared
-
-  chat_service:
-    container_name: chat_service
-    build:
-      context: .
-      dockerfile: ./chat_service/Dockerfile
-    env_file:
-      - ./chat_service/.env
-    expose:
-      - "50055"
-    restart: unless-stopped
-    volumes:
-      - ./chat_service:/app
-      - ./shared:/shared
-
-  media_service:
-    container_name: media_service
-    build:
-      context: .
-      dockerfile: ./media_service/Dockerfile
-    env_file:
-      - ./media_service/.env
-    expose:
-      - "50056"
-    restart: unless-stopped
-    volumes:
-      - ./media_service:/app
-      - ./shared:/shared
-
-  subscription_service:
-    container_name: subscription_service
-    build:
-      context: .
-      dockerfile: ./subscription_service/Dockerfile
-    env_file:
-      - ./subscription_service/.env
-    expose:
-      - "50057"
-    restart: unless-stopped
-    volumes:
-      - ./subscription_service:/app
-      - ./shared:/shared
-
-  progress_service:
-    container_name: progress_service
-    build:
-      context: .
-      dockerfile: ./progress_service/Dockerfile
-    env_file:
-      - ./progress_service/.env
-    expose:
-      - "50058"
-    restart: unless-stopped
-    volumes:
-      - ./progress_service:/app
-      - ./shared:/shared
+#  course_service:
+#    container_name: course_service
+#    build:
+#      context: .
+#      dockerfile: ./course_service/Dockerfile
+#    env_file:
+#      - ./course_service/.env
+#    expose:
+#      - "50052"
+#    restart: unless-stopped
+#
+#  reviews_service:
+#    container_name: reviews_service
+#    build:
+#      context: .
+#      dockerfile: ./reviews_service/Dockerfile
+#    env_file:
+#      - ./reviews_service/.env
+#    expose:
+#      - "50053"
+#    restart: unless-stopped
+#
+#  favorites_service:
+#    container_name: favorites_service
+#    build:
+#      context: .
+#      dockerfile: ./favorites_service/Dockerfile
+#    env_file:
+#      - ./favorites_service/.env
+#    expose:
+#      - "50054"
+#    restart: unless-stopped
+#
+#  chat_service:
+#    container_name: chat_service
+#    build:
+#      context: .
+#      dockerfile: ./chat_service/Dockerfile
+#    env_file:
+#      - ./chat_service/.env
+#    expose:
+#      - "50055"
+#    restart: unless-stopped
+#
+#  media_service:
+#    container_name: media_service
+#    build:
+#      context: .
+#      dockerfile: ./media_service/Dockerfile
+#    env_file:
+#      - ./media_service/.env
+#    expose:
+#      - "50056"
+#    restart: unless-stopped
+#
+#  subscription_service:
+#    container_name: subscription_service
+#    build:
+#      context: .
+#      dockerfile: ./subscription_service/Dockerfile
+#    env_file:
+#      - ./subscription_service/.env
+#    expose:
+#      - "50057"
+#    restart: unless-stopped
+#
+#  progress_service:
+#    container_name: progress_service
+#    build:
+#      context: .
+#      dockerfile: ./progress_service/Dockerfile
+#    env_file:
+#      - ./progress_service/.env
+#    expose:
+#      - "50058"
+#    restart: unless-stopped
 
   db:
     image: postgres:15
