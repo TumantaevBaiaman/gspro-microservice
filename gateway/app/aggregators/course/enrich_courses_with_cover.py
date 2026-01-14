@@ -29,7 +29,7 @@ def enrich_courses_with_cover(
 
     for course in courses:
         cover_id = course.get("cover_image_id")
-        course["cover_image"] = media_map.get(cover_id)["metadata"]["thumb_medium_url"] if cover_id and cover_id in media_map else None
+        course["cover_image"] = media_map.get(cover_id)["original_url"] if cover_id and cover_id in media_map else None
 
     return courses
 
