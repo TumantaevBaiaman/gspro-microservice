@@ -1,7 +1,5 @@
-from .course_access_handler import CourseAccessHandler
-from .purchase_request_handler import PurchaseRequestHandler
+from .lesson_progress_handler import LessonProgressHandler
 
 __all__ = [
-    'CourseAccessHandler',
-    'PurchaseRequestHandler',
+    "LessonProgressHandler",
 ]

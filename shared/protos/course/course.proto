@@ -49,6 +49,7 @@ message ListCoursesRequest {
     int32 limit  = 1;
     int32 offset = 2;
     string mode = 3;
+    string author_id = 4;
 }
 
 message Course {

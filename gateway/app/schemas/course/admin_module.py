@@ -7,6 +7,7 @@ class AdminModuleCreateRequestSchema(BaseModel):
     title: str
     description: Optional[str] = None
     order_number: int
+    duration_minutes: int = 0
 
 
 class AdminModuleCreateResponseSchema(BaseModel):
@@ -26,11 +27,11 @@ class AdminModuleGetResponseSchema(BaseModel):
 
 
 class AdminModuleUpdateRequestSchema(BaseModel):
-    id: str
     course_id: Optional[str] = None
     title: Optional[str] = None
     description: Optional[str] = None
     order_number: Optional[int] = None
+    duration_minutes: Optional[int] = None
 
 
 class AdminModuleUpdateResponseSchema(BaseModel):

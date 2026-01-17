@@ -42,9 +42,6 @@ services:
     expose:
       - "50051"
     restart: unless-stopped
-    volumes:
-      - ./user_service:/app
-      - ./shared:/shared
     depends_on:
       - db
 
@@ -58,9 +55,6 @@ services:
     expose:
       - "50052"
     restart: unless-stopped
-    volumes:
-      - ./course_service:/app
-      - ./shared:/shared
 
   reviews_service:
     container_name: reviews_service
@@ -72,9 +66,6 @@ services:
     expose:
       - "50053"
     restart: unless-stopped
-    volumes:
-      - ./reviews_service:/app
-      - ./shared:/shared
 
   favorites_service:
     container_name: favorites_service
@@ -86,9 +77,6 @@ services:
     expose:
       - "50054"
     restart: unless-stopped
-    volumes:
-      - ./favorites_service:/app
-      - ./shared:/shared
 
   chat_service:
     container_name: chat_service
@@ -100,9 +88,6 @@ services:
     expose:
       - "50055"
     restart: unless-stopped
-    volumes:
-      - ./chat_service:/app
-      - ./shared:/shared
 
   media_service:
     container_name: media_service
@@ -114,9 +99,6 @@ services:
     expose:
       - "50056"
     restart: unless-stopped
-    volumes:
-      - ./media_service:/app
-      - ./shared:/shared
 
   subscription_service:
     container_name: subscription_service
@@ -128,9 +110,6 @@ services:
     expose:
       - "50057"
     restart: unless-stopped
-    volumes:
-      - ./subscription_service:/app
-      - ./shared:/shared
 
   progress_service:
     container_name: progress_service
@@ -142,9 +121,6 @@ services:
     expose:
       - "50058"
     restart: unless-stopped
-    volumes:
-      - ./progress_service:/app
-      - ./shared:/shared
 
   db:
     image: postgres:15

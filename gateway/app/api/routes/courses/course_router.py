@@ -68,8 +68,9 @@ async def list_courses(
     limit: int = Query(10, ge=1, le=100),
     offset: int = Query(0, ge=0),
     mode: str = "all",
+    author_id: str | None = None,
 ):
-    data = course_client.list_courses(limit=limit, offset=offset, mode=mode)
+    data = course_client.list_courses(limit=limit, offset=offset, mode=mode, author_id=author_id)
     items = enrich_courses_with_cover(
         courses=data["items"],
         media_client=media_client,

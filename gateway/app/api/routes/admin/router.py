@@ -9,7 +9,7 @@ from .lesson_router import admin_lesson_router
 
 router = APIRouter(
     prefix="/admin",
-    dependencies=[Depends(require_admin)]
+    # dependencies=[Depends(require_admin)]
 )
 
 router.include_router(admin_category_router)

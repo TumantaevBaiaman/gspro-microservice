@@ -5,4 +5,8 @@ from src.application.services import *
 
 def build_services() -> dict[type, object]:
     return {
+        LessonProgressService: LessonProgressService(
+            lesson_repo=UserLessonProgressRepository(),
+            daily_repo=UserDailyLearningRepository()
+        ),
     }

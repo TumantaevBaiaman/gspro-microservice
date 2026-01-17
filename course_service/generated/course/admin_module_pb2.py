@@ -24,33 +24,33 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x12\x61\x64min_module.proto\x12\x0c\x61\x64min_module\"g\n\x18\x41\x64minCreateModuleRequest\x12\x11\n\tcourse_id\x18\x01 \x01(\t\x12\r\n\x05title\x18\x02 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x03 \x01(\t\x12\x14\n\x0corder_number\x18\x04 \x01(\x05\"\'\n\x19\x41\x64minCreateModuleResponse\x12\n\n\x02id\x18\x01 \x01(\t\"#\n\x15\x41\x64minGetModuleRequest\x12\n\n\x02id\x18\x01 \x01(\t\"q\n\x16\x41\x64minGetModuleResponse\x12\n\n\x02id\x18\x01 \x01(\t\x12\x11\n\tcourse_id\x18\x02 \x01(\t\x12\r\n\x05title\x18\x03 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x04 \x01(\t\x12\x14\n\x0corder_number\x18\x05 \x01(\x05\"s\n\x18\x41\x64minUpdateModuleRequest\x12\n\n\x02id\x18\x01 \x01(\t\x12\x11\n\tcourse_id\x18\x02 \x01(\t\x12\r\n\x05title\x18\x03 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x04 \x01(\t\x12\x14\n\x0corder_number\x18\x05 \x01(\x05\"\'\n\x19\x41\x64minUpdateModuleResponse\x12\n\n\x02id\x18\x01 \x01(\t\"&\n\x18\x41\x64minDeleteModuleRequest\x12\n\n\x02id\x18\x01 \x01(\t\",\n\x19\x41\x64minDeleteModuleResponse\x12\x0f\n\x07success\x18\x01 \x01(\x08\"?\n\x17\x41\x64minListModulesRequest\x12\x16\n\tcourse_id\x18\x01 \x01(\tH\x00\x88\x01\x01\x42\x0c\n\n_course_id\"O\n\x18\x41\x64minListModulesResponse\x12\x33\n\x05items\x18\x01 \x03(\x0b\x32$.admin_module.AdminGetModuleResponse2\x86\x04\n\x12\x41\x64minModuleService\x12\x64\n\x11\x41\x64minCreateModule\x12&.admin_module.AdminCreateModuleRequest\x1a\'.admin_module.AdminCreateModuleResponse\x12[\n\x0e\x41\x64minGetModule\x12#.admin_module.AdminGetModuleRequest\x1a$.admin_module.AdminGetModuleResponse\x12\x64\n\x11\x41\x64minUpdateModule\x12&.admin_module.AdminUpdateModuleRequest\x1a\'.admin_module.AdminUpdateModuleResponse\x12\x64\n\x11\x41\x64minDeleteModule\x12&.admin_module.AdminDeleteModuleRequest\x1a\'.admin_module.AdminDeleteModuleResponse\x12\x61\n\x10\x41\x64minListModules\x12%.admin_module.AdminListModulesRequest\x1a&.admin_module.AdminListModulesResponseb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x12\x61\x64min_module.proto\x12\x0c\x61\x64min_module\"\x81\x01\n\x18\x41\x64minCreateModuleRequest\x12\x11\n\tcourse_id\x18\x01 \x01(\t\x12\r\n\x05title\x18\x02 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x03 \x01(\t\x12\x14\n\x0corder_number\x18\x04 \x01(\x05\x12\x18\n\x10\x64uration_minutes\x18\x05 \x01(\x05\"\'\n\x19\x41\x64minCreateModuleResponse\x12\n\n\x02id\x18\x01 \x01(\t\"#\n\x15\x41\x64minGetModuleRequest\x12\n\n\x02id\x18\x01 \x01(\t\"q\n\x16\x41\x64minGetModuleResponse\x12\n\n\x02id\x18\x01 \x01(\t\x12\x11\n\tcourse_id\x18\x02 \x01(\t\x12\r\n\x05title\x18\x03 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x04 \x01(\t\x12\x14\n\x0corder_number\x18\x05 \x01(\x05\"\x8d\x01\n\x18\x41\x64minUpdateModuleRequest\x12\n\n\x02id\x18\x01 \x01(\t\x12\x11\n\tcourse_id\x18\x02 \x01(\t\x12\r\n\x05title\x18\x03 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x04 \x01(\t\x12\x14\n\x0corder_number\x18\x05 \x01(\x05\x12\x18\n\x10\x64uration_minutes\x18\x06 \x01(\x05\"\'\n\x19\x41\x64minUpdateModuleResponse\x12\n\n\x02id\x18\x01 \x01(\t\"&\n\x18\x41\x64minDeleteModuleRequest\x12\n\n\x02id\x18\x01 \x01(\t\",\n\x19\x41\x64minDeleteModuleResponse\x12\x0f\n\x07success\x18\x01 \x01(\x08\"?\n\x17\x41\x64minListModulesRequest\x12\x16\n\tcourse_id\x18\x01 \x01(\tH\x00\x88\x01\x01\x42\x0c\n\n_course_id\"O\n\x18\x41\x64minListModulesResponse\x12\x33\n\x05items\x18\x01 \x03(\x0b\x32$.admin_module.AdminGetModuleResponse2\x86\x04\n\x12\x41\x64minModuleService\x12\x64\n\x11\x41\x64minCreateModule\x12&.admin_module.AdminCreateModuleRequest\x1a\'.admin_module.AdminCreateModuleResponse\x12[\n\x0e\x41\x64minGetModule\x12#.admin_module.AdminGetModuleRequest\x1a$.admin_module.AdminGetModuleResponse\x12\x64\n\x11\x41\x64minUpdateModule\x12&.admin_module.AdminUpdateModuleRequest\x1a\'.admin_module.AdminUpdateModuleResponse\x12\x64\n\x11\x41\x64minDeleteModule\x12&.admin_module.AdminDeleteModuleRequest\x1a\'.admin_module.AdminDeleteModuleResponse\x12\x61\n\x10\x41\x64minListModules\x12%.admin_module.AdminListModulesRequest\x1a&.admin_module.AdminListModulesResponseb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'admin_module_pb2', _globals)
 if not _descriptor._USE_C_DESCRIPTORS:
   DESCRIPTOR._loaded_options = None
-  _globals['_ADMINCREATEMODULEREQUEST']._serialized_start=36
-  _globals['_ADMINCREATEMODULEREQUEST']._serialized_end=139
-  _globals['_ADMINCREATEMODULERESPONSE']._serialized_start=141
-  _globals['_ADMINCREATEMODULERESPONSE']._serialized_end=180
-  _globals['_ADMINGETMODULEREQUEST']._serialized_start=182
-  _globals['_ADMINGETMODULEREQUEST']._serialized_end=217
-  _globals['_ADMINGETMODULERESPONSE']._serialized_start=219
-  _globals['_ADMINGETMODULERESPONSE']._serialized_end=332
-  _globals['_ADMINUPDATEMODULEREQUEST']._serialized_start=334
-  _globals['_ADMINUPDATEMODULEREQUEST']._serialized_end=449
-  _globals['_ADMINUPDATEMODULERESPONSE']._serialized_start=451
-  _globals['_ADMINUPDATEMODULERESPONSE']._serialized_end=490
-  _globals['_ADMINDELETEMODULEREQUEST']._serialized_start=492
-  _globals['_ADMINDELETEMODULEREQUEST']._serialized_end=530
-  _globals['_ADMINDELETEMODULERESPONSE']._serialized_start=532
-  _globals['_ADMINDELETEMODULERESPONSE']._serialized_end=576
-  _globals['_ADMINLISTMODULESREQUEST']._serialized_start=578
-  _globals['_ADMINLISTMODULESREQUEST']._serialized_end=641
-  _globals['_ADMINLISTMODULESRESPONSE']._serialized_start=643
-  _globals['_ADMINLISTMODULESRESPONSE']._serialized_end=722
-  _globals['_ADMINMODULESERVICE']._serialized_start=725
-  _globals['_ADMINMODULESERVICE']._serialized_end=1243
+  _globals['_ADMINCREATEMODULEREQUEST']._serialized_start=37
+  _globals['_ADMINCREATEMODULEREQUEST']._serialized_end=166
+  _globals['_ADMINCREATEMODULERESPONSE']._serialized_start=168
+  _globals['_ADMINCREATEMODULERESPONSE']._serialized_end=207
+  _globals['_ADMINGETMODULEREQUEST']._serialized_start=209
+  _globals['_ADMINGETMODULEREQUEST']._serialized_end=244
+  _globals['_ADMINGETMODULERESPONSE']._serialized_start=246
+  _globals['_ADMINGETMODULERESPONSE']._serialized_end=359
+  _globals['_ADMINUPDATEMODULEREQUEST']._serialized_start=362
+  _globals['_ADMINUPDATEMODULEREQUEST']._serialized_end=503
+  _globals['_ADMINUPDATEMODULERESPONSE']._serialized_start=505
+  _globals['_ADMINUPDATEMODULERESPONSE']._serialized_end=544
+  _globals['_ADMINDELETEMODULEREQUEST']._serialized_start=546
+  _globals['_ADMINDELETEMODULEREQUEST']._serialized_end=584
+  _globals['_ADMINDELETEMODULERESPONSE']._serialized_start=586
+  _globals['_ADMINDELETEMODULERESPONSE']._serialized_end=630
+  _globals['_ADMINLISTMODULESREQUEST']._serialized_start=632
+  _globals['_ADMINLISTMODULESREQUEST']._serialized_end=695
+  _globals['_ADMINLISTMODULESRESPONSE']._serialized_start=697
+  _globals['_ADMINLISTMODULESRESPONSE']._serialized_end=776
+  _globals['_ADMINMODULESERVICE']._serialized_start=779
+  _globals['_ADMINMODULESERVICE']._serialized_end=1297
 # @@protoc_insertion_point(module_scope)

@@ -7,7 +7,7 @@ class ModuleGetResponseSchema(BaseModel):
     course_id: str
     title: str
     description: Optional[str]
-    order_number: int
+    order_number: int = 0
 
 
 class ModuleListItemSchema(BaseModel):
@@ -15,7 +15,7 @@ class ModuleListItemSchema(BaseModel):
     course_id: str
     title: str
     description: Optional[str]
-    order_number: int
+    order_number: int = 0
     lessons_count: int = 0
     duration_minutes: Optional[int] = 0
     has_free_lessons: bool = False

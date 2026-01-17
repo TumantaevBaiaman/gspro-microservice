@@ -7,6 +7,7 @@ class AdminModuleCreateDTO(BaseModel):
     title: str
     description: Optional[str] = None
     order_number: Optional[int] = None
+    duration_minutes: Optional[int] = None
 
 
 class AdminModuleUpdateDTO(BaseModel):
@@ -14,3 +15,4 @@ class AdminModuleUpdateDTO(BaseModel):
     title: Optional[str] = None
     description: Optional[str] = None
     order_number: Optional[int] = None
+    duration_minutes: Optional[int] = None

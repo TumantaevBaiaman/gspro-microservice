@@ -1,18 +1,6 @@
-FROM python:3.12-slim AS builder
+FROM gspro-python-base AS builder
 
-ENV PYTHONUNBUFFERED=1
 WORKDIR /app
-
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    gcc \
-    python3-dev \
-    curl \
-    make \
-    ca-certificates \
-    && update-ca-certificates \
-    && pip install --no-cache-dir poetry \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
 
 COPY ./favorites_service/pyproject.toml ./favorites_service/poetry.lock* ./
 
