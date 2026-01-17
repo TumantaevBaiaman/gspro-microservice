@@ -43,3 +43,14 @@ class CourseAccessRepository(ICourseAccessRepository):
             CourseAccessDocument.user_id == user_id,
             CourseAccessDocument.course_id == course_id,
         ).exists()
+
+    async def list_user_courses(
+            self,
+            *,
+            user_id: str,
+    ) -> list[str]:
+        docs = await CourseAccessDocument.find(
+            CourseAccessDocument.user_id == user_id
+        ).to_list()
+
+        return [doc.course_id for doc in docs]

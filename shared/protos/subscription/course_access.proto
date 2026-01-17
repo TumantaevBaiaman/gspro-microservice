@@ -6,6 +6,7 @@ service CourseAccessService {
   rpc GrantAccess (GrantCourseAccessRequest) returns (GrantCourseAccessResponse);
   rpc RevokeAccess (RevokeCourseAccessRequest) returns (RevokeCourseAccessResponse);
   rpc HasAccess (HasCourseAccessRequest) returns (HasCourseAccessResponse);
+  rpc ListUserCourses (ListUserCoursesRequest) returns (ListUserCoursesResponse);
 }
 
 message GrantCourseAccessRequest {
@@ -33,4 +34,12 @@ message HasCourseAccessRequest {
 
 message HasCourseAccessResponse {
   bool has_access = 1;
+}
+
+message ListUserCoursesRequest {
+  string user_id = 1;
+}
+
+message ListUserCoursesResponse {
+  repeated string course_ids = 1;
 }

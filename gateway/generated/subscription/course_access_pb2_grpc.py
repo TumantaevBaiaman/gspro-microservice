@@ -49,6 +49,11 @@ class CourseAccessServiceStub(object):
                 request_serializer=subscription_dot_course__access__pb2.HasCourseAccessRequest.SerializeToString,
                 response_deserializer=subscription_dot_course__access__pb2.HasCourseAccessResponse.FromString,
                 _registered_method=True)
+        self.ListUserCourses = channel.unary_unary(
+                '/course_access.CourseAccessService/ListUserCourses',
+                request_serializer=subscription_dot_course__access__pb2.ListUserCoursesRequest.SerializeToString,
+                response_deserializer=subscription_dot_course__access__pb2.ListUserCoursesResponse.FromString,
+                _registered_method=True)
 
 
 class CourseAccessServiceServicer(object):
@@ -72,6 +77,12 @@ class CourseAccessServiceServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def ListUserCourses(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_CourseAccessServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -89,6 +100,11 @@ def add_CourseAccessServiceServicer_to_server(servicer, server):
                     servicer.HasAccess,
                     request_deserializer=subscription_dot_course__access__pb2.HasCourseAccessRequest.FromString,
                     response_serializer=subscription_dot_course__access__pb2.HasCourseAccessResponse.SerializeToString,
+            ),
+            'ListUserCourses': grpc.unary_unary_rpc_method_handler(
+                    servicer.ListUserCourses,
+                    request_deserializer=subscription_dot_course__access__pb2.ListUserCoursesRequest.FromString,
+                    response_serializer=subscription_dot_course__access__pb2.ListUserCoursesResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -172,6 +188,33 @@ class CourseAccessService(object):
             '/course_access.CourseAccessService/HasAccess',
             subscription_dot_course__access__pb2.HasCourseAccessRequest.SerializeToString,
             subscription_dot_course__access__pb2.HasCourseAccessResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def ListUserCourses(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/course_access.CourseAccessService/ListUserCourses',
+            subscription_dot_course__access__pb2.ListUserCoursesRequest.SerializeToString,
+            subscription_dot_course__access__pb2.ListUserCoursesResponse.FromString,
             options,
             channel_credentials,
             insecure,

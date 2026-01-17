@@ -1,5 +1,6 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, Depends
 
+from app.api.dependencies.auth import get_current_user
 from app.clients.subscription import (
     course_access_client,
 )
@@ -12,12 +13,12 @@ from app.schemas.subscription.course_access import (
 )
 
 course_access_router = APIRouter(
-    prefix="/courses-access",
+    prefix="",
     tags=["Course Access"],
 )
 
 
-@course_access_router.post("/grant")
+@course_access_router.post("/courses-access/grant")
 def grant_course_access(
     body: GrantCourseAccessSchema,
 ):
@@ -29,7 +30,7 @@ def grant_course_access(
     }
 
 
-@course_access_router.post("/revoke")
+@course_access_router.post("/courses-access/revoke")
 def revoke_course_access(
     body: RevokeCourseAccessSchema,
 ):
@@ -42,7 +43,7 @@ def revoke_course_access(
 
 
 @course_access_router.post(
-    "/check",
+    "/courses-access/check",
     response_model=CheckCourseAccessResponseSchema,
 )
 def check_course_access(
@@ -54,3 +55,12 @@ def check_course_access(
             course_id=body.course_id,
         )
     }
+
+
+@course_access_router.get(
+    "/me/courses"
+)
+def my_courses(user=Depends(get_current_user)):
+    return course_access_client.list_user_courses(
+        user_id=user["sub"]
+    )

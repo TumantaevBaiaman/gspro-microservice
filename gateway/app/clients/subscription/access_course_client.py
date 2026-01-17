@@ -74,6 +74,24 @@ class CourseAccessClient:
         except grpc.RpcError as e:
             self._err(e)
 
+    def list_user_courses(
+            self,
+            *,
+            user_id: str,
+    ) -> list[str]:
+        try:
+            res = self.stub.ListUserCourses(
+                pb2.ListUserCoursesRequest(
+                    user_id=user_id,
+                ),
+                timeout=3.0,
+            )
+
+            return list(res.course_ids)
+
+        except grpc.RpcError as e:
+            self._err(e)
+
     @staticmethod
     def _err(e: grpc.RpcError):
         code = e.code()

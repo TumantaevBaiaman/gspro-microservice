@@ -11,7 +11,7 @@ from src.application.commands.course_access.dto import (
     RevokeCourseAccessDTO,
 )
 from src.application.queries.course_access.dto import (
-    CheckCourseAccessDTO,
+    CheckCourseAccessDTO, ListUserCoursesDTO,
 )
 
 
@@ -73,4 +73,21 @@ class CourseAccessHandler(
 
         return pb2.HasCourseAccessResponse(
             has_access=has_access
+        )
+
+    async def ListUserCourses(self, request, context):
+        dto = ListUserCoursesDTO(
+            user_id=request.user_id,
+        )
+
+        try:
+            course_ids = await self.service.list_user_courses.execute(dto)
+        except Exception as e:
+            await context.abort(
+                grpc.StatusCode.INTERNAL,
+                str(e),
+            )
+
+        return pb2.ListUserCoursesResponse(
+            course_ids=course_ids
         )

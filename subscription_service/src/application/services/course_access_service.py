@@ -1,3 +1,6 @@
+from src.application.queries.course_access.list_user_courses import (
+    ListUserCoursesQuery,
+)
 from src.application.commands.course_access.grant import (
     GrantCourseAccessCommand,
 )
@@ -17,3 +20,4 @@ class CourseAccessService:
         self.grant = GrantCourseAccessCommand(repo)
         self.revoke = RevokeCourseAccessCommand(repo)
         self.has_access = HasCourseAccessQuery(repo)
+        self.list_user_courses = ListUserCoursesQuery(repo)
