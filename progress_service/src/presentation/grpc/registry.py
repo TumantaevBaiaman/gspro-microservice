@@ -16,7 +16,7 @@ class GrpcServiceConfig:
 
 GRPC_SERVICES: list[GrpcServiceConfig] = [
     GrpcServiceConfig(
-        add_to_server=add_ProgressServiceServicer_to_server(),
+        add_to_server=add_ProgressServiceServicer_to_server,
         service_cls=LessonProgressService,
         handler_cls=LessonProgressHandler,
     ),

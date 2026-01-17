@@ -7,7 +7,7 @@ class ModuleGetResponseSchema(BaseModel):
     course_id: str
     title: str
     description: Optional[str]
-    order_number: int
+    order_number: int = 0
 
 
 class ModuleListItemSchema(BaseModel):

@@ -11,7 +11,7 @@ class UserLessonProgressDocument(BaseDocument):
 
     lesson_type: str
 
-    watched_seconds: int = 0
+    watched_seconds: int | None = None
     duration_seconds: Optional[int] = None
     last_position_seconds: int = 0
 
@@ -21,9 +21,3 @@ class UserLessonProgressDocument(BaseDocument):
 
     class Settings:
         name = "user_lesson_progress"
-        indexes = [
-            {"keys": [("user_id", 1), ("lesson_id", 1)], "unique": True},
-
-            [("user_id", 1), ("course_id", 1)],
-            [("user_id", 1), ("module_id", 1)],
-        ]

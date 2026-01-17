@@ -1,15 +1,17 @@
+from datetime import date
+
 import grpc
 
 from generated.progress import lesson_progress_pb2 as pb2
 from generated.progress import lesson_progress_pb2_grpc as pb2_grpc
 
-from src.application.services.lesson_progress_service import ProgressService
+from src.application.services.lesson_progress_service import LessonProgressService
 from src.application.commands.lesson_progress.dto import UpdateLessonProgressDTO
 
 
 class LessonProgressHandler(pb2_grpc.ProgressServiceServicer):
 
-    def __init__(self, service: ProgressService):
+    def __init__(self, service: LessonProgressService):
         self.service = service
 
     async def UpdateLessonProgress(self, request, context):
@@ -66,4 +68,38 @@ class LessonProgressHandler(pb2_grpc.ProgressServiceServicer):
             last_position_seconds=progress.last_position_seconds,
             last_scroll_percent=progress.last_scroll_percent or 0,
             is_completed=progress.is_completed,
+        )
+
+    async def GetLearningDays(self, request, context):
+        from_date = (
+            date.fromisoformat(request.from_date)
+            if request.HasField("from_date")
+            else None
+        )
+        to_date = (
+            date.fromisoformat(request.to_date)
+            if request.HasField("to_date")
+            else None
+        )
+
+        days = await self.service.get_learning_days.execute(
+            user_id=request.user_id,
+            course_id=request.course_id,
+            from_date=from_date,
+            to_date=to_date,
+        )
+
+        return pb2.GetLearningDaysResponse(
+            days=[d.isoformat() for d in days],
+            from_date=(
+                from_date.isoformat()
+                if from_date
+                else (days[0].isoformat() if days else "")
+            ),
+            to_date=(
+                to_date.isoformat()
+                if to_date
+                else date.today().isoformat()
+            ),
+            count=len(days),
         )

@@ -10,11 +10,3 @@ class UserDailyLearningDocument(BaseDocument):
 
     class Settings:
         name = "user_daily_learning"
-        indexes = [
-            {
-                "keys": [("user_id", 1), ("course_id", 1), ("learning_date", 1)],
-                "unique": True
-            },
-
-            [("user_id", 1), ("learning_date", 1)],
-        ]

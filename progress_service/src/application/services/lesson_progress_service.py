@@ -5,6 +5,7 @@ from src.application.queries.lesson_progress.get import (
     GetLessonProgressQuery
 )
 from src.application.queries.lesson_progress.get_completed import GetCompletedLessonsCountQuery
+from src.application.queries.user_daily_learning.get_user_learning_days import GetUserLearningDaysQuery
 from src.domain.repositories.user_lesson_progress_repository import (
     IUserLessonProgressRepository
 )
@@ -28,4 +29,7 @@ class LessonProgressService:
         )
         self.get_completed_lessons_count = GetCompletedLessonsCountQuery(
             repo=lesson_repo
+        )
+        self.get_learning_days = GetUserLearningDaysQuery(
+            repo=daily_repo
         )

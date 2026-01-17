@@ -49,6 +49,11 @@ class ProgressServiceStub(object):
                 request_serializer=progress_dot_lesson__progress__pb2.GetCompletedLessonsCountRequest.SerializeToString,
                 response_deserializer=progress_dot_lesson__progress__pb2.GetCompletedLessonsCountResponse.FromString,
                 _registered_method=True)
+        self.GetLearningDays = channel.unary_unary(
+                '/lesson_progress.ProgressService/GetLearningDays',
+                request_serializer=progress_dot_lesson__progress__pb2.GetLearningDaysRequest.SerializeToString,
+                response_deserializer=progress_dot_lesson__progress__pb2.GetLearningDaysResponse.FromString,
+                _registered_method=True)
 
 
 class ProgressServiceServicer(object):
@@ -72,6 +77,12 @@ class ProgressServiceServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def GetLearningDays(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_ProgressServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -89,6 +100,11 @@ def add_ProgressServiceServicer_to_server(servicer, server):
                     servicer.GetCompletedLessonsCount,
                     request_deserializer=progress_dot_lesson__progress__pb2.GetCompletedLessonsCountRequest.FromString,
                     response_serializer=progress_dot_lesson__progress__pb2.GetCompletedLessonsCountResponse.SerializeToString,
+            ),
+            'GetLearningDays': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetLearningDays,
+                    request_deserializer=progress_dot_lesson__progress__pb2.GetLearningDaysRequest.FromString,
+                    response_serializer=progress_dot_lesson__progress__pb2.GetLearningDaysResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -172,6 +188,33 @@ class ProgressService(object):
             '/lesson_progress.ProgressService/GetCompletedLessonsCount',
             progress_dot_lesson__progress__pb2.GetCompletedLessonsCountRequest.SerializeToString,
             progress_dot_lesson__progress__pb2.GetCompletedLessonsCountResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def GetLearningDays(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/lesson_progress.ProgressService/GetLearningDays',
+            progress_dot_lesson__progress__pb2.GetLearningDaysRequest.SerializeToString,
+            progress_dot_lesson__progress__pb2.GetLearningDaysResponse.FromString,
             options,
             channel_credentials,
             insecure,

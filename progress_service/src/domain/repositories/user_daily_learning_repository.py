@@ -26,3 +26,14 @@ class IUserDailyLearningRepository(ABC):
         course_id: str,
     ) -> int:
         ...
+
+    @abstractmethod
+    async def get_learning_days(
+            self,
+            *,
+            user_id: str,
+            course_id: str,
+            from_date: date | None = None,
+            to_date: date | None = None,
+    ) -> list[date]:
+        ...

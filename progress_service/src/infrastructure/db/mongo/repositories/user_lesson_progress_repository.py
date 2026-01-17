@@ -45,7 +45,10 @@ class UserLessonProgressRepository(IUserLessonProgressRepository):
             )
 
         if watched_seconds is not None:
-            doc.watched_seconds = max(doc.watched_seconds, watched_seconds)
+            if doc.watched_seconds is None:
+                doc.watched_seconds = watched_seconds
+            else:
+                doc.watched_seconds = max(doc.watched_seconds, watched_seconds)
 
         if duration_seconds is not None:
             doc.duration_seconds = duration_seconds

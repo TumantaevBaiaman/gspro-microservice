@@ -8,6 +8,7 @@ from .chats import router as chats_router
 from .media import router as media_router
 from .subscriptions import router as subscriptions_router
 from .admin import router as admin_router
+from .progress import router as progress_router
 
 
 def get_api_router() -> APIRouter:
@@ -20,6 +21,7 @@ def get_api_router() -> APIRouter:
     router.include_router(chats_router)
     router.include_router(media_router)
     router.include_router(subscriptions_router)
+    router.include_router(progress_router)
     router.include_router(admin_router)
 
     return router

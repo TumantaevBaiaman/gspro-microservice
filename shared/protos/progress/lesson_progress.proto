@@ -11,6 +11,9 @@ service ProgressService {
 
   rpc GetCompletedLessonsCount (GetCompletedLessonsCountRequest)
       returns (GetCompletedLessonsCountResponse);
+
+  rpc GetLearningDays (GetLearningDaysRequest)
+      returns (GetLearningDaysResponse);
 }
 
 message UpdateLessonProgressRequest {
@@ -19,11 +22,11 @@ message UpdateLessonProgressRequest {
   string module_id = 3;
   string lesson_id = 4;
 
-  string lesson_type = 5; // "video" | "text"
+  string lesson_type = 5;
 
-  int32 current_time = 6;        // video
-  int32 duration_seconds = 7;    // video
-  int32 last_scroll_percent = 8; // text
+  optional int32 current_time = 6;
+  optional int32 duration_seconds = 7;
+  optional int32 last_scroll_percent = 8;
 }
 
 message UpdateLessonProgressResponse {
@@ -65,4 +68,19 @@ message LessonProgress {
   int32 last_scroll_percent = 9;
 
   bool is_completed = 10;
+}
+
+message GetLearningDaysRequest {
+  string user_id = 1;
+  string course_id = 2;
+
+  optional string from_date = 3;
+  optional string to_date = 4;
+}
+
+message GetLearningDaysResponse {
+  repeated string days = 1;
+  string from_date = 2;
+  string to_date = 3;
+  int32 count = 4;
 }
