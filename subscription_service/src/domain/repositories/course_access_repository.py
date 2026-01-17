@@ -32,3 +32,7 @@ class ICourseAccessRepository(ABC):
         course_id: str,
     ) -> bool:
         ...
+
+    @abstractmethod
+    async def list_user_courses(self, user_id: str) -> list[str]:
+        ...

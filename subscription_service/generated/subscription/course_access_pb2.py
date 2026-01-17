@@ -24,7 +24,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x13\x63ourse_access.proto\x12\rcourse_access\">\n\x18GrantCourseAccessRequest\x12\x0f\n\x07user_id\x18\x01 \x01(\t\x12\x11\n\tcourse_id\x18\x02 \x01(\t\",\n\x19GrantCourseAccessResponse\x12\x0f\n\x07success\x18\x01 \x01(\x08\"?\n\x19RevokeCourseAccessRequest\x12\x0f\n\x07user_id\x18\x01 \x01(\t\x12\x11\n\tcourse_id\x18\x02 \x01(\t\"-\n\x1aRevokeCourseAccessResponse\x12\x0f\n\x07success\x18\x01 \x01(\x08\"<\n\x16HasCourseAccessRequest\x12\x0f\n\x07user_id\x18\x01 \x01(\t\x12\x11\n\tcourse_id\x18\x02 \x01(\t\"-\n\x17HasCourseAccessResponse\x12\x12\n\nhas_access\x18\x01 \x01(\x08\x32\xb8\x02\n\x13\x43ourseAccessService\x12`\n\x0bGrantAccess\x12\'.course_access.GrantCourseAccessRequest\x1a(.course_access.GrantCourseAccessResponse\x12\x63\n\x0cRevokeAccess\x12(.course_access.RevokeCourseAccessRequest\x1a).course_access.RevokeCourseAccessResponse\x12Z\n\tHasAccess\x12%.course_access.HasCourseAccessRequest\x1a&.course_access.HasCourseAccessResponseb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x13\x63ourse_access.proto\x12\rcourse_access\">\n\x18GrantCourseAccessRequest\x12\x0f\n\x07user_id\x18\x01 \x01(\t\x12\x11\n\tcourse_id\x18\x02 \x01(\t\",\n\x19GrantCourseAccessResponse\x12\x0f\n\x07success\x18\x01 \x01(\x08\"?\n\x19RevokeCourseAccessRequest\x12\x0f\n\x07user_id\x18\x01 \x01(\t\x12\x11\n\tcourse_id\x18\x02 \x01(\t\"-\n\x1aRevokeCourseAccessResponse\x12\x0f\n\x07success\x18\x01 \x01(\x08\"<\n\x16HasCourseAccessRequest\x12\x0f\n\x07user_id\x18\x01 \x01(\t\x12\x11\n\tcourse_id\x18\x02 \x01(\t\"-\n\x17HasCourseAccessResponse\x12\x12\n\nhas_access\x18\x01 \x01(\x08\")\n\x16ListUserCoursesRequest\x12\x0f\n\x07user_id\x18\x01 \x01(\t\"-\n\x17ListUserCoursesResponse\x12\x12\n\ncourse_ids\x18\x01 \x03(\t2\x9a\x03\n\x13\x43ourseAccessService\x12`\n\x0bGrantAccess\x12\'.course_access.GrantCourseAccessRequest\x1a(.course_access.GrantCourseAccessResponse\x12\x63\n\x0cRevokeAccess\x12(.course_access.RevokeCourseAccessRequest\x1a).course_access.RevokeCourseAccessResponse\x12Z\n\tHasAccess\x12%.course_access.HasCourseAccessRequest\x1a&.course_access.HasCourseAccessResponse\x12`\n\x0fListUserCourses\x12%.course_access.ListUserCoursesRequest\x1a&.course_access.ListUserCoursesResponseb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -43,6 +43,10 @@ if not _descriptor._USE_C_DESCRIPTORS:
   _globals['_HASCOURSEACCESSREQUEST']._serialized_end=320
   _globals['_HASCOURSEACCESSRESPONSE']._serialized_start=322
   _globals['_HASCOURSEACCESSRESPONSE']._serialized_end=367
-  _globals['_COURSEACCESSSERVICE']._serialized_start=370
-  _globals['_COURSEACCESSSERVICE']._serialized_end=682
+  _globals['_LISTUSERCOURSESREQUEST']._serialized_start=369
+  _globals['_LISTUSERCOURSESREQUEST']._serialized_end=410
+  _globals['_LISTUSERCOURSESRESPONSE']._serialized_start=412
+  _globals['_LISTUSERCOURSESRESPONSE']._serialized_end=457
+  _globals['_COURSEACCESSSERVICE']._serialized_start=460
+  _globals['_COURSEACCESSSERVICE']._serialized_end=870
 # @@protoc_insertion_point(module_scope)
