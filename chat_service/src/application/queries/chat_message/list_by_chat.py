@@ -12,4 +12,5 @@ class ListMessagesByChatQuery:
             chat_id=dto.chat_id,
             limit=dto.limit,
             offset=dto.offset,
+            lesson_id=dto.lesson_id,
         )

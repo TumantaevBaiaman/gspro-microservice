@@ -11,6 +11,7 @@ from src.application.queries.chat_participant.dto import ListChatParticipantsDTO
 from src.application.services.chat_service import ChatService
 from src.application.services.chat_message_service import ChatMessageService
 from src.application.services.chat_participant_service import ChatParticipantService
+from src.domain.enums.chat_message_reference_type_enum import MessageReferenceTypeEnum
 from src.domain.enums.chat_participant_role_enum import ChatParticipantRole
 
 from src.domain.enums.chat_type_enum import ChatTypeEnum
@@ -18,7 +19,7 @@ from src.domain.enums.chat_message_type_enum import ChatMessageTypeEnum
 
 from src.infrastructure.db.mongo.models.chat_message_document import (
     ChatMessagePayload,
-    ChatMessageContext, ChatAttachment,
+    ChatMessageContext, ChatAttachment, MessageReference,
 )
 
 
@@ -82,6 +83,38 @@ class ChatMessageHandler(pb2_grpc.ChatMessageServiceServicer):
             reply_to_message_id=None,
         )
 
+        if (
+                request.context
+                and request.context.reference
+                and request.context.reference.type
+        ):
+            try:
+                ref_type = MessageReferenceTypeEnum(
+                    request.context.reference.type
+                )
+            except ValueError:
+                await context.abort(
+                    grpc.StatusCode.INVALID_ARGUMENT,
+                    "Invalid message reference type",
+                )
+
+            if (
+                    ref_type == MessageReferenceTypeEnum.LESSON
+                    and not request.context.reference.id
+            ):
+                await context.abort(
+                    grpc.StatusCode.INVALID_ARGUMENT,
+                    "lesson reference must contain lesson_id",
+                )
+
+            message_context.reference = MessageReference(
+                type=ref_type,
+                id=request.context.reference.id,
+            )
+
+        if request.context and request.context.reply_to_message_id:
+            message_context.reply_to_message_id = request.context.reply_to_message_id
+
         message = await self.chat_message_service.send.execute(
             SendMessageDTO(
                 chat_id=chat_id,
@@ -140,6 +173,13 @@ class ChatMessageHandler(pb2_grpc.ChatMessageServiceServicer):
                     chat_id=str(chat.id),
                     user_id=request.student_id,
                     role=ChatParticipantRole.STUDENT
+                )
+            )
+            await self.chat_participant_service.add.execute(
+                AddChatParticipantDTO(
+                    chat_id=str(chat.id),
+                    user_id=request.sender_id,
+                    role=ChatParticipantRole.MENTOR if request.student_id != request.sender_id else ChatParticipantRole.STUDENT,
                 )
             )
             return chat
@@ -226,11 +266,12 @@ class ChatMessageHandler(pb2_grpc.ChatMessageServiceServicer):
         limit = request.limit or 10
         offset = request.offset or 0
 
-        messages = await self.chat_message_service.list_by_chat.execute(
+        messages, total = await self.chat_message_service.list_by_chat.execute(
             ListMessagesByChatDTO(
                 chat_id=request.chat_id,
                 limit=limit,
                 offset=offset,
+                lesson_id=request.lesson_id or None,
             )
         )
 
@@ -255,5 +296,6 @@ class ChatMessageHandler(pb2_grpc.ChatMessageServiceServicer):
                     created_at=m.created_at.isoformat(),
                 )
                 for m in reversed(messages)
-            ]
+            ],
+            total=total,
         )

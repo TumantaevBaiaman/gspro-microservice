@@ -87,5 +87,21 @@ class UserClient:
                 raise HTTPException(status_code=400, detail=e.details())
             raise HTTPException(status_code=500, detail="Internal error")
 
+    async def register_mentor(self, data):
+        request = user_pb2.RegisterMentorRequest(
+            email=data.email,
+            password=data.password,
+            phone_number=data.phone_number,
+            role="mentor",
+        )
+
+        try:
+            response = await self.stub.RegisterMentor(request)
+            return response
+        except grpc.RpcError as e:
+            if e.code() == grpc.StatusCode.ALREADY_EXISTS:
+                raise HTTPException(status_code=409, detail=e.details())
+            raise HTTPException(status_code=400, detail=e.details())
+
 
 user_client = UserClient()

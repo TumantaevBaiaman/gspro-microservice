@@ -8,6 +8,34 @@ async def handle_send_message(sender_id: str, data: dict):
     payload = data.get("payload") or {}
     attachments = payload.get("attachments", [])
 
+    context = None
+    ctx = data.get("context")
+
+    if ctx:
+        ref = ctx.get("reference")
+        if ref:
+            ref_type = ref.get("type")
+            ref_id = ref.get("id")
+
+            if not ref_type or not ref_id:
+                await manager.send_to_user(sender_id, {
+                    "event": "error",
+                    "code": "INVALID_CONTEXT",
+                    "message": "reference.type and reference.id are required",
+                })
+                return
+
+            context = {
+                "reference": {
+                    "type": ref_type,
+                    "id": ref_id,
+                }
+            }
+
+        if ctx.get("reply_to_message_id"):
+            context = context or {}
+            context["reply_to_message_id"] = ctx["reply_to_message_id"]
+
     try:
         res = chat_message_client.send_message(
             sender_id=sender_id,
@@ -20,6 +48,7 @@ async def handle_send_message(sender_id: str, data: dict):
             message_type=payload.get("type"),
             text=payload.get("text"),
             attachments=attachments,
+            context=context,
         )
 
     except RpcError as e:
@@ -54,6 +83,7 @@ async def handle_send_message(sender_id: str, data: dict):
             "type": payload.get("type"),
             "text": payload.get("text"),
             "attachments": payload.get("attachments", []),
+            "context": context,
         }
     }
 

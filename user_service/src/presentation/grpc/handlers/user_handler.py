@@ -119,3 +119,21 @@ class UserHandler(pb2_grpc.UserServiceServicer):
             return pb2.ConfirmPasswordResetResponse(
                 status="ok"
             )
+
+    async def RegisterMentor(self, request, context):
+        async with async_session_maker() as session:
+            container = Container(session)
+
+            try:
+                await container.user_service.create_mentor.execute(request)
+                await container.uow.commit()
+            except UserAlreadyExistsError as e:
+                await container.uow.rollback()
+                await context.abort(
+                    grpc.StatusCode.ALREADY_EXISTS,
+                    str(e)
+                )
+
+            return pb2.RegisterMentorResponse(
+                success=True
+            )

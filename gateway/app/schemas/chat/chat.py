@@ -38,3 +38,4 @@ class ChatMessageResponse(BaseModel):
 
 class ChatMessageListResponse(BaseModel):
     messages: List[ChatMessageResponse]
+    total: int = 0

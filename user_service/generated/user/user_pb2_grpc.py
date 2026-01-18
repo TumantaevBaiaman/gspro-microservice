@@ -39,6 +39,11 @@ class UserServiceStub(object):
                 request_serializer=user__pb2.RegisterEmailRequest.SerializeToString,
                 response_deserializer=user__pb2.RegisterEmailResponse.FromString,
                 _registered_method=True)
+        self.RegisterMentor = channel.unary_unary(
+                '/user.UserService/RegisterMentor',
+                request_serializer=user__pb2.RegisterMentorRequest.SerializeToString,
+                response_deserializer=user__pb2.RegisterMentorResponse.FromString,
+                _registered_method=True)
         self.LoginEmail = channel.unary_unary(
                 '/user.UserService/LoginEmail',
                 request_serializer=user__pb2.LoginEmailRequest.SerializeToString,
@@ -70,6 +75,12 @@ class UserServiceServicer(object):
     """Missing associated documentation comment in .proto file."""
 
     def RegisterEmail(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def RegisterMentor(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -112,6 +123,11 @@ def add_UserServiceServicer_to_server(servicer, server):
                     servicer.RegisterEmail,
                     request_deserializer=user__pb2.RegisterEmailRequest.FromString,
                     response_serializer=user__pb2.RegisterEmailResponse.SerializeToString,
+            ),
+            'RegisterMentor': grpc.unary_unary_rpc_method_handler(
+                    servicer.RegisterMentor,
+                    request_deserializer=user__pb2.RegisterMentorRequest.FromString,
+                    response_serializer=user__pb2.RegisterMentorResponse.SerializeToString,
             ),
             'LoginEmail': grpc.unary_unary_rpc_method_handler(
                     servicer.LoginEmail,
@@ -166,6 +182,33 @@ class UserService(object):
             '/user.UserService/RegisterEmail',
             user__pb2.RegisterEmailRequest.SerializeToString,
             user__pb2.RegisterEmailResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def RegisterMentor(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/user.UserService/RegisterMentor',
+            user__pb2.RegisterMentorRequest.SerializeToString,
+            user__pb2.RegisterMentorResponse.FromString,
             options,
             channel_credentials,
             insecure,

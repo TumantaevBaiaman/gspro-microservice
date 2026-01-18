@@ -20,6 +20,7 @@ async def ws_chat(ws: WebSocket):
     try:
         while True:
             data = await ws.receive_json()
+            print("WS DATA:", data)
 
             action = data.get("action")
             if not action:

@@ -1,6 +1,9 @@
 from datetime import datetime
+from typing import Optional
+
 from beanie import PydanticObjectId
 
+from src.domain.enums.chat_message_reference_type_enum import MessageReferenceTypeEnum
 from src.domain.repositories.chat_message_repository import (
     IChatMessageRepository,
 )
@@ -40,17 +43,31 @@ class ChatMessageRepository(IChatMessageRepository):
         chat_id: str,
         limit: int = 50,
         offset: int = 0,
-    ) -> list[ChatMessageDocument]:
-        return await (
-            ChatMessageDocument.find(
-                ChatMessageDocument.chat_id == chat_id,
-                ChatMessageDocument.meta.deleted_at == None,
-            )
+        lesson_id: Optional[str] = None,
+    ) -> tuple[list[ChatMessageDocument], int]:
+        filters = [
+            ChatMessageDocument.chat_id == chat_id,
+            ChatMessageDocument.meta.deleted_at == None,
+        ]
+
+        if lesson_id:
+            filters.extend([
+                ChatMessageDocument.context.reference.type
+                == MessageReferenceTypeEnum.LESSON,
+                ChatMessageDocument.context.reference.id == lesson_id,
+            ])
+
+        total = await ChatMessageDocument.find(*filters).count()
+
+        messages = await (
+            ChatMessageDocument.find(*filters)
             .sort("-created_at")
             .skip(offset)
             .limit(limit)
             .to_list()
         )
+
+        return messages, total
 
     async def list_by_reference(
         self,
