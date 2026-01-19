@@ -20,6 +20,7 @@ class PurchaseRequestRepository(IPurchaseRequestRepository):
         user_id: str | None,
         email: EmailStr,
         phone_number: str,
+        telegram: str | None,
         target_type: PurchaseTargetType,
         target_id: str,
     ) -> PurchaseRequestDocument:
@@ -27,6 +28,7 @@ class PurchaseRequestRepository(IPurchaseRequestRepository):
             user_id=user_id,
             email=email,
             phone_number=phone_number,
+            telegram=telegram,
             target_type=target_type,
             target_id=target_id,
         )

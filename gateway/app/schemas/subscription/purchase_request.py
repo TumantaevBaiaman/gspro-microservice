@@ -1,9 +1,12 @@
+from typing import Optional
+
 from pydantic import BaseModel, EmailStr
 
 
 class CreatePurchaseRequestSchema(BaseModel):
     email: EmailStr
     phone_number: str
+    telegram: Optional[str] = None
     target_type: str
     target_id: str
 
@@ -17,6 +20,7 @@ class PurchaseRequestResponseSchema(BaseModel):
     user_id: str | None
     email: str
     phone_number: str
+    telegram: Optional[str] = None
     target_type: str
     target_id: str
     status: str

@@ -20,6 +20,7 @@ class IPurchaseRequestRepository(ABC):
         user_id: str | None,
         email: EmailStr,
         phone_number: str,
+        telegram: str | None,
         target_type: PurchaseTargetType,
         target_id: str,
     ) -> PurchaseRequestDocument:

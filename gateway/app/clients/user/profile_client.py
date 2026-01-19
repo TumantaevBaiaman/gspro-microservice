@@ -40,8 +40,8 @@ class ProfileClient:
                 raise HTTPException(status_code=404, detail=e.details())
             raise HTTPException(status_code=500, detail="Internal error")
 
-    async def list_user_profiles(self, limit: int = 10, offset: int = 0):
-        request = profile_pb2.ListUserProfilesRequest(limit=limit, offset=offset)
+    async def list_user_profiles(self, limit: int = 10, offset: int = 0, role: str = None) -> list[dict]:
+        request = profile_pb2.ListUserProfilesRequest(limit=limit, offset=offset, role=role)
         try:
             response = await self.stub.ListUserProfiles(request)
             return response

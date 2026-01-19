@@ -11,6 +11,7 @@ class PurchaseRequestDocument(BaseDocument):
 
     email: EmailStr
     phone_number: str
+    telegram: str | None = None
 
     target_type: PurchaseTargetType
     target_id: str

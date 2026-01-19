@@ -15,6 +15,7 @@ class CreatePurchaseRequestCommand:
             user_id=dto.user_id,
             email=dto.email,
             phone_number=dto.phone_number,
+            telegram=dto.telegram,
             target_type=dto.target_type,
             target_id=dto.target_id,
         )

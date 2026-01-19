@@ -24,27 +24,27 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x16purchase_request.proto\x12\x10purchase_request\"|\n\x1c\x43reatePurchaseRequestRequest\x12\x0f\n\x07user_id\x18\x01 \x01(\t\x12\r\n\x05\x65mail\x18\x02 \x01(\t\x12\x14\n\x0cphone_number\x18\x03 \x01(\t\x12\x13\n\x0btarget_type\x18\x04 \x01(\t\x12\x11\n\ttarget_id\x18\x05 \x01(\t\"3\n\x1d\x43reatePurchaseRequestResponse\x12\x12\n\nrequest_id\x18\x01 \x01(\t\"<\n\x1bListPurchaseRequestsRequest\x12\r\n\x05limit\x18\x01 \x01(\x05\x12\x0e\n\x06offset\x18\x02 \x01(\x05\"\x8b\x01\n\x0fPurchaseRequest\x12\n\n\x02id\x18\x01 \x01(\t\x12\x0f\n\x07user_id\x18\x02 \x01(\t\x12\r\n\x05\x65mail\x18\x03 \x01(\t\x12\x14\n\x0cphone_number\x18\x04 \x01(\t\x12\x13\n\x0btarget_type\x18\x05 \x01(\t\x12\x11\n\ttarget_id\x18\x06 \x01(\t\x12\x0e\n\x06status\x18\x07 \x01(\t\"_\n\x1cListPurchaseRequestsResponse\x12\x30\n\x05items\x18\x01 \x03(\x0b\x32!.purchase_request.PurchaseRequest\x12\r\n\x05total\x18\x02 \x01(\x03\"H\n\"UpdatePurchaseRequestStatusRequest\x12\x12\n\nrequest_id\x18\x01 \x01(\t\x12\x0e\n\x06status\x18\x02 \x01(\t\"6\n#UpdatePurchaseRequestStatusResponse\x12\x0f\n\x07success\x18\x01 \x01(\x08\x32\xe7\x02\n\x16PurchaseRequestService\x12i\n\x06\x43reate\x12..purchase_request.CreatePurchaseRequestRequest\x1a/.purchase_request.CreatePurchaseRequestResponse\x12\x65\n\x04List\x12-.purchase_request.ListPurchaseRequestsRequest\x1a..purchase_request.ListPurchaseRequestsResponse\x12{\n\x0cUpdateStatus\x12\x34.purchase_request.UpdatePurchaseRequestStatusRequest\x1a\x35.purchase_request.UpdatePurchaseRequestStatusResponseb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x16purchase_request.proto\x12\x10purchase_request\"\x8e\x01\n\x1c\x43reatePurchaseRequestRequest\x12\x0f\n\x07user_id\x18\x01 \x01(\t\x12\r\n\x05\x65mail\x18\x02 \x01(\t\x12\x14\n\x0cphone_number\x18\x03 \x01(\t\x12\x13\n\x0btarget_type\x18\x04 \x01(\t\x12\x11\n\ttarget_id\x18\x05 \x01(\t\x12\x10\n\x08telegram\x18\x06 \x01(\t\"3\n\x1d\x43reatePurchaseRequestResponse\x12\x12\n\nrequest_id\x18\x01 \x01(\t\"<\n\x1bListPurchaseRequestsRequest\x12\r\n\x05limit\x18\x01 \x01(\x05\x12\x0e\n\x06offset\x18\x02 \x01(\x05\"\x9d\x01\n\x0fPurchaseRequest\x12\n\n\x02id\x18\x01 \x01(\t\x12\x0f\n\x07user_id\x18\x02 \x01(\t\x12\r\n\x05\x65mail\x18\x03 \x01(\t\x12\x14\n\x0cphone_number\x18\x04 \x01(\t\x12\x13\n\x0btarget_type\x18\x05 \x01(\t\x12\x11\n\ttarget_id\x18\x06 \x01(\t\x12\x0e\n\x06status\x18\x07 \x01(\t\x12\x10\n\x08telegram\x18\x08 \x01(\t\"_\n\x1cListPurchaseRequestsResponse\x12\x30\n\x05items\x18\x01 \x03(\x0b\x32!.purchase_request.PurchaseRequest\x12\r\n\x05total\x18\x02 \x01(\x03\"H\n\"UpdatePurchaseRequestStatusRequest\x12\x12\n\nrequest_id\x18\x01 \x01(\t\x12\x0e\n\x06status\x18\x02 \x01(\t\"6\n#UpdatePurchaseRequestStatusResponse\x12\x0f\n\x07success\x18\x01 \x01(\x08\x32\xe7\x02\n\x16PurchaseRequestService\x12i\n\x06\x43reate\x12..purchase_request.CreatePurchaseRequestRequest\x1a/.purchase_request.CreatePurchaseRequestResponse\x12\x65\n\x04List\x12-.purchase_request.ListPurchaseRequestsRequest\x1a..purchase_request.ListPurchaseRequestsResponse\x12{\n\x0cUpdateStatus\x12\x34.purchase_request.UpdatePurchaseRequestStatusRequest\x1a\x35.purchase_request.UpdatePurchaseRequestStatusResponseb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'purchase_request_pb2', _globals)
 if not _descriptor._USE_C_DESCRIPTORS:
   DESCRIPTOR._loaded_options = None
-  _globals['_CREATEPURCHASEREQUESTREQUEST']._serialized_start=44
-  _globals['_CREATEPURCHASEREQUESTREQUEST']._serialized_end=168
-  _globals['_CREATEPURCHASEREQUESTRESPONSE']._serialized_start=170
-  _globals['_CREATEPURCHASEREQUESTRESPONSE']._serialized_end=221
-  _globals['_LISTPURCHASEREQUESTSREQUEST']._serialized_start=223
-  _globals['_LISTPURCHASEREQUESTSREQUEST']._serialized_end=283
-  _globals['_PURCHASEREQUEST']._serialized_start=286
-  _globals['_PURCHASEREQUEST']._serialized_end=425
-  _globals['_LISTPURCHASEREQUESTSRESPONSE']._serialized_start=427
-  _globals['_LISTPURCHASEREQUESTSRESPONSE']._serialized_end=522
-  _globals['_UPDATEPURCHASEREQUESTSTATUSREQUEST']._serialized_start=524
-  _globals['_UPDATEPURCHASEREQUESTSTATUSREQUEST']._serialized_end=596
-  _globals['_UPDATEPURCHASEREQUESTSTATUSRESPONSE']._serialized_start=598
-  _globals['_UPDATEPURCHASEREQUESTSTATUSRESPONSE']._serialized_end=652
-  _globals['_PURCHASEREQUESTSERVICE']._serialized_start=655
-  _globals['_PURCHASEREQUESTSERVICE']._serialized_end=1014
+  _globals['_CREATEPURCHASEREQUESTREQUEST']._serialized_start=45
+  _globals['_CREATEPURCHASEREQUESTREQUEST']._serialized_end=187
+  _globals['_CREATEPURCHASEREQUESTRESPONSE']._serialized_start=189
+  _globals['_CREATEPURCHASEREQUESTRESPONSE']._serialized_end=240
+  _globals['_LISTPURCHASEREQUESTSREQUEST']._serialized_start=242
+  _globals['_LISTPURCHASEREQUESTSREQUEST']._serialized_end=302
+  _globals['_PURCHASEREQUEST']._serialized_start=305
+  _globals['_PURCHASEREQUEST']._serialized_end=462
+  _globals['_LISTPURCHASEREQUESTSRESPONSE']._serialized_start=464
+  _globals['_LISTPURCHASEREQUESTSRESPONSE']._serialized_end=559
+  _globals['_UPDATEPURCHASEREQUESTSTATUSREQUEST']._serialized_start=561
+  _globals['_UPDATEPURCHASEREQUESTSTATUSREQUEST']._serialized_end=633
+  _globals['_UPDATEPURCHASEREQUESTSTATUSRESPONSE']._serialized_start=635
+  _globals['_UPDATEPURCHASEREQUESTSTATUSRESPONSE']._serialized_end=689
+  _globals['_PURCHASEREQUESTSERVICE']._serialized_start=692
+  _globals['_PURCHASEREQUESTSERVICE']._serialized_end=1051
 # @@protoc_insertion_point(module_scope)

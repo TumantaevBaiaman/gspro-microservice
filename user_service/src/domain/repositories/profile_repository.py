@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+from typing import Optional
 from uuid import UUID
 
 from src.domain.entities.profile_entity import ProfileEntity
@@ -16,7 +17,7 @@ class IProfileRepository(ABC):
         pass
 
     @abstractmethod
-    async def list_profiles(self, limit: int, offset: int) -> tuple[list[ProfileEntity], int]:
+    async def list_profiles(self, limit: int, offset: int, role: Optional[str] = None) -> tuple[list[ProfileEntity], int]:
         pass
 
     @abstractmethod

@@ -24,6 +24,7 @@ def create_purchase_request(
         phone_number=body.phone_number,
         target_type=body.target_type,
         target_id=body.target_id,
+        telegram=body.telegram,
     )
 
 

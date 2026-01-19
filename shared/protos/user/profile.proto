@@ -49,6 +49,7 @@ message UpdateUserProfileResponse {
 message ListUserProfilesRequest {
   int32 limit = 1;
   int32 offset = 2;
+  string role = 3;
 }
 
 message UserProfileItem {
