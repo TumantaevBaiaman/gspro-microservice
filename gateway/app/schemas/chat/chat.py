@@ -1,3 +1,4 @@
+from datetime import datetime
 from typing import Optional, List
 
 from pydantic import BaseModel
@@ -39,3 +40,16 @@ class ChatMessageResponse(BaseModel):
 class ChatMessageListResponse(BaseModel):
     messages: List[ChatMessageResponse]
     total: int = 0
+
+
+class ChatPreview(BaseModel):
+    id: str
+    chat_type: str
+    course_id: Optional[str] = None
+    last_message: Optional[dict] = None
+    last_message_at: Optional[datetime] = None
+
+
+class ChatListResponse(BaseModel):
+    items: List[ChatPreview]
+    total: int

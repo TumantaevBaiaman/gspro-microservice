@@ -4,6 +4,7 @@ from generated.chat import chat_pb2 as pb2
 from generated.chat import chat_pb2_grpc as pb2_grpc
 
 from src.application.commands.chat.dto import GetOrCreateChatDTO
+from src.application.queries.chat.dto import ListUserChatsDTO
 from src.application.services import ChatMessageService
 from src.application.services.chat_service import ChatService
 from src.application.services.chat_participant_service import ChatParticipantService
@@ -120,4 +121,40 @@ class ChatHandler(pb2_grpc.ChatServiceServicer):
         await context.abort(
             grpc.StatusCode.INVALID_ARGUMENT,
             "Unsupported chat_type",
+        )
+
+    async def ListUserChats(self, request, context):
+        try:
+            chat_type = (
+                ChatTypeEnum(request.chat_type)
+                if request.chat_type else None
+            )
+        except ValueError:
+            await context.abort(
+                grpc.StatusCode.INVALID_ARGUMENT,
+                "Invalid chat_type",
+            )
+
+        chats, total = await self.chat_service.list_user_chats.execute(
+            ListUserChatsDTO(
+                user_id=request.user_id,
+                chat_type=chat_type,
+                limit=request.limit or 20,
+                offset=request.offset or 0,
+            )
+        )
+
+        return pb2.ListUserChatsResponse(
+            chats=[
+                pb2.Chat(
+                    id=str(chat.id),
+                    chat_type=chat.type.value,
+                    participant_ids=[],
+                    course_id=chat.course_id or "",
+                    created_at=chat.created_at,
+                    last_message_at=chat.last_message_at,
+                )
+                for chat in chats
+            ],
+            total=total,
         )

@@ -71,3 +71,12 @@ class IChatParticipantRepository(ABC):
         value: bool,
     ) -> None:
         ...
+
+    async def list_by_user(
+            self,
+            *,
+            user_id: str,
+            limit: int,
+            offset: int,
+    ) -> tuple[list[ChatParticipantDocument], int]:
+        ...

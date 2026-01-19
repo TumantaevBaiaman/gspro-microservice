@@ -3,7 +3,8 @@ from fastapi import APIRouter, Depends, Path, Query
 from app.api.dependencies.auth import get_current_user
 from app.clients.chat import chat_client, chat_message_client
 from app.clients.media import media_client
-from app.schemas.chat.chat import GetOrCreateChatResponse, GetOrCreateChatRequest, ChatMessageListResponse
+from app.schemas.chat.chat import GetOrCreateChatResponse, GetOrCreateChatRequest, ChatMessageListResponse, \
+    ChatListResponse
 
 chat_router = APIRouter(prefix="/chat", tags=["Chat"])
 
@@ -84,3 +85,29 @@ async def get_chat_images(
         kind="image",
     )
     return [file_item for file_item in file_items]
+
+
+@chat_router.get(
+    "",
+    response_model=ChatListResponse,
+    summary="Get current user chats (inbox)",
+)
+def list_my_chats(
+    limit: int = Query(20, ge=1, le=50),
+    offset: int = Query(0, ge=0),
+    chat_type: str | None = Query(None, description="DIRECT | COURSE_PRIVATE | COURSE_GROUP"),
+    user=Depends(get_current_user),
+):
+    user_id = user["sub"]
+
+    data = chat_client.list_user_chats(
+        user_id=user_id,
+        chat_type=chat_type,
+        limit=limit,
+        offset=offset,
+    )
+
+    return {
+        "items": data.get("chats", []),
+        "total": data.get("total", 0),
+    }

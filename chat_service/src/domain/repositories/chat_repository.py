@@ -35,5 +35,6 @@ class IChatRepository(ABC):
     async def list_by_ids(
         self,
         chat_ids: Iterable[str],
+        chat_type: ChatTypeEnum | None = None,
     ) -> list[ChatDocument]:
         ...
