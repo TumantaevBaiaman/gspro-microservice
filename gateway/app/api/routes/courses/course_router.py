@@ -51,6 +51,7 @@ async def get_course(
     if include_author and data.get("author_id"):
         author = await user_profile_client.get_user_profile(data["author_id"])
         data["author"] = {
+            "id": data["author_id"],
             "full_name": author.full_name,
             "avatar": author.avatar.thumb_medium_url if author.avatar else None,
         } if author else None

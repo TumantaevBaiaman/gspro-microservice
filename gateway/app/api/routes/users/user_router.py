@@ -29,6 +29,20 @@ async def get_profile(user=Depends(get_current_user)):
         **profile_data
     )
 
+@user_router.get(
+    "/{user_id}/profile",
+    response_model=GetUserProfileResponseSchema,
+    summary="Get Current User Profile",
+    description="Endpoint to retrieve the profile information of the currently authenticated users."
+)
+async def get_profile(user_id: str):
+    profile = await user_profile_client.get_user_profile(user_id)
+    profile_data = MessageToDict(profile, preserving_proto_field_name=True)
+
+    return GetUserProfileResponseSchema(
+        **profile_data
+    )
+
 
 @user_router.patch(
     "/me/profile",
