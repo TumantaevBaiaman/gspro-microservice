@@ -105,3 +105,17 @@ def get_course_module(course_id: str, module_id: str):
         raise HTTPException(404, "Module not found")
 
     return module
+
+
+@course_router.get(
+    "/{course_id}/lessons",
+    response_model=LessonListResponseSchema,
+    summary="List lessons by course ID",
+    description="Retrieve a list of lessons associated with a specific course.",
+)
+async def list_course_lessons(course_id: str):
+    lessons = course_client.get_course_lessons(course_id)
+
+    return LessonListResponseSchema(
+        items=[LessonListItemSchema(**lesson) for lesson in lessons]
+    )

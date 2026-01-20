@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Optional, List
 from pydantic import BaseModel
 
 
@@ -55,3 +55,19 @@ class CourseListItemSchema(BaseModel):
 class CourseListResponseSchema(BaseModel):
     items: list[CourseListItemSchema]
     total: int
+
+
+class LessonListItemSchema(BaseModel):
+    id: str
+    title: str
+
+    type: str
+    access_type: str
+    duration: str
+
+    order_number: int = 0
+    is_active: bool
+
+
+class LessonListResponseSchema(BaseModel):
+    items: List[LessonListItemSchema]

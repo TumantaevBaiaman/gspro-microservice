@@ -115,3 +115,33 @@ class CourseHandler(pb2_grpc.CourseServiceServicer):
 
         except Exception as e:
             await context.abort(grpc.StatusCode.INTERNAL, str(e))
+
+
+    async def GetCourseLessons(self, request, context):
+        try:
+            lessons = await self.service.get_lessons.execute(
+                course_id=request.course_id
+            )
+
+            return pb2.GetCourseLessonsResponse(
+                items=[
+                    pb2.CourseLesson(
+                        id=str(lesson.id),
+                        title=lesson.title,
+
+                        type=lesson.type.value,
+                        access_type=lesson.access_type.value,
+                        duration=lesson.duration,
+
+                        order_number=lesson.order_number,
+                        is_active=lesson.is_active,
+                    )
+                    for lesson in lessons
+                ]
+            )
+
+        except CourseNotFoundError as e:
+            await context.abort(grpc.StatusCode.NOT_FOUND, str(e))
+
+        except Exception as e:
+            await context.abort(grpc.StatusCode.INTERNAL, str(e))
