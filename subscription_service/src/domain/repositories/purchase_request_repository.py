@@ -43,3 +43,10 @@ class IPurchaseRequestRepository(ABC):
         offset: int,
     ):
         ...
+
+    @abstractmethod
+    async def get_by_id(
+            self,
+            request_id: str,
+    ) -> PurchaseRequestDocument:
+        ...

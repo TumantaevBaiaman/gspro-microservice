@@ -1,3 +1,4 @@
+from src.domain.repositories import ICourseAccessRepository
 from src.application.commands.purchase_request.create import (
     CreatePurchaseRequestCommand
 )
@@ -16,8 +17,8 @@ from src.domain.repositories.purchase_request_repository import (
 
 
 class PurchaseRequestService:
-    def __init__(self, repo: IPurchaseRequestRepository):
+    def __init__(self, repo: IPurchaseRequestRepository, course_access_repo: ICourseAccessRepository):
         self.create = CreatePurchaseRequestCommand(repo)
         self.list = ListPurchaseRequestsQuery(repo)
         self.get_by_id = GetPurchaseRequestQuery(repo)
-        self.update_status = UpdatePurchaseRequestStatusCommand(repo)
+        self.update_status = UpdatePurchaseRequestStatusCommand(repo, course_access_repo)

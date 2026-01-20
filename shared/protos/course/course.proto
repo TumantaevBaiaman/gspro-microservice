@@ -3,8 +3,9 @@ syntax = "proto3";
 package course;
 
 service CourseService {
-    rpc GetCourse   (GetCourseRequest)  returns (GetCourseResponse);
-    rpc ListCourses (ListCoursesRequest) returns (ListCoursesResponse);
+    rpc GetCourse           (GetCourseRequest)  returns (GetCourseResponse);
+    rpc ListCourses         (ListCoursesRequest)    returns (ListCoursesResponse);
+    rpc ListCoursesByIds    (ListCoursesByIdsRequest)   returns (ListCoursesByIdsResponse);
 }
 
 
@@ -71,4 +72,12 @@ message Course {
 message ListCoursesResponse {
     repeated Course items = 1;
     int32 total = 2;
+}
+
+message ListCoursesByIdsRequest {
+    repeated string ids = 1;
+}
+
+message ListCoursesByIdsResponse {
+    repeated Course items = 1;
 }

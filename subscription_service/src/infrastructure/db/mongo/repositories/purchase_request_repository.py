@@ -66,3 +66,14 @@ class PurchaseRequestRepository(IPurchaseRequestRepository):
             .to_list()
         )
         return items, total
+
+    async def get_by_id(
+            self,
+            request_id: str,
+    ) -> PurchaseRequestDocument:
+        doc = await PurchaseRequestDocument.get(request_id)
+
+        if not doc:
+            raise ValueError("PurchaseRequest not found")
+
+        return doc

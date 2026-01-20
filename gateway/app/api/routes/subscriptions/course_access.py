@@ -1,6 +1,9 @@
 from fastapi import APIRouter, Depends
 
+from app.aggregators.course.enrich_courses_with_cover import enrich_courses_with_cover
 from app.api.dependencies.auth import get_current_user
+from app.clients.course import course_client
+from app.clients.media import media_client
 from app.clients.subscription import (
     course_access_client,
 )
@@ -61,6 +64,15 @@ def check_course_access(
     "/me/courses"
 )
 def my_courses(user=Depends(get_current_user)):
-    return course_access_client.list_user_courses(
+    course_ids = course_access_client.list_user_courses(
         user_id=user["sub"]
     )
+    if not course_ids:
+        return []
+
+    courses = course_client.list_courses_by_ids(course_ids)
+    courses_data = enrich_courses_with_cover(
+        courses=courses,
+        media_client=media_client,
+    )
+    return courses_data
