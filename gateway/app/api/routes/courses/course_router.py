@@ -4,7 +4,7 @@ from fastapi import APIRouter, Query
 
 from app.aggregators.course.enrich_courses_with_cover import enrich_courses_with_cover, enrich_course, \
     get_course_mentors
-from app.clients.course import course_client, module_client, category_client
+from app.clients.course import course_client, module_client, category_client, lesson_client
 from app.clients.media import media_client
 from app.clients.review import course_review_client
 from app.clients.user import user_profile_client
@@ -65,10 +65,10 @@ async def get_course(
     description="Retrieve a paginated list of courses.",
 )
 async def list_courses(
-    limit: int = Query(10, ge=1, le=100),
-    offset: int = Query(0, ge=0),
-    mode: str = "all",
-    author_id: str | None = None,
+        limit: int = Query(10, ge=1, le=100),
+        offset: int = Query(0, ge=0),
+        mode: str = "all",
+        author_id: str | None = None,
 ):
     data = course_client.list_courses(limit=limit, offset=offset, mode=mode, author_id=author_id)
     items = enrich_courses_with_cover(
@@ -89,8 +89,26 @@ async def list_courses(
 )
 async def list_modules_by_course(course_id: str):
     data = module_client.list_modules_by_course(course_id)
-    return ModuleListResponseSchema(items=[ModuleListItemSchema(**item) for item in data])
 
+    for module in data:
+        files_count = 0
+
+        lessons = lesson_client.list_lessons_by_module(module["id"])
+        for lesson in lessons:
+            files_count += len(
+                media_client.list_media_by_owner(
+                    owner_service="course",
+                    owner_id=lesson["id"],
+                    kind="file",
+                    usage="lesson"
+                )
+            )
+
+        module["files_count"] = files_count
+
+    return ModuleListResponseSchema(
+        items=[ModuleListItemSchema(**item) for item in data]
+    )
 
 @course_router.get(
     "/{course_id}/modules/{module_id}",
