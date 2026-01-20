@@ -112,3 +112,28 @@ class ChatParticipantRepository(IChatParticipantRepository):
                 }
             }
         )
+
+    async def list_by_user(
+            self,
+            *,
+            user_id: str,
+            limit: int,
+            offset: int,
+    ) -> tuple[list[ChatParticipantDocument], int]:
+        query = ChatParticipantDocument.find(
+            ChatParticipantDocument.user_id == user_id,
+            ChatParticipantDocument.is_archived == False,
+        )
+
+        total = await query.count()
+
+        participants = await (
+            query
+            .sort("-joined_at")
+            .skip(offset)
+            .limit(limit)
+            .to_list()
+        )
+
+        return participants, total
+

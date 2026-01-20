@@ -1,3 +1,4 @@
+from src.application.queries.course.list_by_ids import ListCoursesByIdsQuery
 from src.application.queries.admin_course import ListCoursesQuery
 from src.application.queries.course.get_course import GetCourseQuery
 from src.application.queries.course.get_lessons_count import GetCourseLessonsCountQuery
@@ -11,4 +12,5 @@ class CourseService:
     ):
         self.get = GetCourseQuery(repo)
         self.list = ListCoursesQuery(repo)
+        self.list_by_ids = ListCoursesByIdsQuery(repo)
         self.get_lessons_count = GetCourseLessonsCountQuery(lesson_service)

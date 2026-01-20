@@ -15,7 +15,8 @@ class ListProfilesQuery:
     ) -> ListProfilesResponseDTO:
         profiles, total = await self.repo.list_profiles(
             limit=dto.limit,
-            offset=dto.offset
+            offset=dto.offset,
+            role=dto.role,
         )
 
         items = [

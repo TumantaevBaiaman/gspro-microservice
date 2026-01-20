@@ -24,6 +24,7 @@ class ChatMessageClient:
         message_type: str,
         text: str | None = None,
         attachments: list[dict] | None = None,
+        context: dict | None = None,
     ) -> dict:
 
         attachments = attachments or []
@@ -53,6 +54,7 @@ class ChatMessageClient:
 
                 text=text or "",
                 attachments=grpc_attachments,
+                context=context or None,
             )
 
             res = self.stub.SendMessage(request, timeout=3.0)
@@ -71,6 +73,7 @@ class ChatMessageClient:
             chat_id: str,
             limit: int = 10,
             offset: int = 0,
+            lesson_id: str | None,
     ) -> dict:
         try:
             res = self.stub.ListMessages(
@@ -78,6 +81,7 @@ class ChatMessageClient:
                     chat_id=chat_id,
                     limit=limit,
                     offset=offset,
+                    lesson_id=lesson_id,
                 ),
                 timeout=3.0,
             )

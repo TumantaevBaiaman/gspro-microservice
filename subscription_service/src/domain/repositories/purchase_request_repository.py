@@ -20,6 +20,7 @@ class IPurchaseRequestRepository(ABC):
         user_id: str | None,
         email: EmailStr,
         phone_number: str,
+        telegram: str | None,
         target_type: PurchaseTargetType,
         target_id: str,
     ) -> PurchaseRequestDocument:
@@ -41,4 +42,11 @@ class IPurchaseRequestRepository(ABC):
         limit: int,
         offset: int,
     ):
+        ...
+
+    @abstractmethod
+    async def get_by_id(
+            self,
+            request_id: str,
+    ) -> PurchaseRequestDocument:
         ...

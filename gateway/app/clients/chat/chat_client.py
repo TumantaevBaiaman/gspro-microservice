@@ -55,6 +55,33 @@ class ChatClient:
         except grpc.RpcError as e:
             self._err(e)
 
+    def list_user_chats(
+            self,
+            *,
+            user_id: str,
+            chat_type: str | None = None,
+            limit: int = 20,
+            offset: int = 0,
+    ) -> dict:
+        try:
+            res = self.stub.ListUserChats(
+                pb2.ListUserChatsRequest(
+                    user_id=user_id,
+                    chat_type=chat_type or "",
+                    limit=limit,
+                    offset=offset,
+                ),
+                timeout=3.0,
+            )
+
+            return MessageToDict(
+                res,
+                preserving_proto_field_name=True,
+            )
+
+        except grpc.RpcError as e:
+            self._err(e)
+
     @staticmethod
     def _err(e: grpc.RpcError):
         code = e.code()

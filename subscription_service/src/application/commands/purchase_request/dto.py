@@ -6,6 +6,7 @@ class CreatePurchaseRequestDTO(BaseModel):
     user_id: str | None = None
     email: EmailStr
     phone_number: str
+    telegram: str | None = None
     target_type: PurchaseTargetType
     target_id: str
 

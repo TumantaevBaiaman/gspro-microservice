@@ -25,7 +25,7 @@ _sym_db = _symbol_database.Default()
 from google.protobuf import timestamp_pb2 as google_dot_protobuf_dot_timestamp__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0f\x63hat/chat.proto\x12\x04\x63hat\x1a\x1fgoogle/protobuf/timestamp.proto\"!\n\x0eGetChatRequest\x12\x0f\n\x07\x63hat_id\x18\x01 \x01(\t\"v\n\x16GetOrCreateChatRequest\x12\x11\n\tchat_type\x18\x01 \x01(\t\x12\x11\n\tsender_id\x18\x02 \x01(\t\x12\x0f\n\x07peer_id\x18\x03 \x01(\t\x12\x11\n\tcourse_id\x18\x04 \x01(\t\x12\x12\n\nstudent_id\x18\x05 \x01(\t\"N\n\x17GetOrCreateChatResponse\x12\x0f\n\x07\x63hat_id\x18\x01 \x01(\t\x12\x0f\n\x07\x63reated\x18\x02 \x01(\x08\x12\x11\n\tchat_type\x18\x03 \x01(\t\"+\n\x0fGetChatResponse\x12\x18\n\x04\x63hat\x18\x01 \x01(\x0b\x32\n.chat.Chat\"\xb6\x01\n\x04\x43hat\x12\n\n\x02id\x18\x01 \x01(\t\x12\x11\n\tchat_type\x18\x02 \x01(\t\x12\x17\n\x0fparticipant_ids\x18\x03 \x03(\t\x12\x11\n\tcourse_id\x18\x04 \x01(\t\x12.\n\ncreated_at\x18\x05 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x33\n\x0flast_message_at\x18\x06 \x01(\x0b\x32\x1a.google.protobuf.Timestamp2\x95\x01\n\x0b\x43hatService\x12\x36\n\x07GetChat\x12\x14.chat.GetChatRequest\x1a\x15.chat.GetChatResponse\x12N\n\x0fGetOrCreateChat\x12\x1c.chat.GetOrCreateChatRequest\x1a\x1d.chat.GetOrCreateChatResponseb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0f\x63hat/chat.proto\x12\x04\x63hat\x1a\x1fgoogle/protobuf/timestamp.proto\"!\n\x0eGetChatRequest\x12\x0f\n\x07\x63hat_id\x18\x01 \x01(\t\"v\n\x16GetOrCreateChatRequest\x12\x11\n\tchat_type\x18\x01 \x01(\t\x12\x11\n\tsender_id\x18\x02 \x01(\t\x12\x0f\n\x07peer_id\x18\x03 \x01(\t\x12\x11\n\tcourse_id\x18\x04 \x01(\t\x12\x12\n\nstudent_id\x18\x05 \x01(\t\"Y\n\x14ListUserChatsRequest\x12\x0f\n\x07user_id\x18\x01 \x01(\t\x12\x11\n\tchat_type\x18\x02 \x01(\t\x12\r\n\x05limit\x18\x03 \x01(\x05\x12\x0e\n\x06offset\x18\x04 \x01(\x05\"N\n\x17GetOrCreateChatResponse\x12\x0f\n\x07\x63hat_id\x18\x01 \x01(\t\x12\x0f\n\x07\x63reated\x18\x02 \x01(\x08\x12\x11\n\tchat_type\x18\x03 \x01(\t\"+\n\x0fGetChatResponse\x12\x18\n\x04\x63hat\x18\x01 \x01(\x0b\x32\n.chat.Chat\"A\n\x15ListUserChatsResponse\x12\x19\n\x05\x63hats\x18\x01 \x03(\x0b\x32\n.chat.Chat\x12\r\n\x05total\x18\x02 \x01(\x03\"\xe6\x01\n\x04\x43hat\x12\n\n\x02id\x18\x01 \x01(\t\x12\x11\n\tchat_type\x18\x02 \x01(\t\x12\x17\n\x0fparticipant_ids\x18\x03 \x03(\t\x12\x11\n\tcourse_id\x18\x04 \x01(\t\x12.\n\x0clast_message\x18\x05 \x01(\x0b\x32\x18.chat.LastMessagePreview\x12\x33\n\x0flast_message_at\x18\x06 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12.\n\ncreated_at\x18\x07 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"^\n\x12LastMessagePreview\x12\x0c\n\x04type\x18\x01 \x01(\t\x12\x0c\n\x04text\x18\x02 \x01(\t\x12\x19\n\x11\x61ttachments_count\x18\x03 \x01(\x05\x12\x11\n\tsender_id\x18\x04 \x01(\t2\xdf\x01\n\x0b\x43hatService\x12\x36\n\x07GetChat\x12\x14.chat.GetChatRequest\x1a\x15.chat.GetChatResponse\x12N\n\x0fGetOrCreateChat\x12\x1c.chat.GetOrCreateChatRequest\x1a\x1d.chat.GetOrCreateChatResponse\x12H\n\rListUserChats\x12\x1a.chat.ListUserChatsRequest\x1a\x1b.chat.ListUserChatsResponseb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -36,12 +36,18 @@ if not _descriptor._USE_C_DESCRIPTORS:
   _globals['_GETCHATREQUEST']._serialized_end=91
   _globals['_GETORCREATECHATREQUEST']._serialized_start=93
   _globals['_GETORCREATECHATREQUEST']._serialized_end=211
-  _globals['_GETORCREATECHATRESPONSE']._serialized_start=213
-  _globals['_GETORCREATECHATRESPONSE']._serialized_end=291
-  _globals['_GETCHATRESPONSE']._serialized_start=293
-  _globals['_GETCHATRESPONSE']._serialized_end=336
-  _globals['_CHAT']._serialized_start=339
-  _globals['_CHAT']._serialized_end=521
-  _globals['_CHATSERVICE']._serialized_start=524
-  _globals['_CHATSERVICE']._serialized_end=673
+  _globals['_LISTUSERCHATSREQUEST']._serialized_start=213
+  _globals['_LISTUSERCHATSREQUEST']._serialized_end=302
+  _globals['_GETORCREATECHATRESPONSE']._serialized_start=304
+  _globals['_GETORCREATECHATRESPONSE']._serialized_end=382
+  _globals['_GETCHATRESPONSE']._serialized_start=384
+  _globals['_GETCHATRESPONSE']._serialized_end=427
+  _globals['_LISTUSERCHATSRESPONSE']._serialized_start=429
+  _globals['_LISTUSERCHATSRESPONSE']._serialized_end=494
+  _globals['_CHAT']._serialized_start=497
+  _globals['_CHAT']._serialized_end=727
+  _globals['_LASTMESSAGEPREVIEW']._serialized_start=729
+  _globals['_LASTMESSAGEPREVIEW']._serialized_end=823
+  _globals['_CHATSERVICE']._serialized_start=826
+  _globals['_CHATSERVICE']._serialized_end=1049
 # @@protoc_insertion_point(module_scope)

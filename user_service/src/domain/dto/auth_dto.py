@@ -1,10 +1,12 @@
 from pydantic import BaseModel, EmailStr, field_validator
 
+from src.domain.enums.user_role import UserRole
 
 class RegisterEmailRequestDTO(BaseModel):
     email: EmailStr
     password: str
     phone_number: str
+    role: str = UserRole.user.value
 
     @field_validator('password')
     def validate_password(cls, v):

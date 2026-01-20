@@ -23,6 +23,7 @@ class PurchaseRequestClient:
         phone_number: str,
         target_type: str,
         target_id: str,
+        telegram: str | None,
     ) -> dict:
         try:
             res = self.stub.Create(
@@ -32,6 +33,7 @@ class PurchaseRequestClient:
                     phone_number=phone_number,
                     target_type=target_type,
                     target_id=target_id,
+                    telegram=telegram,
                 ),
                 timeout=3.0,
             )

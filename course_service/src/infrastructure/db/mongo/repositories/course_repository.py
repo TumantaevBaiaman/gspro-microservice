@@ -1,3 +1,7 @@
+from typing import Iterable, List
+
+from beanie.odm.operators.find.comparison import In
+from bson import ObjectId
 from pymongo import DESCENDING
 
 from src.domain.enums.course.price_type import PriceType
@@ -50,4 +54,31 @@ class CourseRepository(ICourseRepository):
         )
 
         return items, total
+
+    async def list_by_ids(
+        self,
+        course_ids,
+    ) -> List[CourseEntity]:
+
+        if isinstance(course_ids, (str, ObjectId)):
+            course_ids = [course_ids]
+
+        normalized_ids: list[ObjectId] = []
+        for cid in course_ids:
+            if isinstance(cid, ObjectId):
+                normalized_ids.append(cid)
+            else:
+                normalized_ids.append(ObjectId(str(cid)))
+
+        if not normalized_ids:
+            return []
+
+        items = await (
+            CourseEntity.find(
+                In(CourseEntity.id, normalized_ids)
+            )
+            .to_list()
+        )
+
+        return items
 

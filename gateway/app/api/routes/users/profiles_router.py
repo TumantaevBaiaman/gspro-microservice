@@ -17,8 +17,12 @@ profile_router = APIRouter(prefix="/profiles", tags=["Profile"])
 async def list_profiles(
     limit: int = Query(10, ge=1, le=100),
     offset: int = Query(0, ge=0),
+    role: Optional[str] = Query(
+        None,
+        description="User role filter (user | mentor | admin)"
+    ),
 ):
-    profiles = await user_profile_client.list_user_profiles(limit=limit, offset=offset)
+    profiles = await user_profile_client.list_user_profiles(limit=limit, offset=offset, role=role)
     profiles_data = MessageToDict(profiles, preserving_proto_field_name=True)
 
     return ListUserProfilesResponseSchema(

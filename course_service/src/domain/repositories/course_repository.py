@@ -1,4 +1,7 @@
 from abc import ABC, abstractmethod
+from typing import List
+
+from bson import ObjectId
 
 from src.domain.entities.course_entity import CourseEntity
 
@@ -17,4 +20,11 @@ class ICourseRepository(ABC):
             mode: str,
             author_id: str = None,
     ) -> tuple[list[CourseEntity], int]:
+        pass
+
+    @abstractmethod
+    async def list_by_ids(
+            self,
+            course_ids,
+    ) -> List[CourseEntity]:
         pass

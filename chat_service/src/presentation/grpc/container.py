@@ -7,6 +7,7 @@ def build_services() -> dict[type, object]:
     return {
         ChatService: ChatService(
             repo=ChatRepository(),
+            chat_participant_repo=ChatParticipantRepository(),
         ),
         ChatMessageService: ChatMessageService(
             message_repo=ChatMessageRepository(),

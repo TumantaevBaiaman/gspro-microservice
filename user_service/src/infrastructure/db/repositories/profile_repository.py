@@ -1,9 +1,11 @@
+from typing import Optional
 from uuid import UUID
 
 from sqlalchemy import select, func
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from src.domain.repositories.profile_repository import IProfileRepository
+from src.infrastructure.db.models import UserModel
 from src.infrastructure.db.models.profile_model import UserProfileModel
 from src.domain.entities.profile_entity import ProfileEntity
 
@@ -37,15 +39,25 @@ class ProfileRepository(IProfileRepository):
             self,
             limit: int,
             offset: int,
+            role: Optional[str] = None
     ) -> tuple[list[UserProfileModel], int]:
 
         stmt = (
             select(UserProfileModel)
-            .limit(limit)
-            .offset(offset)
+            .join(UserModel, UserModel.id == UserProfileModel.user_id)
         )
 
-        count_stmt = select(func.count()).select_from(UserProfileModel)
+        count_stmt = (
+            select(func.count())
+            .select_from(UserProfileModel)
+            .join(UserModel, UserModel.id == UserProfileModel.user_id)
+        )
+
+        if role:
+            stmt = stmt.where(UserModel.role == role)
+            count_stmt = count_stmt.where(UserModel.role == role)
+
+        stmt = stmt.limit(limit).offset(offset)
 
         result = await self.session.execute(stmt)
         profiles = result.scalars().all()

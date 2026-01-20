@@ -29,6 +29,7 @@ class PurchaseRequestHandler(
             user_id=request.user_id or None,
             email=request.email,
             phone_number=request.phone_number,
+            telegram=request.telegram,
             target_type=PurchaseTargetType(request.target_type),
             target_id=request.target_id,
         )
@@ -87,6 +88,7 @@ class PurchaseRequestHandler(
             user_id=doc.user_id or "",
             email=doc.email,
             phone_number=doc.phone_number,
+            telegram=doc.telegram,
             target_type=doc.target_type.value,
             target_id=doc.target_id,
             status=doc.status.value,

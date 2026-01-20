@@ -3,6 +3,7 @@ from src.application.commands.user.create_user_cli import CreateUserCLICommand
 from src.application.commands.user.register_email import RegisterEmailCommand
 from src.application.commands.user.refresh_tokens import RefreshTokensCommand
 from src.application.commands.user.login_email import LoginEmailCommand
+from src.application.commands.user.register_mentor import RegisterMentorCommand
 from src.application.commands.user.request_password_reset import RequestPasswordResetCommand
 from src.application.commands.user.confirm_password_reset import ConfirmPasswordResetCommand
 
@@ -23,5 +24,6 @@ class UserService:
         self.confirm_password_reset = ConfirmPasswordResetCommand(user_repo)
 
         self.create_user_cli = CreateUserCLICommand(user_repo)
+        self.create_mentor = RegisterMentorCommand(user_repo)
 
 

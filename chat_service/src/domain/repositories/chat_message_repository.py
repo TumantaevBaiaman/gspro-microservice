@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
 from typing import Iterable
+from typing import Optional
 
 from src.infrastructure.db.mongo.models.chat_message_document import ChatMessagePayload, ChatMessageContext, \
     ChatMessageDocument
@@ -32,7 +33,8 @@ class IChatMessageRepository(ABC):
         chat_id: str,
         limit: int = 50,
         offset: int = 0,
-    ) -> list[ChatMessageDocument]:
+        lesson_id: Optional[str] = None,
+    ) -> tuple[list[ChatMessageDocument], int]:
         ...
 
     @abstractmethod

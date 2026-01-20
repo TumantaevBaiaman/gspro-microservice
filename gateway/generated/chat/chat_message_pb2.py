@@ -25,7 +25,7 @@ _sym_db = _symbol_database.Default()
 from google.protobuf import timestamp_pb2 as google_dot_protobuf_dot_timestamp__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x17\x63hat/chat_message.proto\x12\x0c\x63hat_message\x1a\x1fgoogle/protobuf/timestamp.proto\"a\n\x0e\x43hatAttachment\x12\x0f\n\x07\x66ile_id\x18\x01 \x01(\t\x12\x0b\n\x03url\x18\x02 \x01(\t\x12\x11\n\tmime_type\x18\x03 \x01(\t\x12\x0c\n\x04size\x18\x04 \x01(\x03\x12\x10\n\x08\x64uration\x18\x05 \x01(\x05\"\xd2\x01\n\x12SendMessageRequest\x12\x0f\n\x07\x63hat_id\x18\x01 \x01(\t\x12\x11\n\tchat_type\x18\x02 \x01(\t\x12\x11\n\tcourse_id\x18\x03 \x01(\t\x12\x12\n\nstudent_id\x18\x04 \x01(\t\x12\x0f\n\x07peer_id\x18\x05 \x01(\t\x12\x11\n\tsender_id\x18\x06 \x01(\t\x12\x0c\n\x04type\x18\x07 \x01(\t\x12\x0c\n\x04text\x18\x08 \x01(\t\x12\x31\n\x0b\x61ttachments\x18\t \x03(\x0b\x32\x1c.chat_message.ChatAttachment\"g\n\x13SendMessageResponse\x12\x0f\n\x07\x63hat_id\x18\x01 \x01(\t\x12\x12\n\nmessage_id\x18\x02 \x01(\t\x12\x12\n\ncreated_at\x18\x03 \x01(\t\x12\x17\n\x0fparticipant_ids\x18\x04 \x03(\t\"E\n\x13ListMessagesRequest\x12\x0f\n\x07\x63hat_id\x18\x01 \x01(\t\x12\r\n\x05limit\x18\x02 \x01(\x05\x12\x0e\n\x06offset\x18\x03 \x01(\x05\"C\n\x14ListMessagesResponse\x12+\n\x08messages\x18\x01 \x03(\x0b\x32\x19.chat_message.ChatMessage\"\xa0\x01\n\x0b\x43hatMessage\x12\n\n\x02id\x18\x01 \x01(\t\x12\x0f\n\x07\x63hat_id\x18\x02 \x01(\t\x12\x11\n\tsender_id\x18\x03 \x01(\t\x12\x0c\n\x04type\x18\x04 \x01(\t\x12\x0c\n\x04text\x18\x05 \x01(\t\x12\x31\n\x0b\x61ttachments\x18\x06 \x03(\x0b\x32\x1c.chat_message.ChatAttachment\x12\x12\n\ncreated_at\x18\x07 \x01(\t2\xbf\x01\n\x12\x43hatMessageService\x12R\n\x0bSendMessage\x12 .chat_message.SendMessageRequest\x1a!.chat_message.SendMessageResponse\x12U\n\x0cListMessages\x12!.chat_message.ListMessagesRequest\x1a\".chat_message.ListMessagesResponseb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x17\x63hat/chat_message.proto\x12\x0c\x63hat_message\x1a\x1fgoogle/protobuf/timestamp.proto\"a\n\x0e\x43hatAttachment\x12\x0f\n\x07\x66ile_id\x18\x01 \x01(\t\x12\x0b\n\x03url\x18\x02 \x01(\t\x12\x11\n\tmime_type\x18\x03 \x01(\t\x12\x0c\n\x04size\x18\x04 \x01(\x03\x12\x10\n\x08\x64uration\x18\x05 \x01(\x05\",\n\x10MessageReference\x12\x0c\n\x04type\x18\x01 \x01(\t\x12\n\n\x02id\x18\x02 \x01(\t\"d\n\x12\x43hatMessageContext\x12\x31\n\treference\x18\x01 \x01(\x0b\x32\x1e.chat_message.MessageReference\x12\x1b\n\x13reply_to_message_id\x18\x02 \x01(\t\"\x85\x02\n\x12SendMessageRequest\x12\x0f\n\x07\x63hat_id\x18\x01 \x01(\t\x12\x11\n\tchat_type\x18\x02 \x01(\t\x12\x11\n\tcourse_id\x18\x03 \x01(\t\x12\x12\n\nstudent_id\x18\x04 \x01(\t\x12\x0f\n\x07peer_id\x18\x05 \x01(\t\x12\x11\n\tsender_id\x18\x06 \x01(\t\x12\x0c\n\x04type\x18\x07 \x01(\t\x12\x0c\n\x04text\x18\x08 \x01(\t\x12\x31\n\x0b\x61ttachments\x18\t \x03(\x0b\x32\x1c.chat_message.ChatAttachment\x12\x31\n\x07\x63ontext\x18\n \x01(\x0b\x32 .chat_message.ChatMessageContext\"g\n\x13SendMessageResponse\x12\x0f\n\x07\x63hat_id\x18\x01 \x01(\t\x12\x12\n\nmessage_id\x18\x02 \x01(\t\x12\x12\n\ncreated_at\x18\x03 \x01(\t\x12\x17\n\x0fparticipant_ids\x18\x04 \x03(\t\"X\n\x13ListMessagesRequest\x12\x0f\n\x07\x63hat_id\x18\x01 \x01(\t\x12\r\n\x05limit\x18\x02 \x01(\x05\x12\x0e\n\x06offset\x18\x03 \x01(\x05\x12\x11\n\tlesson_id\x18\x04 \x01(\t\"R\n\x14ListMessagesResponse\x12+\n\x08messages\x18\x01 \x03(\x0b\x32\x19.chat_message.ChatMessage\x12\r\n\x05total\x18\x02 \x01(\x03\"\xa0\x01\n\x0b\x43hatMessage\x12\n\n\x02id\x18\x01 \x01(\t\x12\x0f\n\x07\x63hat_id\x18\x02 \x01(\t\x12\x11\n\tsender_id\x18\x03 \x01(\t\x12\x0c\n\x04type\x18\x04 \x01(\t\x12\x0c\n\x04text\x18\x05 \x01(\t\x12\x31\n\x0b\x61ttachments\x18\x06 \x03(\x0b\x32\x1c.chat_message.ChatAttachment\x12\x12\n\ncreated_at\x18\x07 \x01(\t2\xbf\x01\n\x12\x43hatMessageService\x12R\n\x0bSendMessage\x12 .chat_message.SendMessageRequest\x1a!.chat_message.SendMessageResponse\x12U\n\x0cListMessages\x12!.chat_message.ListMessagesRequest\x1a\".chat_message.ListMessagesResponseb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -34,16 +34,20 @@ if not _descriptor._USE_C_DESCRIPTORS:
   DESCRIPTOR._loaded_options = None
   _globals['_CHATATTACHMENT']._serialized_start=74
   _globals['_CHATATTACHMENT']._serialized_end=171
-  _globals['_SENDMESSAGEREQUEST']._serialized_start=174
-  _globals['_SENDMESSAGEREQUEST']._serialized_end=384
-  _globals['_SENDMESSAGERESPONSE']._serialized_start=386
-  _globals['_SENDMESSAGERESPONSE']._serialized_end=489
-  _globals['_LISTMESSAGESREQUEST']._serialized_start=491
-  _globals['_LISTMESSAGESREQUEST']._serialized_end=560
-  _globals['_LISTMESSAGESRESPONSE']._serialized_start=562
-  _globals['_LISTMESSAGESRESPONSE']._serialized_end=629
-  _globals['_CHATMESSAGE']._serialized_start=632
-  _globals['_CHATMESSAGE']._serialized_end=792
-  _globals['_CHATMESSAGESERVICE']._serialized_start=795
-  _globals['_CHATMESSAGESERVICE']._serialized_end=986
+  _globals['_MESSAGEREFERENCE']._serialized_start=173
+  _globals['_MESSAGEREFERENCE']._serialized_end=217
+  _globals['_CHATMESSAGECONTEXT']._serialized_start=219
+  _globals['_CHATMESSAGECONTEXT']._serialized_end=319
+  _globals['_SENDMESSAGEREQUEST']._serialized_start=322
+  _globals['_SENDMESSAGEREQUEST']._serialized_end=583
+  _globals['_SENDMESSAGERESPONSE']._serialized_start=585
+  _globals['_SENDMESSAGERESPONSE']._serialized_end=688
+  _globals['_LISTMESSAGESREQUEST']._serialized_start=690
+  _globals['_LISTMESSAGESREQUEST']._serialized_end=778
+  _globals['_LISTMESSAGESRESPONSE']._serialized_start=780
+  _globals['_LISTMESSAGESRESPONSE']._serialized_end=862
+  _globals['_CHATMESSAGE']._serialized_start=865
+  _globals['_CHATMESSAGE']._serialized_end=1025
+  _globals['_CHATMESSAGESERVICE']._serialized_start=1028
+  _globals['_CHATMESSAGESERVICE']._serialized_end=1219
 # @@protoc_insertion_point(module_scope)

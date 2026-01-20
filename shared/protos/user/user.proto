@@ -4,6 +4,7 @@ package user;
 
 service UserService {
     rpc RegisterEmail(RegisterEmailRequest) returns (RegisterEmailResponse);
+    rpc RegisterMentor(RegisterMentorRequest) returns (RegisterMentorResponse);
     rpc LoginEmail(LoginEmailRequest) returns (LoginEmailResponse);
     rpc RefreshToken(RefreshTokenRequest) returns (RefreshTokenResponse);
     rpc AuthGoogle(AuthGoogleRequest) returns (AuthGoogleResponse);
@@ -71,4 +72,15 @@ message ConfirmPasswordResetRequest {
 
 message ConfirmPasswordResetResponse {
   string status = 1;
+}
+
+message RegisterMentorRequest {
+    string email = 1;
+    string password = 2;
+    string phone_number = 3;
+    string role = 4;
+}
+
+message RegisterMentorResponse {
+    bool success = 1;
 }

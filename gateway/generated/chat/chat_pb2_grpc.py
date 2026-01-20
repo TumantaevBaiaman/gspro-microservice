@@ -44,21 +44,30 @@ class ChatServiceStub(object):
                 request_serializer=chat_dot_chat__pb2.GetOrCreateChatRequest.SerializeToString,
                 response_deserializer=chat_dot_chat__pb2.GetOrCreateChatResponse.FromString,
                 _registered_method=True)
+        self.ListUserChats = channel.unary_unary(
+                '/chat.ChatService/ListUserChats',
+                request_serializer=chat_dot_chat__pb2.ListUserChatsRequest.SerializeToString,
+                response_deserializer=chat_dot_chat__pb2.ListUserChatsResponse.FromString,
+                _registered_method=True)
 
 
 class ChatServiceServicer(object):
     """Missing associated documentation comment in .proto file."""
 
     def GetChat(self, request, context):
-        """Получить чат по id
-        """
+        """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def GetOrCreateChat(self, request, context):
-        """Получить чат или создать, если его нет
-        """
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def ListUserChats(self, request, context):
+        """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
@@ -75,6 +84,11 @@ def add_ChatServiceServicer_to_server(servicer, server):
                     servicer.GetOrCreateChat,
                     request_deserializer=chat_dot_chat__pb2.GetOrCreateChatRequest.FromString,
                     response_serializer=chat_dot_chat__pb2.GetOrCreateChatResponse.SerializeToString,
+            ),
+            'ListUserChats': grpc.unary_unary_rpc_method_handler(
+                    servicer.ListUserChats,
+                    request_deserializer=chat_dot_chat__pb2.ListUserChatsRequest.FromString,
+                    response_serializer=chat_dot_chat__pb2.ListUserChatsResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -131,6 +145,33 @@ class ChatService(object):
             '/chat.ChatService/GetOrCreateChat',
             chat_dot_chat__pb2.GetOrCreateChatRequest.SerializeToString,
             chat_dot_chat__pb2.GetOrCreateChatResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def ListUserChats(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/chat.ChatService/ListUserChats',
+            chat_dot_chat__pb2.ListUserChatsRequest.SerializeToString,
+            chat_dot_chat__pb2.ListUserChatsResponse.FromString,
             options,
             channel_credentials,
             insecure,

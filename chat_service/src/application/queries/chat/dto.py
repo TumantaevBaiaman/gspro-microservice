@@ -1,5 +1,7 @@
 from dataclasses import dataclass
-from typing import Iterable
+from typing import Iterable, Optional
+
+from src.domain.enums.chat_type_enum import ChatTypeEnum
 
 
 @dataclass(slots=True)
@@ -15,3 +17,11 @@ class GetChatByUniqueKeyDTO:
 @dataclass(slots=True)
 class ListChatsByIdsDTO:
     chat_ids: Iterable[str]
+
+
+@dataclass(slots=True)
+class ListUserChatsDTO:
+    user_id: str
+    chat_type: Optional[ChatTypeEnum] = None
+    limit: int = 50
+    offset: int = 0

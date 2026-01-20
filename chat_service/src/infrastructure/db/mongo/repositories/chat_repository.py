@@ -1,3 +1,4 @@
+from beanie.odm.operators.find.comparison import In
 from pymongo.errors import DuplicateKeyError
 from beanie import PydanticObjectId
 
@@ -47,12 +48,23 @@ class ChatRepository(IChatRepository):
     async def list_by_ids(
         self,
         chat_ids,
+        chat_type: ChatTypeEnum | None = None,
     ) -> list[ChatDocument]:
         if not chat_ids:
             return []
 
-        return await ChatDocument.find(
-            ChatDocument.id.in_(
-                [PydanticObjectId(cid) for cid in chat_ids]
-            )
-        ).sort("-last_message_at").to_list()
+        ids = [PydanticObjectId(cid) for cid in chat_ids]
+
+        filters = [
+            In(ChatDocument.id, ids),
+            ChatDocument.is_archived == False,
+        ]
+
+        if chat_type:
+            filters.append(ChatDocument.type == chat_type)
+
+        return await (
+            ChatDocument.find(*filters)
+            .sort("-last_message_at")
+            .to_list()
+        )

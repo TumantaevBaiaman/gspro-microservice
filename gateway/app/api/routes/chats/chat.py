@@ -3,7 +3,8 @@ from fastapi import APIRouter, Depends, Path, Query
 from app.api.dependencies.auth import get_current_user
 from app.clients.chat import chat_client, chat_message_client
 from app.clients.media import media_client
-from app.schemas.chat.chat import GetOrCreateChatResponse, GetOrCreateChatRequest, ChatMessageListResponse
+from app.schemas.chat.chat import GetOrCreateChatResponse, GetOrCreateChatRequest, ChatMessageListResponse, \
+    ChatListResponse
 
 chat_router = APIRouter(prefix="/chat", tags=["Chat"])
 
@@ -36,6 +37,7 @@ def get_chat_messages(
     chat_id: str = Path(..., description="Chat ID"),
     offset: int = Query(0, ge=0),
     limit: int = Query(10, ge=1, le=50),
+    lesson_id: str = Query(None, description="Lesson ID"),
     user=Depends(get_current_user),
 ):
 
@@ -43,6 +45,7 @@ def get_chat_messages(
         chat_id=chat_id,
         limit=limit,
         offset=offset,
+        lesson_id=lesson_id,
     )
 
     return data
@@ -53,7 +56,7 @@ def get_chat_messages(
     summary="Get Current User Portfolio",
     description="Endpoint to retrieve the portfolio information of the currently authenticated users."
 )
-async def get_user_portfolio(
+async def get_chat_files(
         chat_id: str = Path(..., description="Chat ID"),
         user=Depends(get_current_user)
 ):
@@ -71,7 +74,7 @@ async def get_user_portfolio(
     summary="Get Current User Portfolio",
     description="Endpoint to retrieve the portfolio information of the currently authenticated users."
 )
-async def get_user_portfolio(
+async def get_chat_images(
         chat_id: str = Path(..., description="Chat ID"),
         user=Depends(get_current_user)
 ):
@@ -82,3 +85,29 @@ async def get_user_portfolio(
         kind="image",
     )
     return [file_item for file_item in file_items]
+
+
+@chat_router.get(
+    "",
+    response_model=ChatListResponse,
+    summary="Get current user chats (inbox)",
+)
+def list_my_chats(
+    limit: int = Query(20, ge=1, le=50),
+    offset: int = Query(0, ge=0),
+    chat_type: str | None = Query(None, description="DIRECT | COURSE_PRIVATE | COURSE_GROUP"),
+    user=Depends(get_current_user),
+):
+    user_id = user["sub"]
+
+    data = chat_client.list_user_chats(
+        user_id=user_id,
+        chat_type=chat_type,
+        limit=limit,
+        offset=offset,
+    )
+
+    return {
+        "items": data.get("chats", []),
+        "total": data.get("total", 0),
+    }

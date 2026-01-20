@@ -85,3 +85,33 @@ class CourseHandler(pb2_grpc.CourseServiceServicer):
             ],
             total=total
         )
+
+    async def ListCoursesByIds(self, request, context):
+        try:
+            items = await self.service.list_by_ids.execute(request.ids)
+
+            return pb2.ListCoursesByIdsResponse(
+                items=[
+                    pb2.Course(
+                        id=str(course.id),
+                        title=course.title,
+                        description=course.description or "",
+
+                        duration_minutes=course.duration_minutes,
+                        language=course.language.value,
+
+                        price=pb2.CoursePrice(
+                            type=course.price.type.value,
+                            amount=course.price.amount or 0,
+                        ),
+
+                        category_ids=list(course.category_ids),
+                        cover_image_id=course.cover_image_id or "",
+                        is_promoted=course.is_promoted or False,
+                    )
+                    for course in items
+                ]
+            )
+
+        except Exception as e:
+            await context.abort(grpc.StatusCode.INTERNAL, str(e))

@@ -42,6 +42,7 @@ class GetProfileResponseDTO(BaseModel):
 class ListProfilesRequestDTO(BaseModel):
     limit: int = 10
     offset: int = 0
+    role: Optional[str] = None
 
 
 class ListProfilesItemDTO(BaseModel):

@@ -48,6 +48,27 @@ class CourseClient:
         except grpc.RpcError as e:
             self._err(e)
 
+    def list_courses_by_ids(self, ids: list[str] | str) -> list[dict]:
+        if isinstance(ids, str):
+            ids = [ids]
+
+        try:
+            res = self.stub.ListCoursesByIds(
+                pb2.ListCoursesByIdsRequest(ids=ids),
+                timeout=3.0
+            )
+
+            return [
+                MessageToDict(
+                    item,
+                    preserving_proto_field_name=True
+                )
+                for item in res.items
+            ]
+
+        except grpc.RpcError as e:
+            self._err(e)
+
     @staticmethod
     def _err(e: grpc.RpcError):
         code = e.code()
