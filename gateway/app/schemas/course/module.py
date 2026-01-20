@@ -17,6 +17,7 @@ class ModuleListItemSchema(BaseModel):
     description: Optional[str]
     order_number: int = 0
     lessons_count: int = 0
+    files_count: int = 0
     duration_minutes: Optional[int] = 0
     has_free_lessons: bool = False
 

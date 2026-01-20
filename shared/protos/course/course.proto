@@ -6,6 +6,7 @@ service CourseService {
     rpc GetCourse           (GetCourseRequest)  returns (GetCourseResponse);
     rpc ListCourses         (ListCoursesRequest)    returns (ListCoursesResponse);
     rpc ListCoursesByIds    (ListCoursesByIdsRequest)   returns (ListCoursesByIdsResponse);
+    rpc GetCourseLessons   (GetCourseLessonsRequest)   returns (GetCourseLessonsResponse);
 }
 
 
@@ -80,4 +81,24 @@ message ListCoursesByIdsRequest {
 
 message ListCoursesByIdsResponse {
     repeated Course items = 1;
+}
+
+message GetCourseLessonsRequest {
+    string course_id = 1;
+}
+
+message CourseLesson {
+    string id = 1;
+    string title = 2;
+
+    string type = 3;
+    string access_type = 4;
+    string duration = 5;
+
+    int32 order_number = 6;
+    bool is_active = 7;
+}
+
+message GetCourseLessonsResponse {
+    repeated CourseLesson items = 1;
 }
