@@ -19,8 +19,8 @@ class UserExperienceItemSchema(BaseModel):
     position: str
 
     start_date: date
-    end_date: date | None
-    description: str | None
+    end_date: date | None = None
+    description: str | None = None
 
     created_at: datetime
 

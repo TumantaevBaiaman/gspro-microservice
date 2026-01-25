@@ -135,7 +135,7 @@ class ChatHandler(pb2_grpc.ChatServiceServicer):
                 "Invalid chat_type",
             )
 
-        chats, total = await self.chat_service.list_user_chats.execute(
+        chats, total, peers = await self.chat_service.list_user_chats.execute(
             ListUserChatsDTO(
                 user_id=request.user_id,
                 chat_type=chat_type,
@@ -149,9 +149,23 @@ class ChatHandler(pb2_grpc.ChatServiceServicer):
                 pb2.Chat(
                     id=str(chat.id),
                     chat_type=chat.type.value,
-                    participant_ids=[],
+                    participant_ids=(
+                        [peers[str(chat.id)]]
+                        if chat.type == "direct" and str(chat.id) in peers
+                        else []
+                    ),
                     course_id=chat.course_id or "",
                     created_at=chat.created_at,
+                    last_message=(
+                        pb2.LastMessagePreview(
+                            type=chat.last_message.type.value,
+                            text=chat.last_message.text or "",
+                            attachments_count=chat.last_message.attachments_count,
+                            sender_id=str(chat.last_message.sender_id) or "",
+                        )
+                        if chat.last_message
+                        else None
+                    ),
                     last_message_at=chat.last_message_at,
                 )
                 for chat in chats

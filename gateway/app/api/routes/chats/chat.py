@@ -3,6 +3,7 @@ from fastapi import APIRouter, Depends, Path, Query
 from app.api.dependencies.auth import get_current_user
 from app.clients.chat import chat_client, chat_message_client
 from app.clients.media import media_client
+from app.clients.user import user_profile_client, sync_profile_client
 from app.schemas.chat.chat import GetOrCreateChatResponse, GetOrCreateChatRequest, ChatMessageListResponse, \
     ChatListResponse
 
@@ -107,7 +108,12 @@ def list_my_chats(
         offset=offset,
     )
 
+    chats = data.get("chats", [])
+    for chat in chats:
+        chat["participant_ids"] = sync_profile_client.list_profiles_by_ids(chat["participant_ids"]) if chat["chat_type"] == "direct" and chat["participant_ids"] else None
+
+
     return {
-        "items": data.get("chats", []),
+        "items": chats,
         "total": data.get("total", 0),
     }

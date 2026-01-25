@@ -51,6 +51,7 @@ class UserHandler(pb2_grpc.UserServiceServicer):
                 user_id=str(res.user_id),
                 access_token=res.access_token,
                 refresh_token=res.refresh_token,
+                role=res.role,
             )
 
     async def RefreshToken(self, request, context):

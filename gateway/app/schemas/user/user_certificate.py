@@ -15,9 +15,9 @@ class UserCertificateItemSchema(BaseModel):
     user_id: UUID
 
     title: str
-    issuer: str | None
-    issued_at: datetime | None
-    link: str | None
+    issuer: str | None = None
+    issued_at: datetime | None = None
+    link: str | None = None
     created_at: datetime
 
 

@@ -45,6 +45,7 @@ class ChatMessageListResponse(BaseModel):
 class ChatPreview(BaseModel):
     id: str
     chat_type: str
+    participant_ids: Optional[List[dict]] = None
     course_id: Optional[str] = None
     last_message: Optional[dict] = None
     last_message_at: Optional[datetime] = None
