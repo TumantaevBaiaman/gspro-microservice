@@ -49,7 +49,7 @@ def get_chat_messages(
         lesson_id=lesson_id,
     )
 
-    for message in data["messages"]:
+    for message in data.get("messages", []):
         message["sender"] = sync_profile_client.profile_by_id(message["sender_id"]) if message["sender_id"] else None
 
     return data
