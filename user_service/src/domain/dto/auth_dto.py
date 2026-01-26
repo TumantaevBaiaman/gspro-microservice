@@ -30,6 +30,7 @@ class LoginEmailResponseDTO(BaseModel):
     user_id: str
     access_token: str
     refresh_token: str
+    role: str
 
 
 class RefreshTokensRequestDTO(BaseModel):

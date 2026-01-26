@@ -62,6 +62,7 @@ class ChatMessageDocument(BaseDocument):
             "type": payload.type,
             "text": payload.text,
             "attachments_count": len(payload.attachments),
+            "sender_id": self.sender_id,
         }
 
         await ChatDocument.find_one(

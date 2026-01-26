@@ -31,9 +31,10 @@ class ChatMessageResponse(BaseModel):
     id: str
     chat_id: str
     sender_id: str
+    sender: dict
     type: str
     text: Optional[str]
-    attachments: List[ChatAttachmentResponse]
+    attachments: List[ChatAttachmentResponse] = []
     created_at: str
 
 
@@ -45,6 +46,7 @@ class ChatMessageListResponse(BaseModel):
 class ChatPreview(BaseModel):
     id: str
     chat_type: str
+    participant_ids: Optional[List[dict]] = None
     course_id: Optional[str] = None
     last_message: Optional[dict] = None
     last_message_at: Optional[datetime] = None

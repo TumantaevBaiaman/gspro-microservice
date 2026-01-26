@@ -12,6 +12,7 @@ class LastMessagePreview(BaseModel):
     type: ChatMessageTypeEnum
     text: Optional[str] = None
     attachments_count: int = 0
+    sender_id: Optional[str] = None
 
 
 class ChatDocument(BaseDocument):

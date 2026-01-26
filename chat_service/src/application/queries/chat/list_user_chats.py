@@ -19,7 +19,7 @@ class ListUserChatsQuery:
     async def execute(
         self,
         dto: ListUserChatsDTO,
-    ) -> tuple[list[ChatDocument], int]:
+    ) -> tuple[list[ChatDocument], int, dict[str, str]]:
 
         participants, total = await self.chat_participant_repo.list_by_user(
             user_id=dto.user_id,
@@ -37,4 +37,14 @@ class ListUserChatsQuery:
             chat_type=dto.chat_type,
         )
 
-        return chats, total
+        peers: dict[str, str] = {}
+        if dto.chat_type == "direct":
+            chat_participants = await self.chat_participant_repo.list_by_chat_ids(
+                chat_ids=chat_ids,
+            )
+
+            for p in chat_participants:
+                if p.user_id != dto.user_id:
+                    peers[p.chat_id] = p.user_id
+
+        return chats, total, peers

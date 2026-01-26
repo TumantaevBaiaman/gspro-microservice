@@ -137,3 +137,18 @@ class ChatParticipantRepository(IChatParticipantRepository):
 
         return participants, total
 
+    async def list_by_chat_ids(
+            self,
+            *,
+            chat_ids: list[str],
+    ) -> list[ChatParticipantDocument]:
+        if not chat_ids:
+            return []
+
+        return await ChatParticipantDocument.find(
+            {
+                "chat_id": {"$in": chat_ids},
+                "is_archived": False,
+            }
+        ).to_list()
+
