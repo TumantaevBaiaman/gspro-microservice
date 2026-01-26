@@ -38,6 +38,9 @@ class ProfileClientSync:
 
         try:
             response = self.stub.ListProfilesByIds(request)
+            if response.users  == []:
+                return {}
+
             user = response.users[0]
             return {
                 "user_id": user.user_id,
