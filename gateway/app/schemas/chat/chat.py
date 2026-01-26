@@ -39,7 +39,7 @@ class ChatMessageResponse(BaseModel):
 
 
 class ChatMessageListResponse(BaseModel):
-    messages: List[ChatMessageResponse]
+    messages: List[ChatMessageResponse] = []
     total: int = 0
 
 
