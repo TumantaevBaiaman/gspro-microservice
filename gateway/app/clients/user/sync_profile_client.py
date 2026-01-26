@@ -26,7 +26,26 @@ class ProfileClientSync:
                 }
                 for item in response.users
             ]
+        except grpc.RpcError as e:
+            print(e)
+            raise HTTPException(status_code=500, detail="Internal error")
+
+    def profile_by_id(self, user_id: str) -> dict:
+        if not user_id:
+            return {}
+
+        request = profile_pb2.ListProfilesByIdsRequest(user_ids=[user_id])
+
+        try:
+            response = self.stub.ListProfilesByIds(request)
+            user = response.users[0]
+            return {
+                "user_id": user.user_id,
+                "full_name": user.full_name,
+                "avatar": user.avatar.thumb_medium_url if user.avatar else None,
+            }
         except grpc.RpcError:
             raise HTTPException(status_code=500, detail="Internal error")
+
 
 sync_profile_client = ProfileClientSync()

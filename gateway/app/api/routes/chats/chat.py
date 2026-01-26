@@ -37,7 +37,7 @@ def get_or_create_chat(
 def get_chat_messages(
     chat_id: str = Path(..., description="Chat ID"),
     offset: int = Query(0, ge=0),
-    limit: int = Query(10, ge=1, le=50),
+    limit: int = Query(5, ge=1, le=50),
     lesson_id: str = Query(None, description="Lesson ID"),
     user=Depends(get_current_user),
 ):
@@ -48,6 +48,9 @@ def get_chat_messages(
         offset=offset,
         lesson_id=lesson_id,
     )
+
+    for message in data["messages"]:
+        message["sender"] = sync_profile_client.profile_by_id(message["sender_id"]) if message["sender_id"] else None
 
     return data
 
@@ -110,7 +113,11 @@ def list_my_chats(
 
     chats = data.get("chats", [])
     for chat in chats:
-        chat["participant_ids"] = sync_profile_client.list_profiles_by_ids(chat["participant_ids"]) if chat["chat_type"] == "direct" and chat["participant_ids"] else None
+        chat["participant_ids"] = (
+            sync_profile_client.list_profiles_by_ids(chat.get("participant_ids", []))
+            if chat.get("chat_type") == "direct" and chat.get("participant_ids")
+            else None
+        )
 
 
     return {
