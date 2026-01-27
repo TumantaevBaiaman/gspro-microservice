@@ -14,6 +14,9 @@ service ChatService {
 
   rpc ListUserChats (ListUserChatsRequest)
       returns (ListUserChatsResponse);
+
+  rpc ListChatParticipants (ListChatParticipantsRequest)
+      returns (ListChatParticipantsResponse);
 }
 
 /* =========================
@@ -88,4 +91,16 @@ message LastMessagePreview {
   string text = 2;
   int32 attachments_count = 3;
   string sender_id = 4;
+}
+
+message ListChatParticipantsRequest {
+  string chat_id = 1;
+}
+
+message ListChatParticipantsResponse {
+  repeated ChatParticipant participants = 1;
+}
+
+message ChatParticipant {
+  string user_id = 1;
 }

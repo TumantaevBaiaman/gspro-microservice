@@ -49,6 +49,11 @@ class ChatServiceStub(object):
                 request_serializer=chat__pb2.ListUserChatsRequest.SerializeToString,
                 response_deserializer=chat__pb2.ListUserChatsResponse.FromString,
                 _registered_method=True)
+        self.ListChatParticipants = channel.unary_unary(
+                '/chat.ChatService/ListChatParticipants',
+                request_serializer=chat__pb2.ListChatParticipantsRequest.SerializeToString,
+                response_deserializer=chat__pb2.ListChatParticipantsResponse.FromString,
+                _registered_method=True)
 
 
 class ChatServiceServicer(object):
@@ -72,6 +77,12 @@ class ChatServiceServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def ListChatParticipants(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_ChatServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -89,6 +100,11 @@ def add_ChatServiceServicer_to_server(servicer, server):
                     servicer.ListUserChats,
                     request_deserializer=chat__pb2.ListUserChatsRequest.FromString,
                     response_serializer=chat__pb2.ListUserChatsResponse.SerializeToString,
+            ),
+            'ListChatParticipants': grpc.unary_unary_rpc_method_handler(
+                    servicer.ListChatParticipants,
+                    request_deserializer=chat__pb2.ListChatParticipantsRequest.FromString,
+                    response_serializer=chat__pb2.ListChatParticipantsResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -172,6 +188,33 @@ class ChatService(object):
             '/chat.ChatService/ListUserChats',
             chat__pb2.ListUserChatsRequest.SerializeToString,
             chat__pb2.ListUserChatsResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def ListChatParticipants(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/chat.ChatService/ListChatParticipants',
+            chat__pb2.ListChatParticipantsRequest.SerializeToString,
+            chat__pb2.ListChatParticipantsResponse.FromString,
             options,
             channel_credentials,
             insecure,
