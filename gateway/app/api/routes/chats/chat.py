@@ -124,3 +124,23 @@ def list_my_chats(
         "items": chats,
         "total": data.get("total", 0),
     }
+
+
+@chat_router.get(
+    "/{chat_id}/participants",
+    summary="Get chat participants",
+)
+def list_chat_participants(
+    chat_id: str = Path(..., description="Chat ID"),
+    user=Depends(get_current_user),
+):
+    data = chat_client.list_chat_participants(
+        chat_id=chat_id,
+    )
+
+    participants = data.get("participants", [])
+
+    user_ids = [p["user_id"] for p in participants]
+    profiles = sync_profile_client.list_profiles_by_ids(user_ids)
+
+    return profiles

@@ -172,3 +172,21 @@ class ChatHandler(pb2_grpc.ChatServiceServicer):
             ],
             total=total,
         )
+
+    async def ListChatParticipants(self, request, context):
+        if not request.chat_id:
+            await context.abort(
+                grpc.StatusCode.INVALID_ARGUMENT,
+                "chat_id is required",
+            )
+
+        participants = await self.chat_service.list_participants.execute(
+            request.chat_id
+        )
+
+        return pb2.ListChatParticipantsResponse(
+            participants=[
+                pb2.ChatParticipant(user_id=user_id)
+                for user_id in participants
+            ]
+        )
