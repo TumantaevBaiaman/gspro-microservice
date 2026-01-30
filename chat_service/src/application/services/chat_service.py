@@ -6,6 +6,7 @@ from src.application.queries.chat.get_by_unique_key import GetChatByUniqueKeyQue
 from src.application.queries.chat.list_by_ids import ListChatsByIdsQuery
 from src.application.queries.chat.list_user_chats import ListUserChatsQuery
 from src.application.queries.chat.participants_by_chat_id import ListChatParticipantsByChatIdQuery
+from src.application.queries.chat.participants_private import ListPrivateChatPeerQuery
 from src.domain.repositories import IChatRepository, IChatParticipantRepository
 
 
@@ -21,3 +22,4 @@ class ChatService:
         self.list_by_ids = ListChatsByIdsQuery(repo)
         self.list_user_chats = ListUserChatsQuery(repo, chat_participant_repo)
         self.list_participants = ListChatParticipantsByChatIdQuery(chat_participant_repo)
+        self.list_participants_private = ListPrivateChatPeerQuery(repo, chat_participant_repo)

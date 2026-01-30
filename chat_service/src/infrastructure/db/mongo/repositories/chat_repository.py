@@ -68,3 +68,19 @@ class ChatRepository(IChatRepository):
             .sort("-last_message_at")
             .to_list()
         )
+
+    async def list_private_by_course(
+            self,
+            course_id: str,
+    ) -> list[ChatDocument]:
+        prefix = f"chat:course:private:{course_id}:"
+
+        chats =  await ChatDocument.find(
+            {
+                "type": ChatTypeEnum.COURSE_PRIVATE,
+                "unique_key": {"$regex": f"^{prefix}"},
+                "is_archived": False,
+            }
+        ).sort("-last_message_at").to_list()
+        print(chats)
+        return chats

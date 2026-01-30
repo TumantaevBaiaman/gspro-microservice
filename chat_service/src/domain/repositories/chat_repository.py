@@ -38,3 +38,10 @@ class IChatRepository(ABC):
         chat_type: ChatTypeEnum | None = None,
     ) -> list[ChatDocument]:
         ...
+
+    @abstractmethod
+    async def list_private_by_course(
+            self,
+            course_id: str,
+    ) -> list[ChatDocument]:
+        ...

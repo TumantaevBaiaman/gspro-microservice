@@ -190,3 +190,28 @@ class ChatHandler(pb2_grpc.ChatServiceServicer):
                 for user_id in participants
             ]
         )
+
+    async def ListPrivateChatPeers(self, request, context):
+        try:
+            peer_ids = await self.chat_service.list_participants_private.execute(
+                course_id=request.course_id,
+                me_id=request.me_id,
+            )
+
+            print("HANDLER peer_ids:", peer_ids, type(peer_ids))
+
+            if not isinstance(peer_ids, list):
+                raise TypeError(
+                    f"peer_ids must be list, got {type(peer_ids)}: {peer_ids}"
+                )
+
+            return pb2.ListPrivateChatPeersResponse(
+                peer_ids=peer_ids,
+            )
+
+        except Exception as e:
+            print("🔥 HANDLER ERROR:", repr(e))
+            await context.abort(
+                grpc.StatusCode.INTERNAL,
+                str(e),
+            )

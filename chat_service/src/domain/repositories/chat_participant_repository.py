@@ -77,8 +77,8 @@ class IChatParticipantRepository(ABC):
             self,
             *,
             user_id: str,
-            limit: int,
-            offset: int,
+            limit: int | None = None,
+            offset: int | None = None,
     ) -> tuple[list[ChatParticipantDocument], int]:
         ...
 

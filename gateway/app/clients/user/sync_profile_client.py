@@ -27,7 +27,6 @@ class ProfileClientSync:
                 for item in response.users
             ]
         except grpc.RpcError as e:
-            print(e)
             raise HTTPException(status_code=500, detail="Internal error")
 
     def profile_by_id(self, user_id: str) -> dict:
