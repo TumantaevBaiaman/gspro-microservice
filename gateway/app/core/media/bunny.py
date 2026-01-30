@@ -13,17 +13,19 @@ class BunnyMediaProvider(MediaProvider):
     ) -> tuple[str, int]:
         expires_at = int(time.time()) + expires_in_seconds
 
+        path = f"/{video_id}/playlist.m3u8"
+
         token_data = (
             f"{settings.media.BUNNY_VIDEO_SECURITY_KEY}"
-            f"{video_id}"
+            f"{path}"
             f"{expires_at}"
         )
         token = hashlib.sha256(token_data.encode()).hexdigest()
 
-        embed_url = (
-            f"https://iframe.mediadelivery.net/embed/"
-            f"{settings.media.BUNNY_VIDEO_LIBRARY_ID}/{video_id}"
+        stream_url = (
+            f"https://{settings.media.BUNNY_VIDEO_HOST}"
+            f"{path}"
             f"?token={token}&expires={expires_at}"
         )
 
-        return embed_url, expires_at
+        return stream_url, expires_at

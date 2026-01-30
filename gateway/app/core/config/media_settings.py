@@ -15,4 +15,5 @@ class MediaSettings(BaseConfig):
 
     BUNNY_VIDEO_LIBRARY_ID: str = Field(..., description="Bunny video library identifier")
     BUNNY_VIDEO_SECURITY_KEY: str = Field(..., description="Security key for Bunny video service")
+    BUNNY_VIDEO_HOST: str = Field(..., description="Bunny video host")
 
