@@ -17,6 +17,9 @@ service ChatService {
 
   rpc ListChatParticipants (ListChatParticipantsRequest)
       returns (ListChatParticipantsResponse);
+
+  rpc ListPrivateChatPeers (ListPrivateChatPeersRequest)
+    returns (ListPrivateChatPeersResponse);
 }
 
 /* =========================
@@ -103,4 +106,13 @@ message ListChatParticipantsResponse {
 
 message ChatParticipant {
   string user_id = 1;
+}
+
+message ListPrivateChatPeersRequest {
+  string course_id = 1;
+  string me_id = 2;
+}
+
+message ListPrivateChatPeersResponse {
+  repeated string peer_ids = 1;
 }

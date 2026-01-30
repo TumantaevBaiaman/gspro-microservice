@@ -117,23 +117,25 @@ class ChatParticipantRepository(IChatParticipantRepository):
             self,
             *,
             user_id: str,
-            limit: int,
-            offset: int,
+            limit: int | None = None,
+            offset: int | None = None,
     ) -> tuple[list[ChatParticipantDocument], int]:
-        query = ChatParticipantDocument.find(
+        base_query = ChatParticipantDocument.find(
             ChatParticipantDocument.user_id == user_id,
             ChatParticipantDocument.is_archived == False,
         )
 
-        total = await query.count()
+        total = await base_query.count()
 
-        participants = await (
-            query
-            .sort("-joined_at")
-            .skip(offset)
-            .limit(limit)
-            .to_list()
-        )
+        query = base_query.sort("-joined_at")
+
+        if offset is not None:
+            query = query.skip(offset)
+
+        if limit is not None:
+            query = query.limit(limit)
+
+        participants = await query.to_list()
 
         return participants, total
 

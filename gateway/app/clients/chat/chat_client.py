@@ -101,6 +101,32 @@ class ChatClient:
         except grpc.RpcError as e:
             self._err(e)
 
+    def list_private_chat_peers(
+            self,
+            *,
+            course_id: str,
+            me_id: str,
+    ) -> list[str]:
+        try:
+            res = self.stub.ListPrivateChatPeers(
+                pb2.ListPrivateChatPeersRequest(
+                    course_id=course_id,
+                    me_id=me_id,
+                ),
+                timeout=3.0,
+            )
+
+            data = MessageToDict(
+                res,
+                preserving_proto_field_name=True,
+            )
+
+            return data.get("peer_ids", [])
+
+        except grpc.RpcError as e:
+            print(e)
+            self._err(e)
+
     @staticmethod
     def _err(e: grpc.RpcError):
         code = e.code()

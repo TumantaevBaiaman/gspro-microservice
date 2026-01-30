@@ -1,0 +1,8 @@
+services:
+  gateway:
+    ports:
+      - "8000:8000"
+
+  db:
+    ports:
+      - "5434:5432"

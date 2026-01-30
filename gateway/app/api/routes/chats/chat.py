@@ -144,3 +144,25 @@ def list_chat_participants(
     profiles = sync_profile_client.list_profiles_by_ids(user_ids)
 
     return profiles
+
+
+@chat_router.get(
+    "/course/{course_id}/private-peers",
+    summary="Get private chat peers by course",
+)
+def list_private_chat_peers(
+    course_id: str = Path(..., description="Course ID"),
+    user=Depends(get_current_user),
+):
+    user_id = user["sub"]
+
+    peer_ids = chat_client.list_private_chat_peers(
+        course_id=course_id,
+        me_id=user_id,
+    )
+
+    if not peer_ids:
+        return []
+
+    profiles = sync_profile_client.list_profiles_by_ids(peer_ids)
+    return profiles
